@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.wjfw.wjfwmobile"
+        versionCode="10" 
+        version   = "1.0.0">
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>WJFW TV-12 Mobile</name>
+
+    <description>
+        WJFW TV-12, Rhinelander, WI 54501 Mobile App
+    </description>
+
+    <author href="http://www.byrequestwebdesigns.com" email="zach@brwdmail.com">
+        Zach Hext - By Request Web Designs
+    </author>
+
+	<gap:splash src="splash.png" />
+	<icon src="icon.png" />
+	
+	<!-- Preference Options--->
+	<preference name="phonegap-version" value="3.1.0" /> 
+	<preference name="fullscreen" value="true" />
+	<!--iOS-->
+	<preference name="target-device" value="universal" /> 
+	<preference name="prerendered-icon" value="false" />
+	<preference name="detect-data-types" value="false" />
+	<preference name="exit-on-suspend" value="false" />
+	<!--Android-->
+	<preference name="android-minSdkVersion" value="10" />
+	<preference name="android-installLocation" value="internalOnly" />
+	<preference name="splash-screen-duration" value="3000"/>
+	
+	<!--WhiteList Access Commands-->
+	
+	<access origin="http://www.wjfw.com" />
+	<access origin="http://cloud.wjfw.com" />
+</widget>
