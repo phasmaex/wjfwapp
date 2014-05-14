@@ -21,7 +21,7 @@
 	<icon src="icon.png" />
 	
 	<!-- Preference Options--->
-	<preference name="phonegap-version" value="3.1.0" /> 
+	<preference name="phonegap-version" value="3.3.0" /> 
 	<preference name="fullscreen" value="true" />
 	<!--iOS-->
 	<preference name="target-device" value="universal" /> 
