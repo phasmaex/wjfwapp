@@ -1,25 +1,46 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!--HAS_WEBDNA_TAGS-->
+<!DOCTYPE html>
 <html>
 <head>
 	<title>WJFW TV-12</title>
 	
 	<!--Include PhoneGap API--->
-	<script src="phonegap.js"></script>
+	<!--<script src="phonegap.js"></script>-->
 	
 	<!--Apple Web App Config --->
-	<link rel="apple-touch-icon" href="icon_57.png" />
+	<!--<link rel="apple-touch-icon" href="icon_57.png" />
 	<link rel="apple-touch-icon" sizes="72x72" href="icon_72.png" />
 	<link rel="apple-touch-icon" sizes="114x114" href="icon_114.png" />
-	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />-->
 	
 	<!--Mobile Screen Config-->
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	
 	<!--JQuery Mobile Init-->
-	<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.2.css" />
 	<script src="js/jquery-2.0.3.min.js"></script>
 	<script src="js/jquery.mobile-1.4.2.min.js"></script>
+	
+	<!--WJFW_App CSS-->
+	<link rel="stylesheet" href="css/wjfwapp_styles.css" />
+	
+	<script>
+	$.extend({
+	  getUrlVars: function(){
+		var vars = [], hash;
+		var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+		for(var i = 0; i < hashes.length; i++)
+		{
+		  hash = hashes[i].split('=');
+		  vars.push(hash[0]);
+		  vars[hash[0]] = hash[1];
+		}
+		return vars;
+	  },
+	  getUrlVar: function(name){
+		return $.getUrlVars()[name];
+	  }
+	});
+	</script>
 	
 	
 <script>
@@ -58,22 +79,26 @@ $(function() {
 	
 	var datatream = new Object();
 		//Load Data Function - will send to process data function
-	function loaddata(datatype,displaytype,query,contentbox) {console.log('fetching '+datatype+'-'+displaytype);
+	window.loaddata = function (datatype,displaytype,query,maxrecords,beginat,contentbox) {console.log('fetching '+datatype+'-'+displaytype);
 	
+	$(contentbox).html("<img src='img/220.gif' class='lspinner'>");
+	
+	var searchstring = 'loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query+'&maxrecords='+maxrecords+'&beginat='+beginat;
 	jQuery.ajax({
       type: "GET",
-      url: "http://www.wjfw.com/appcontent/apploaddata.html",
+      url: "../appcontent/apploaddata.html",
       dataType: "json",
-      data: 'loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query,
+      data: searchstring,
       success: processdata,
       error: function (xhr, txtStatus, thrownError) {
         console.log(xhr.status);
         console.log(txtStatus);
 		console.log(thrownError);
+		console.log(searchstring);
       }
     });
 	
-	//$.get('http://www.wjfw.com/appcontent/apploaddata.html?loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query,processdata,"json").done(function() {console.log( "loaded" );}).fail(function(event,xhr,options,exc) { console.log( "error: " + xhr.status +" - "+xhr.responseText+" - "+exc);}).always(function() {console.log( "finished" );});
+	//$.get('../appcontent/apploaddata.html?loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query,processdata,"json").done(function() {console.log( "loaded" );}).fail(function(event,xhr,options,exc) { console.log( "error: " + xhr.status +" - "+xhr.responseText+" - "+exc);}).always(function() {console.log( "finished" );});
 	
 	}
 		//Process Data Function - recieves loaded data from loaddata() function, then formats and displays the data acordingly
@@ -90,21 +115,49 @@ $(function() {
 				switch (datastream.displaytype) {
 					case "topstory" :
 						console.log(datastream.contentbox);
-						console.log(decodeURIComponent(datastream.returndata.record.STORYTITLE));
-						var returncontent = "<div class='topstorycontainer'><div class='title'>"+decodeURIComponent(datastream.returndata.record.STORYTITLE)+"</div>";
-						returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=Photos/"+datastream.returndata.record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
-						returncontent += "<div class='snippitcontainer'><b>"+decodeURIComponent(datastream.returndata.record.LOCATION)+"</b> - "+decodeURIComponent(datastream.returndata.record.PARAGRAPH1)+"</div>";
-						returncontent += "<a href='#pg_storydetails?"+decodeURIComponent(datastream.returndata.record.SKU)+"' class='ui-btn ui-btn-inline ui-icon-carat-r ui-btn-icon-right ui-mini'>Read More</a>"
+						console.log(decodeURIComponent(datastream.returndata[0].record.STORYTITLE));
+						var returncontent = "<div class='topstorycontainer'><div class='title'>"+decodeURIComponent(datastream.returndata[0].record.STORYTITLE)+"</div>";
+						returncontent += "<div class='photocontainer'><img src='../appcontent/loadimage.php?orgsrc=Photos/"+datastream.returndata[0].record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
+						returncontent += "<div class='snippitcontainer'><b>"+decodeURIComponent(datastream.returndata[0].record.LOCATION)+"</b> - "+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH1)+"</div>";
+						returncontent += "<a data-passsku='"+decodeURIComponent(datastream.returndata[0].record.SKU)+"' class='ui-btn ui-btn-inline ui-icon-carat-r ui-btn-icon-right ui-mini readmorebtn'>Read More</a>"
 						returncontent += "</div>"
 						$("#"+datastream.contentbox).html(returncontent);
-						
-						
 						break;
+						
 					case "headlines" :
-					
+						var returncontent = "<div class='headlinescontainer'>";
+							$.each(datastream.returndata, function(key,val) {
+								var dataobj = val;
+								if (parseInt(dataobj.index)%2) { returncontent += "<div class='rowcontainer'>"; };
+								returncontent += "<div class='item'>";
+								returncontent += "<div class='photocontainer'><img src='../appcontent/loadimage.php?orgsrc=Photos/"+dataobj.record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
+								returncontent += "<a  data-passsku='"+decodeURIComponent(dataobj.record.SKU)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini readmorebtn' style='float:right;'>Read More</a>";
+								returncontent += "<div class='title'>"+decodeURIComponent(dataobj.record.STORYTITLE)+"</div>";
+								returncontent += "</div>";
+								if (parseInt(dataobj.index)%2) { returncontent += "<div class='rowspacer'></div>"; } else { returncontent += "</div><div style='clear:both;'></div>"; };
+							});
+						returncontent += "</div><div style='clear:both;'></div>"
+						$("#"+datastream.contentbox).html(returncontent);
 						break;
+						
 					case "storydetails" :
-					
+						var returncontent = "<div class='storydetailscontainer'><div class='title'>"+decodeURIComponent(datastream.returndata[0].record.STORYTITLE)+"</div>";
+						returncontent += "<div class='creditcontainer'>Submitted "+decodeURIComponent(datastream.returndata[0].record.STORYDATE)+"<br>Story By: "+decodeURIComponent(datastream.returndata[0].record.AUTHOR)+"</div>";
+						returncontent += "<div class='photocontainer'><img src='../appcontent/loadimage.php?orgsrc=Photos/"+datastream.returndata[0].record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
+						returncontent += "<div class='contentcontainer'><b>"+decodeURIComponent(datastream.returndata[0].record.LOCATION)+"</b> - "+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH1)+"<br>"+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH2)+"<br>"+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH3)+"</div>";
+						returncontent += "</div>"
+						$("#"+datastream.contentbox).html(returncontent);
+						break;
+				}
+				break;
+			case "weather" :
+				//process weather data
+				console.log(datastream.displaytype);
+				switch (datastream.displaytype) {
+					case "highlights" :
+						var returncontent = "<div class='weatherhighlightscontainer'><div class='title'>"+decodeURIComponent(datastream.returndata[0].record.TITLE)+"</div>";
+						returncontent += "<div class='text'>"+decodeURIComponent(datastream.returndata[0].record.TEXT)+"</div></div>";
+						$("#"+datastream.contentbox).html(returncontent);
 						break;
 				}
 				break;
@@ -113,60 +166,58 @@ $(function() {
 				break;
 		}
 	}
-	
-	function getphoto(passedsrc) {
-		
-	}
 
-loaddata("stories","topstory","eqADD1datarq%3Dyes%26STORYDATEtype%3Ddate%26STORYDATEsort%3D1%26STORYDATEsdir%3Dde%26max%3D1","main_topstory");
+	$(document).on("click",".readmorebtn", function() {
+		console.log('running click event for readmore');
+		$.mobile.changePage("#pg_storydetails");
+		var passsku = $(this).data("passsku");
+		loaddata("stories","storydetails",encodeURIComponent("eqskudatarq="+passsku),1,1,"main_storydetails");
+	});
 
 
 	if (history.length>1) {$('#back_btn').show();} else {$('#back_btn').hide();} //Contols the back btn
+	
+	$("#pageheadercontent_master").clone().appendTo(".headerchild");
+
+	$(document).on('pagebeforeshow', '[data-role="page"]', function(){                
+    $("#navpanel").clone().appendTo($(this));
+    $.mobile.activePage.find('#navpanel').panel();
+    $(document).on('click', '.navpannel_btn', function(){   
+         $.mobile.activePage.find('#navpanel').panel("open");       
+    });  
+
+	$("#settings").clone().appendTo($(this));
+    $.mobile.activePage.find('#settings').panel();
+    $(document).on('click', '.settingspannel_btn', function(){   
+         $.mobile.activePage.find('#settings').panel("open");       
+    });  
+});
 
 });
 </script>
 
-	
-	
-	<style>
-	#headercontainer {
-		background-image:url('img/headerbck.fw.png');
-		background-repeat:repeat-x;
-		background-position:center;
-		width:100%;
-		height:50px;
-		position:fixed;
-	}
-	#headercontainer .logoimg {
-		background-image:url('img/logo_lrg.fw.png');
-		background-repeat:no-repeat;
-		background-position:center;
-		width:97px;
-		height:86px;
-		position:absolute;
-		left:-3px;
-		top:-6px;
-	}
-	
-	</style>
 	
 
 	
 </head>
 <body marginheight="0" marginwidth="0" topmargin="0">
 
+
 <div data-role="page" id="pg_index">
-<div data-role="panel" id="navpanel" data-position="right" data-display="push" data-position-fixed="true" data-dismissible="true" data-theme="a">
+
+<div data-role="panel" id="navpanel" class="fixpanel" data-position="right" data-display="push" data-dismissible="true" data-theme="a">
+
 <ul data-role="listview">
 	<li data-role="list-divider">Navigation</li>
     <li><a href="#pg_news">News</a></li>
-    <li><a href="#pg_news">Sports</a></li>
+    <li><a href="#pg_sports">Sports</a></li>
     <li><a href="#pg_weather">Weather</a></li>
     <li><a href="#pg_weather">Interactive Radar</a></li>
     <li><a href="#">Video</a></li>
 </ul>
+
 </div><!-- /panel -->
-<div data-role="panel" id="settings" data-position="right" data-display="push" data-position-fixed="true" data-dismissible="true" data-theme="a">
+<div data-role="panel" id="settings" class="fixpanel" data-position="right" data-display="push" data-dismissible="true" data-theme="a">
 <ul data-role="listview">
 
 	<li data-role="list-divider">Settings</li>
@@ -176,22 +227,126 @@ loaddata("stories","topstory","eqADD1datarq%3Dyes%26STORYDATEtype%3Ddate%26STORY
 </ul>
 </div><!-- /panel -->
 
+<div id="pageheadercontent_master">
+
 <a href="javascript:history.go(-1);" id="back_btn" style="position:fixed;left:5px;bottom:5px;" data-role="button" data-icon="back" data-mini="true" data-iconpos="left" data-iconpos="notext" data-theme="c" data-inline="true">Back</a>
 
-<div id="headercontainer" data-role="header" data-position="fixed">
-	<div class="logoimg"></div>
+<div id="headercontainer" data-role="header" data-position="fixed" data-id="header">
+	<img src="img/logo_lrg.fw.png" style="position:absolute;top:-5px;left:0px;">
 	<img src="img/tempoverlay.fw.png" style="position:absolute;top:6px;right:150px;">
 	<div data-role="controlgroup" data-type="horizontal" data-mini="true" style="position:absolute;top:3px;right:10px;">
 	<a href="#pg_index" data-role="button" data-icon="home" data-iconpos="notext" data-inline="true" data-theme="b">Home</a>
-	<a href="#settings" data-role="button" data-icon="gear" data-iconpos="notext" data-inline="true" data-theme="b">Settings</a>
-	<a href="#navpanel" data-role="button" data-icon="bars" data-iconpos="notext" data-inline="true" data-theme="b">Navigation</a>
+	<a href="#settings" class="settingspannel_btn" data-role="button" data-icon="gear" data-iconpos="notext" data-inline="true" data-theme="b">Settings</a>
+	<a href="#navpanel" class="navpannel_btn" data-role="button" data-icon="bars" data-iconpos="notext" data-inline="true" data-theme="b">Navigation</a>
 	</div>
 </div>
+</div>
 <div data-role="content">
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Top Story</h3>
+<div style="clear:both;height:8px;"></div>
 <div id="main_topstory"></div>
+
+<div style="height:8px;clear:both;"></div>
+<div id="topmoreheadlines"></div>
+
+<div style="height:8px;clear:both;"></div>
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Interactive Radar</h3>
+<div id="radarcontainer" style="width:98%;margin:5px auto;"></div>
+<script>$(function() {
+loaddata("stories","topstory",encodeURIComponent("eqADD1datarq=yes&STORYDATEtype=date&STORYDATEsort=1&STORYDATEsdir=de"),1,1,"main_topstory");
+loaddata("stories","headlines",encodeURIComponent("eqADD1datarq=yes&STORYDATEtype=date&STORYDATEsort=1&STORYDATEsdir=de"),4,2,"topmoreheadlines");
+$("#radarcontainer").html('<iframe width="'+$("#radarcontainer").width()+'" scrolling="false" frameborder="0" height="320" name="1" src="http://wviimaps.accuweather.com/adc2004/common/includes/maptiles/maptiles-h.asp?zm=6&lat=44.80&lon=-88.50&w='+$("#radarcontainer").width()+'&h=320&css=018CCF|007FC0|018CCF|007FC0#"></iframe>');
+});</script>
+
 
 </div>
 </div>
+
+
+
+<div data-role="page" id="pg_storydetails">
+
+<div class="headerchild"></div>
+<div data-role="content">
+<div id="main_storydetails"></div>
+
+
+</div>
+
+</div>
+
+
+<div data-role="page" id="pg_news">
+
+<div class="headerchild"></div>
+<div data-role="content">
+
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Local News Headlines</h3>
+<div style="clear:both;height:8px;"></div>
+<div id="main_localnews"></div>
+
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Regional News Headlines</h3>
+<div style="clear:both;height:8px;"></div>
+<div id="main_regionalnews"></div>
+<script>$(function() {
+loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=General News&eqSUBCATdatarq=Local News&STORYDATEtype=date&deSTORYDATEsort=1&deADD3sort=2"),8,1,"main_localnews");
+loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=General News&eqSUBCATdatarq=Regional News&STORYDATEtype=date&deSTORYDATEsort=1&deADD3sort=2"),8,1,"main_regionalnews");
+});</script>
+
+</div>
+
+</div>
+
+
+<div data-role="page" id="pg_sports">
+
+<div class="headerchild"></div>
+<div data-role="content">
+
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Local Sports Headlines</h3>
+<div style="clear:both;height:8px;"></div>
+<div id="main_localsports"></div>
+
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Regional Sports Headlines</h3>
+<div style="clear:both;height:8px;"></div>
+<div id="main_regionalsports"></div>
+<script>$(function() {
+loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBCATdatarq=Local News&STORYDATEtype=date&deSTORYDATEsort=1&deADD3sort=2"),8,1,"main_localsports");
+loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBCATdatarq=Regional News&STORYDATEtype=date&deSTORYDATEsort=1&deADD3sort=2"),8,1,"main_regionalsports");
+});</script>
+
+</div>
+
+</div>
+
+
+<div data-role="page" id="pg_weather">
+
+<div class="headerchild"></div>
+<div data-role="content">
+
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Interactive Radar</h3>
+<div id="w_radarcontainer" style="width:98%;margin:5px auto;"></div>
+
+
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />7 Day Forcast</h3>
+<div id="7daycontainer">
+<script>document.write("<img src='../appcontent/loadimage.php?orgsrc=weather/menu/UploadGraphic/media2/panel02.jpg&setres="+appsettings.imgcompressionratio+"'>");</script>
+</div>
+
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Weather Highlights</h3>
+<div style="clear:both;height:8px;"></div>
+<div id="main_weatherhighlights"></div>
+<script>$(function() {
+$("#w_radarcontainer").html('<iframe width="'+$("#w_radarcontainer").width()+'" scrolling="false" frameborder="0" height="320" name="1" src="http://wviimaps.accuweather.com/adc2004/common/includes/maptiles/maptiles-h.asp?zm=6&lat=44.80&lon=-88.50&w='+$("#w_radarcontainer").width()+'&h=320&css=018CCF|007FC0|018CCF|007FC0#"></iframe>');
+loaddata("weather","highlights","",1,1,"main_weatherhighlights");
+});</script>
+
+
+</div>
+
+</div>
+
 
 
 </body>
