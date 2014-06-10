@@ -75,4 +75,12 @@
 	<access origin="http://cloud.wjfw.com" />
 	<access origin="http://cdn.bimvid.com" />
 	<access origin="http://wviimaps.accuweather.com" />
+	<access origin="http://maptiles.accuweather.com" />
+	<access origin="http://vortex.accuweather.com" />
+	<access origin="http://maps.googleapis.com" />
+	<access origin="http://ajax.googleapis.com" />
+	<access origin="http://maps.gstatic.com" />
+	<access origin="http://map-tiles.accuweather.com" />
+
+	
 </widget>
