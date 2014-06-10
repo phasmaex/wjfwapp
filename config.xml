@@ -73,4 +73,6 @@
 	
 	<access origin="http://www.wjfw.com" />
 	<access origin="http://cloud.wjfw.com" />
+	<access origin="http://cdn.bimvid.com" />
+	<access origin="http://wviimaps.accuweather.com" />
 </widget>
