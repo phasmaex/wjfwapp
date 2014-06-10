@@ -4,7 +4,7 @@
 	<title>WJFW TV-12</title>
 	
 	<!--Include PhoneGap API--->
-	<!--<script src="phonegap.js"></script>-->
+	<script src="phonegap.js"></script>
 	
 	<!--Apple Web App Config --->
 	<!--<link rel="apple-touch-icon" href="icon_57.png" />
@@ -20,10 +20,14 @@
 	<script src="js/jquery-2.0.3.min.js"></script>
 	<script src="js/jquery.mobile-1.4.2.min.js"></script>
 	
+	<!--MediaElement.js-->
+	<script src="js/mediaelement-and-player.min.js"></script>
+	<link rel="stylesheet" href="css/mediaelementplayer.css" />
+	
 	<!--WJFW_App CSS-->
 	<link rel="stylesheet" href="css/wjfwapp_styles.css" />
 	
-	<script>
+	<!--<script>
 	$.extend({
 	  getUrlVars: function(){
 		var vars = [], hash;
@@ -40,7 +44,7 @@
 		return $.getUrlVars()[name];
 	  }
 	});
-	</script>
+	</script>-->
 	
 	
 <script>
@@ -76,12 +80,14 @@ $(function() {
 		
 		appsettings.imgcompressionratio = 90;
 	
+	var videoplayer = new MediaElementPlayer('#player');
+	
 	
 	var datatream = new Object();
 		//Load Data Function - will send to process data function
 	window.loaddata = function (datatype,displaytype,query,maxrecords,beginat,contentbox) {console.log('fetching '+datatype+'-'+displaytype);
 	
-	$(contentbox).html("<img src='img/220.gif' class='lspinner'>");
+	$(contentbox).html("<img src='img/220.GIF'>");
 	
 	var searchstring = 'loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query+'&maxrecords='+maxrecords+'&beginat='+beginat;
 	jQuery.ajax({
@@ -173,6 +179,14 @@ $(function() {
 		var passsku = $(this).data("passsku");
 		loaddata("stories","storydetails",encodeURIComponent("eqskudatarq="+passsku),1,1,"main_storydetails");
 	});
+	
+	$(document).on("click",".videobtn", function() {
+		console.log('running click event for video');
+		$.mobile.changePage("#pg_videoplayer");
+		var passsku = $(this).data("passsku");
+		//create video player
+		videoplayer.setSrc('http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4');
+	});
 
 
 	if (history.length>1) {$('#back_btn').show();} else {$('#back_btn').hide();} //Contols the back btn
@@ -212,8 +226,8 @@ $(function() {
     <li><a href="#pg_news">News</a></li>
     <li><a href="#pg_sports">Sports</a></li>
     <li><a href="#pg_weather">Weather</a></li>
-    <li><a href="#pg_weather">Interactive Radar</a></li>
-    <li><a href="#">Video</a></li>
+    <li><a href="#pg_radar">Interactive Radar</a></li>
+    <li><a href="#pg_videomain">Video</a></li>
 </ul>
 
 </div><!-- /panel -->
@@ -250,12 +264,9 @@ $(function() {
 <div id="topmoreheadlines"></div>
 
 <div style="height:8px;clear:both;"></div>
-<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Interactive Radar</h3>
-<div id="radarcontainer" style="width:98%;margin:5px auto;"></div>
 <script>$(function() {
 loaddata("stories","topstory",encodeURIComponent("eqADD1datarq=yes&STORYDATEtype=date&STORYDATEsort=1&STORYDATEsdir=de"),1,1,"main_topstory");
 loaddata("stories","headlines",encodeURIComponent("eqADD1datarq=yes&STORYDATEtype=date&STORYDATEsort=1&STORYDATEsdir=de"),4,2,"topmoreheadlines");
-$("#radarcontainer").html('<iframe width="'+$("#radarcontainer").width()+'" scrolling="false" frameborder="0" height="320" name="1" src="http://wviimaps.accuweather.com/adc2004/common/includes/maptiles/maptiles-h.asp?zm=6&lat=44.80&lon=-88.50&w='+$("#radarcontainer").width()+'&h=320&css=018CCF|007FC0|018CCF|007FC0#"></iframe>');
 });</script>
 
 
@@ -325,10 +336,6 @@ loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBC
 <div class="headerchild"></div>
 <div data-role="content">
 
-<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Interactive Radar</h3>
-<div id="w_radarcontainer" style="width:98%;margin:5px auto;"></div>
-
-
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />7 Day Forcast</h3>
 <div id="7daycontainer">
 <script>document.write("<img src='../appcontent/loadimage.php?orgsrc=weather/menu/UploadGraphic/media2/panel02.jpg&setres="+appsettings.imgcompressionratio+"'>");</script>
@@ -338,7 +345,6 @@ loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBC
 <div style="clear:both;height:8px;"></div>
 <div id="main_weatherhighlights"></div>
 <script>$(function() {
-$("#w_radarcontainer").html('<iframe width="'+$("#w_radarcontainer").width()+'" scrolling="false" frameborder="0" height="320" name="1" src="http://wviimaps.accuweather.com/adc2004/common/includes/maptiles/maptiles-h.asp?zm=6&lat=44.80&lon=-88.50&w='+$("#w_radarcontainer").width()+'&h=320&css=018CCF|007FC0|018CCF|007FC0#"></iframe>');
 loaddata("weather","highlights","",1,1,"main_weatherhighlights");
 });</script>
 
@@ -347,6 +353,46 @@ loaddata("weather","highlights","",1,1,"main_weatherhighlights");
 
 </div>
 
+
+<div data-role="page" id="pg_radar">
+
+<div class="headerchild"></div>
+<div data-role="content">
+
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Interactive Radar</h3>
+<div id="radarcontainer" style="width:98%;margin:5px auto;text-align:center;"><img src="img/220.GIF"></div>
+<script>$(function() {
+setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcontainer").width()+'" scrolling="false" frameborder="0" height="320" name="1" src="http://wviimaps.accuweather.com/adc2004/common/includes/maptiles/maptiles-h.asp?zm=6&lat=44.80&lon=-88.50&w='+$("#radarcontainer").width()+'&h=320&css=018CCF|007FC0|018CCF|007FC0#"></iframe>'); },2000);
+});</script>
+
+</div>
+
+</div>
+
+<div data-role="page" id="pg_videomain">
+
+<div class="headerchild"></div>
+<div data-role="content">
+
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />WJFW Mobile Video</h3>
+
+<b>Test Video</b>
+<a data-passsku='a4a4fc1e39929193d0753b020d9e3d0fd1b56075' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini videobtn' style='float:right;'>Play Video</a>
+
+</div>
+
+</div>
+
+<div data-role="page" id="pg_videoplayer">
+
+<div class="headerchild"></div>
+<div data-role="content">
+
+<video src="novideo.mp4" width="320" height="240" id="player"></video>
+
+</div>
+
+</div>
 
 
 </body>
