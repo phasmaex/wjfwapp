@@ -183,17 +183,9 @@ $(function() {
 		//create video player
 		//videoplayer.setSrc('http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4');
 		
-		VideoPlayer.play(
-			'http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4',
-			{
-				volume: 0.5,
-				scalingMode: VideoPlayer.SCALING_MODE.SCALE_TO_FIT_WITH_CROPPING
-			},
-			function (err) {
-				console.log(err);
-				alert(err);
-			}
-		);
+		var filename = 'http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4';
+		
+		VideoPlayer.play(filename);
 		
 	});
 
