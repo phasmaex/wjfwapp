@@ -79,7 +79,9 @@ $(function() {
 		
 		appsettings.imgcompressionratio = 90;
 	
-	var videoplayer = new MediaElementPlayer('#player', {
+	var videoplayer = new MediaElementPlayer('#player',{
+		enablePluginDebug: true,
+		pluginPath: '/js/',
 		alwaysShowControls: true,
 		iPadUseNativeControls: true,
 		iPhoneUseNativeControls: true,
