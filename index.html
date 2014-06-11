@@ -79,7 +79,12 @@ $(function() {
 		
 		appsettings.imgcompressionratio = 90;
 	
-	var videoplayer = new MediaElementPlayer('#player');
+	var videoplayer = new MediaElementPlayer('#player', {
+		alwaysShowControls: true,
+		iPadUseNativeControls: true,
+		iPhoneUseNativeControls: true,
+		AndroidUseNativeControls: true
+	});
 	
 	
 	var datatream = new Object();
@@ -400,7 +405,7 @@ setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcon
 <div class="headerchild"></div>
 <div data-role="content">
 
-<video width="360" height="203" id="player" src=" http://cdn.bimfs.com/WJFW/a4a4fc1e39929193d0753b020d9e3d0fd1b56075_fl9.mp4" type="video/mp4" controls="controls"></video>
+<video width="360" height="203" id="player" src=" http://cdn.bimfs.com/WJFW/a4a4fc1e39929193d0753b020d9e3d0fd1b56075_fl9.mp4" type="video/mp4"></video>
 
 </div>
 
