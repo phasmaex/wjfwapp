@@ -20,10 +20,6 @@
 	<script src="js/jquery-2.0.3.min.js"></script>
 	<script src="js/jquery.mobile-1.4.2.min.js"></script>
 	
-	<!--MediaElement.js-->
-	<script src="js/mediaelement-and-player.min.js"></script>
-	<link rel="stylesheet" href="css/mediaelementplayer.min.css" />
-	
 	<!--WJFW_App CSS-->
 	<link rel="stylesheet" href="css/wjfwapp_styles.css" />
 	
@@ -185,7 +181,20 @@ $(function() {
 		$.mobile.changePage("#pg_videoplayer");
 		var passsku = $(this).data("passsku");
 		//create video player
-		videoplayer.setSrc('http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4');
+		//videoplayer.setSrc('http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4');
+		
+		VideoPlayer.play(
+			'http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4',
+			{
+				volume: 0.5,
+				scalingMode: VideoPlayer.SCALING_MODE.SCALE_TO_FIT_WITH_CROPPING
+			},
+			function (err) {
+				console.log(err);
+				alert(err);
+			}
+		);
+		
 	});
 
 
@@ -391,16 +400,6 @@ setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcon
 
 </div>
 
-<div data-role="page" id="pg_videoplayer">
-
-<div class="headerchild"></div>
-<div data-role="content">
-
-<video src="novideo.mp4" width="320" height="240" id="player"></video>
-
-</div>
-
-</div>
 
 
 </body>

@@ -7,7 +7,7 @@ body {
 	background-color:transparent;
 }
 #headercontainer {
-	background-image:url('../img/headerbck.png');
+	background-image:url('img/headerbck.png');
 	background-repeat:repeat-x;
 	background-position:top center;
 	width:100%;
