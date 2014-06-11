@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!--cordova-->
 <html>
 <head>
 	<title>WJFW TV-12</title>
@@ -22,7 +22,7 @@
 	
 	<!--MediaElement.js-->
 	<script src="js/mediaelement-and-player.min.js"></script>
-	<link rel="stylesheet" href="css/mediaelementplayer.css" />
+	<link rel="stylesheet" href="css/mediaelementplayer.min.css" />
 	
 	<!--WJFW_App CSS-->
 	<link rel="stylesheet" href="css/wjfwapp_styles.css" />
@@ -80,7 +80,7 @@ $(function() {
 		
 		appsettings.imgcompressionratio = 90;
 	
-	var videoplayer = new MediaElementPlayer('#player');
+	//var videoplayer = new MediaElementPlayer('#player');
 	
 	
 	var datatream = new Object();
@@ -92,7 +92,7 @@ $(function() {
 	var searchstring = 'loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query+'&maxrecords='+maxrecords+'&beginat='+beginat;
 	jQuery.ajax({
       type: "GET",
-      url: "http://www.wjfw.com/appcontent/apploaddata.html",
+      url: "../appcontent/apploaddata.html",
       dataType: "json",
       data: searchstring,
       success: processdata,
@@ -104,7 +104,7 @@ $(function() {
       }
     });
 	
-	//$.get('http://www.wjfw.com/appcontent/apploaddata.html?loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query,processdata,"json").done(function() {console.log( "loaded" );}).fail(function(event,xhr,options,exc) { console.log( "error: " + xhr.status +" - "+xhr.responseText+" - "+exc);}).always(function() {console.log( "finished" );});
+	//$.get('../appcontent/apploaddata.html?loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query,processdata,"json").done(function() {console.log( "loaded" );}).fail(function(event,xhr,options,exc) { console.log( "error: " + xhr.status +" - "+xhr.responseText+" - "+exc);}).always(function() {console.log( "finished" );});
 	
 	}
 		//Process Data Function - recieves loaded data from loaddata() function, then formats and displays the data acordingly
@@ -123,7 +123,7 @@ $(function() {
 						console.log(datastream.contentbox);
 						console.log(decodeURIComponent(datastream.returndata[0].record.STORYTITLE));
 						var returncontent = "<div class='topstorycontainer'><div class='title'>"+decodeURIComponent(datastream.returndata[0].record.STORYTITLE)+"</div>";
-						returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=Photos/"+datastream.returndata[0].record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
+						returncontent += "<div class='photocontainer'><img src='../appcontent/loadimage.php?orgsrc=Photos/"+datastream.returndata[0].record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
 						returncontent += "<div class='snippitcontainer'><b>"+decodeURIComponent(datastream.returndata[0].record.LOCATION)+"</b> - "+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH1)+"</div>";
 						returncontent += "<a data-passsku='"+decodeURIComponent(datastream.returndata[0].record.SKU)+"' class='ui-btn ui-btn-inline ui-icon-carat-r ui-btn-icon-right ui-mini readmorebtn'>Read More</a>"
 						returncontent += "</div>"
@@ -136,7 +136,7 @@ $(function() {
 								var dataobj = val;
 								if (parseInt(dataobj.index)%2) { returncontent += "<div class='rowcontainer'>"; };
 								returncontent += "<div class='item'>";
-								returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=Photos/"+dataobj.record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
+								returncontent += "<div class='photocontainer'><img src='../appcontent/loadimage.php?orgsrc=Photos/"+dataobj.record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
 								returncontent += "<a  data-passsku='"+decodeURIComponent(dataobj.record.SKU)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini readmorebtn' style='float:right;'>Read More</a>";
 								returncontent += "<div class='title'>"+decodeURIComponent(dataobj.record.STORYTITLE)+"</div>";
 								returncontent += "</div>";
@@ -149,7 +149,7 @@ $(function() {
 					case "storydetails" :
 						var returncontent = "<div class='storydetailscontainer'><div class='title'>"+decodeURIComponent(datastream.returndata[0].record.STORYTITLE)+"</div>";
 						returncontent += "<div class='creditcontainer'>Submitted "+decodeURIComponent(datastream.returndata[0].record.STORYDATE)+"<br>Story By: "+decodeURIComponent(datastream.returndata[0].record.AUTHOR)+"</div>";
-						returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=Photos/"+datastream.returndata[0].record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
+						returncontent += "<div class='photocontainer'><img src='../appcontent/loadimage.php?orgsrc=Photos/"+datastream.returndata[0].record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
 						returncontent += "<div class='contentcontainer'><b>"+decodeURIComponent(datastream.returndata[0].record.LOCATION)+"</b> - "+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH1)+"<br>"+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH2)+"<br>"+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH3)+"</div>";
 						returncontent += "</div>"
 						$("#"+datastream.contentbox).html(returncontent);
@@ -188,6 +188,14 @@ $(function() {
 		videoplayer.setSrc('http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4');
 	});
 
+
+	window.writeimg = function (content,objbox) {
+		switch (content) {
+			case "w_7days" :
+				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=weather/menu/UploadGraphic/media2/panel02.jpg&setres="+appsettings.imgcompressionratio+"'>");
+				break;
+		}
+	};
 
 	if (history.length>1) {$('#back_btn').show();} else {$('#back_btn').hide();} //Contols the back btn
 	
@@ -338,7 +346,7 @@ loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBC
 
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />7 Day Forcast</h3>
 <div id="7daycontainer">
-<script>document.write("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=weather/menu/UploadGraphic/media2/panel02.jpg&setres="+appsettings.imgcompressionratio+"'>");</script>
+<script>$(function() { writeimg("w_7days","#7daycontainer"); });</script>
 </div>
 
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Weather Highlights</h3>
