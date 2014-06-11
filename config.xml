@@ -70,7 +70,7 @@
 	<preference name="splash-screen-duration" value="3000"/>
 	
 	<!--Plugins--->
-	<gap:plugin name="com.moust.cordova.videoplayer" version="1.0.0" />
+	<!--<gap:plugin name="com.moust.cordova.videoplayer" version="1.0.0" />-->
 	
 	<!--WhiteList Access Commands-->
 	

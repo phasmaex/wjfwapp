@@ -20,8 +20,11 @@
 	<script src="js/jquery-2.0.3.min.js"></script>
 	<script src="js/jquery.mobile-1.4.2.min.js"></script>
 	
+	<script src="js/mediaelement-and-player.min.js"></script>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
+	
 	<!--WJFW_App CSS-->
-	<link rel="stylesheet" href="css/wjfwapp_styles.css" />
+	<link rel="stylesheet" href="css/mediaelementplayer.min.css" />
 	
 	<!--<script>
 	$.extend({
@@ -76,7 +79,7 @@ $(function() {
 		
 		appsettings.imgcompressionratio = 90;
 	
-	//var videoplayer = new MediaElementPlayer('#player');
+	var videoplayer = new MediaElementPlayer('#player');
 	
 	
 	var datatream = new Object();
@@ -180,12 +183,11 @@ $(function() {
 		console.log('running click event for video');
 		$.mobile.changePage("#pg_videoplayer");
 		var passsku = $(this).data("passsku");
-		//create video player
-		//videoplayer.setSrc('http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4');
-		
 		var filename = 'http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4';
-		
-		VideoPlayer.play(filename);
+		//create video player
+		videoplayer.setSrc(filename);
+		videoplayer.play();
+		//VideoPlayer.play(filename);
 		
 	});
 
@@ -387,6 +389,17 @@ setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcon
 
 <b>Test Video</b>
 <a data-passsku='a4a4fc1e39929193d0753b020d9e3d0fd1b56075' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini videobtn' style='float:right;'>Play Video</a>
+
+</div>
+
+</div>
+
+
+<div data-role="page" id="pg_videoplayer">
+
+<div class="headerchild"></div>
+<div data-role="content">
+
 
 </div>
 
