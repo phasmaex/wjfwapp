@@ -79,13 +79,16 @@ $(function() {
 		
 		appsettings.imgcompressionratio = 90;
 	
-	/*var videoplayer = new MediaElementPlayer('#player',{
+	var videoplayer = new MediaElementPlayer('#player',{
 		enablePluginDebug: true,
+		plugins: ['flash','HTML5'],
+		pluginPath: '/js/',
+		flashName: 'flashmediaelement.swf',
 		alwaysShowControls: true,
 		iPadUseNativeControls: true,
 		iPhoneUseNativeControls: true,
 		AndroidUseNativeControls: true
-	});*/
+	});
 	
 	
 	var datatream = new Object();
