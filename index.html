@@ -78,6 +78,8 @@ $(function() {
 	var appsettings = new Object();
 		
 		appsettings.imgcompressionratio = 90;
+		appsettings.veiwport_w = $(window).width();
+		appsettings.veiwport_h= $(window).height();
 	
 	var videoplayer = new MediaElementPlayer('#player',{
 		AndroidUseNativeControls: false,
@@ -197,9 +199,10 @@ $(function() {
 		//VideoPlayer.play(filename);
 		
 	});
+	
 	$(document).on("click","#controls_play", function() { videoplayer.play(); });
 	$(document).on("click","#controls_pause", function() { videoplayer.pause(); });
-	$(document).on("click","#controls_fullscreen", function() { videoplayer.enterFullScreen(); });
+	$(document).on("click","#controls_fullscreen", function() { videoplayer.setVideoSize(appsettings.veiwport_w,appsettings.veiwport_h); });
 
 	window.writeimg = function (content,objbox) {
 		switch (content) {
