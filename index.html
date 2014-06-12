@@ -80,14 +80,9 @@ $(function() {
 		appsettings.imgcompressionratio = 90;
 	
 	var videoplayer = new MediaElementPlayer('#player',{
-		enablePluginDebug: true,
-		plugins: ['flash','HTML5'],
-		pluginPath: '/js/',
-		flashName: 'flashmediaelement.swf',
-		alwaysShowControls: true,
-		iPadUseNativeControls: true,
-		iPhoneUseNativeControls: true,
-		AndroidUseNativeControls: true
+		AndroidUseNativeControls: false,
+		features: ['playpause','progress','current','duration','tracks','volume','fullscreen'],
+		alwaysShowControls: true
 	});
 	
 	
@@ -202,7 +197,9 @@ $(function() {
 		//VideoPlayer.play(filename);
 		
 	});
-
+	$(document).on("click","#controls_play", function() { videoplayer.play(); });
+	$(document).on("click","#controls_pause", function() { videoplayer.pause(); });
+	$(document).on("click","#controls_fullscreen", function() { videoplayer.enterFullScreen(); });
 
 	window.writeimg = function (content,objbox) {
 		switch (content) {
@@ -412,7 +409,11 @@ setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcon
 <div class="headerchild"></div>
 <div data-role="content">
 
-<video width="360" height="203" id="player" src="http://cdn.bimvid.com/WJFW/a4a4fc1e39929193d0753b020d9e3d0fd1b56075_fl9.mp4"></video>
+<video width="360" height="203" id="player" src="http://cdn.bimvid.com/WJFW/a4a4fc1e39929193d0753b020d9e3d0fd1b56075_fl9.mp4" poster="http://cdn.bimvid.com/WJFW/a4a4fc1e39929193d0753b020d9e3d0fd1b56075.jpg" preload="none"></video>
+<br>
+<a id="controls_play" class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini' style='float:right;'>Play</a>
+<a id="controls_pause" class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini' style='float:right;'>Pause</a>
+<a id="controls_fullscreen" class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini' style='float:right;'>Full Screen</a>
 
 <!--<video id="player" width="540" height="303" controls="controls" preload="none">
 	<source src="http://cdn.bimfs.com/WJFW/a4a4fc1e39929193d0753b020d9e3d0fd1b56075_fl9.mp4" type="video/mp4" />
