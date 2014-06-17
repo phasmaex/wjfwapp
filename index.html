@@ -185,7 +185,7 @@ $(function() {
 				var returncontent;
 				for (x=0;x<10;x++) {
 					returncontent += "<div class='viditem'><b>"+decodeURIComponent(datastream.returndata[x].title)+"</b>";
-					returncontent += "<a data-passsku='"+decodeURIComponent(datastream.returndata[x].guid)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini videobtn' style='float:right;'>Play Video</a>";
+					returncontent += "<a data-passsku='"+decodeURIComponent(datastream.returndata[x].guid)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini videobtn' style='float:right;'>Play Video</a></div>";
 					$("#"+datastream.contentbox).html(returncontent);
 				}
 				break;
