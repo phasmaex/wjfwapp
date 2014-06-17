@@ -229,6 +229,9 @@ $(function() {
 			case "w_7days" :
 				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=weather/menu/UploadGraphic/media2/panel02.jpg&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;'>");
 				break;
+			case "w_radar" :
+				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=accuwx/radarwi.png&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;'>");
+				break;
 		}
 	};
 
@@ -404,9 +407,10 @@ loaddata("weather","highlights","",1,1,"main_weatherhighlights");
 
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Interactive Radar</h3>
 <div id="radarcontainer" style="width:98%;margin:5px auto;text-align:center;"><img src="img/220.GIF"></div>
-<script>$(function() {
+<!--<script>$(function() {
 setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcontainer").width()+'" scrolling="false" frameborder="0" height="320" name="1" src="http://wviimaps.accuweather.com/adc2004/common/includes/maptiles/maptiles-h.asp?zm=6&lat=44.80&lon=-88.50&w='+$("#radarcontainer").width()+'&h=320&css=018CCF|007FC0|018CCF|007FC0#"></iframe>'); },2000);
-});</script>
+});</script>-->
+<script>$(function() { writeimg("w_radar","#radarcontainer"); });</script>
 
 </div>
 
