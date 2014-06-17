@@ -130,4 +130,7 @@ body {
 	text-align:justify;
 }
 
-
+#videolistcontainer .viditem {
+	clear:both;
+	margin:5px 0px;
+}
