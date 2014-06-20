@@ -218,7 +218,7 @@ $(function() {
 		
 		//VideoPlayer.play(filename);
 		
-		var playerwidth = appsettings.veiwport_w - 10;
+		var playerwidth = appsettings.veiwport_w - 30;
 		var playerheight = playerwidth / (4/3);
 		
 		$("#videoplayercontainer").html('<video id="player" src="http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4" poster="http://cdn.bimvid.com/WJFW/'+passsku+'.jpg" preload="none" width="'+playerwidth+'" height="'+playerheight+'"></video>');
@@ -227,7 +227,7 @@ $(function() {
 		adsPrerollMediaUrl: 'http://media.productionhub.com.s3.amazonaws.com/preroll.mp4',
 		adsPrerollAdUrl: '',
 		AndroidUseNativeControls: false,
-		features: ['playpause','progress','current','duration','volume','fullscreen'],
+		features: ['playpause','progress','current','duration','volume','ads','fullscreen'],
 		alwaysShowControls: true
 		});
 		
