@@ -221,7 +221,7 @@ $(function() {
 		var playerwidth = appsettings.veiwport_w - 30;
 		var playerheight = playerwidth / (4/3);
 		
-		$("#videoplayercontainer").html('<video id="player" src="http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4" poster="http://cdn.bimvid.com/WJFW/'+passsku+'.jpg" preload="none" width="'+playerwidth+'" height="'+playerheight+'" controls autoplay></video>');
+		$("#videoplayercontainer").html('<video id="player" src="http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4" poster="http://cdn.bimvid.com/WJFW/'+passsku+'.jpg" preload="none" width="'+playerwidth+'" height="'+playerheight+'" controls></video>');
 		
 		var videoplayer = new MediaElementPlayer('#player',{
 		adsPrerollMediaUrl: 'http://media.productionhub.com.s3.amazonaws.com/preroll.mp4',
