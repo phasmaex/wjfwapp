@@ -134,3 +134,16 @@ body {
 	clear:both;
 	margin:5px 0px;
 }
+#videolistcontainer .viditem .photocontainer {
+	float:left;
+	margin:2px 5px;
+	border-radius:6px;
+	width:100px;
+	height:100px;
+	text-align:center;
+}
+#videolistcontainer .viditem .photocontainer img {
+	max-width:100%;
+	max-height:100%;
+}
+

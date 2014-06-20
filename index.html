@@ -22,6 +22,7 @@
 	
 	<script src="mejs/mediaelement-and-player.min.js"></script>
 	<link rel="stylesheet" href="mejs/mediaelementplayer_forcepng.css" />
+	<script src="mejs/mep-feature-ads.js"></script> <!--extend for preroll ads-->
 	
 	<!--WJFW_App CSS-->
 	<link rel="stylesheet" href="css/wjfwapp_styles.css" />
@@ -184,7 +185,9 @@ $(function() {
 			case "videolist" :
 				var returncontent = "";
 				for (x=0;x<10;x++) {
+					
 					returncontent += "<div class='viditem'><b>"+decodeURIComponent(datastream.returndata[x].title)+"</b>";
+					returncontent += "<div class='photocontainer'><img src='http://cdn.bimvid.com/WJFW/"+decodeURIComponent(datastream.returndata[x].guid)+".jpg'></div>";
 					returncontent += "<a data-passsku='"+decodeURIComponent(datastream.returndata[x].guid)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a><span style='clear:both;'></span></div>";
 					$("#"+datastream.contentbox).html(returncontent);
 				}
@@ -214,9 +217,15 @@ $(function() {
 		//videoplayer.play();
 		
 		//VideoPlayer.play(filename);
-		$("#videoplayercontainer").html('<video id="player" src="http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4" poster="http://cdn.bimvid.com/WJFW/'+passsku+'.jpg" preload="none" width="320" height="240"></video>');
+		
+		var playerwidth = appsettings.veiwport_w - 10;
+		var playerheight = playerwidth / (4/3);
+		
+		$("#videoplayercontainer").html('<video id="player" src="http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4" poster="http://cdn.bimvid.com/WJFW/'+passsku+'.jpg" preload="none" width="'+playerwidth+'" height="'+playerheight+'"></video>');
 		
 		var videoplayer = new MediaElementPlayer('#player',{
+		adsPrerollMediaUrl: 'http://media.productionhub.com.s3.amazonaws.com/preroll.mp4',
+		adsPrerollAdUrl: '',
 		AndroidUseNativeControls: false,
 		features: ['playpause','progress','current','duration','volume','fullscreen'],
 		alwaysShowControls: true
