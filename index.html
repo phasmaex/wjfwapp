@@ -22,7 +22,7 @@
 	
 	<script src="mejs/mediaelement-and-player.min.js"></script>
 	<link rel="stylesheet" href="mejs/mediaelementplayer_forcepng.css" />
-	<!--<script src="mejs/mep-feature-ads.js"></script>--> <!--extend for preroll ads-->
+	<script src="mejs/mep-feature-ads.js"></script> <!--extend for preroll ads-->
 	
 	<!--WJFW_App CSS-->
 	<link rel="stylesheet" href="css/wjfwapp_styles.css" />
@@ -223,45 +223,12 @@ $(function() {
 		
 		$("#videoplayercontainer").html('<video id="player" src="http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4" poster="http://cdn.bimvid.com/WJFW/'+passsku+'.jpg" preload="none" width="'+playerwidth+'" height="'+playerheight+'" controls></video>');
 		
-		
-		
 		var videoplayer = new MediaElementPlayer('#player',{
+		adsPrerollMediaUrl: 'http://media.productionhub.com.s3.amazonaws.com/preroll.mp4',
+		adsPrerollAdUrl: '',
 		AndroidUseNativeControls: false,
-		features: ['playpause','progress','current','duration','volume','fullscreen'],
-		alwaysShowControls: true,
-		success : function(mediaobj, domobj) {
-			var thismediaobj = mediaobj;
-			var playad = true;
-			var adcanplay = true;
-			var orgsrc;
-			console.log("success event");
-			
-			mediaobj.addEventListener('playing',function() {
-				console.log("play event");
-				console.log(playad + " - " + adcanplay);
-				if (playad && adcanplay) {
-					adcanplay = false;
-					console.log("play ad");
-					thismediaobj.pause();
-					orgsrc = thismediaobj.src;
-					thismediaobj.setSrc("http://media.productionhub.com.s3.amazonaws.com/preroll.mp4");
-					thismediaobj.load();
-					thismediaobj.play();
-				}	
-			}, false);
-			
-			mediaobj.addEventListener('ended',function() {
-				console.log("end event");
-				console.log(playad);
-				if (playad) {
-					console.log("load media");
-					playad = false;
-					thismediaobj.setSrc(orgsrc);
-					thismediaobj.load();
-					thismediaobj.play();
-				}
-			}, false);
-		}
+		features: ['playpause','progress','current','duration','volume','ads','fullscreen'],
+		alwaysShowControls: true
 		});
 		
 	});
@@ -466,16 +433,11 @@ setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcon
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />WJFW Mobile Video</h3>
 
 <div id="videolistcontainer">
-<!--<div class='viditem'><b>Test Video</b>
-<div class='photocontainer'><img src='http://cdn.bimvid.com/WJFW/6698edd380099295407e8f18bc771375897f76d3.jpg'></div>
-<a data-passsku='6698edd380099295407e8f18bc771375897f76d3' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a><span style='clear:both;'></span></div>-->
+
 </div>
 <script>$(function() {
 loaddata("videolist","","a248d92ab658bd6fc81a965e0e6af7939af56117",0,0,"videolistcontainer");
 });</script>
-
-
-
 </div>
 
 </div>
