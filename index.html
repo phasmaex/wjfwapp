@@ -244,6 +244,7 @@ $(function() {
 					//console.log("play ad");
 					thismediaobj.pause();
 					orgsrc = thismediaobj.src;
+					console.log("ADVERT SRC: "+appsettings.videoads.addarray[Math.floor(Math.random()*2)].vidurl);
 					thismediaobj.setSrc(appsettings.videoads.addarray[Math.floor(Math.random()*2)].vidurl);
 					thismediaobj.load();
 					thismediaobj.play();
@@ -384,11 +385,10 @@ loaddata("stories","headlines",encodeURIComponent("eqADD1datarq=yes&STORYDATEtyp
 <div class="adspace" data-sku="201" data-folder="fleetfarm" data-type="320x50_playdate"></div>
 <div style="height:8px;clear:both;"></div>
 <div id="main_storydetails"></div>
-
-
-</div>
 <div style="height:8px;clear:both;"></div>
 <div class="adspace" data-sku="202" data-folder="fleetfarm" data-type="320x50_playdate"></div>
+
+</div>
 </div>
 
 
