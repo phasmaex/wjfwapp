@@ -94,7 +94,12 @@ $(function() {
 		appsettings.veiwport_w = $(window).width();
 		appsettings.veiwport_h= $(window).height();
 		//console.log("viewport: "+appsettings.veiwport_w+" - "+appsettings.veiwport_h);
-		appsettings.videoads = $.getJSON("http://www.wjfw.com/appcontent/videoads.html");
+		$.getJSON("http://www.wjfw.com/appcontent/videoads.html", function(data) {
+			console.log(data)
+			appsettings.videoads = data;
+		});
+		//appsettings.videoads = vidadsraw.responceText
+		console.log(appsettings.videoads);
 	
 	
 	
