@@ -93,8 +93,8 @@ $(function() {
 		appsettings.imgcompressionratio = 90;
 		appsettings.veiwport_w = $(window).width();
 		appsettings.veiwport_h= $(window).height();
-		console.log("viewport: "+appsettings.veiwport_w+" - "+appsettings.veiwport_h);
-	
+		//console.log("viewport: "+appsettings.veiwport_w+" - "+appsettings.veiwport_h);
+		appsettings.videoads = $.getJSON("http://www.wjfw.com/appcontent/videoads.html");
 	
 	
 	
@@ -234,27 +234,27 @@ $(function() {
 			var playad = true;
 			var adcanplay = true;
 			var orgsrc;
-			console.log("success event");
+			//console.log("success event");
 			
-			mediaobj.addEventListener('playing',function() {
-				console.log("play event");
-				console.log(playad + " - " + adcanplay);
+			mediaobj.addEventListener('playing',function() {	//IsPlaying Event Listener
+				//console.log("play event");
+				//console.log(playad + " - " + adcanplay);
 				if (playad && adcanplay) {
 					adcanplay = false;
-					console.log("play ad");
+					//console.log("play ad");
 					thismediaobj.pause();
 					orgsrc = thismediaobj.src;
-					thismediaobj.setSrc("http://media.productionhub.com.s3.amazonaws.com/preroll.mp4");
+					thismediaobj.setSrc(appsettings.videoads.addarray[Math.floor(Math.random()*2)].vidurl);
 					thismediaobj.load();
 					thismediaobj.play();
 				}	
 			}, false);
 			
-			mediaobj.addEventListener('ended',function() {
-				console.log("end event");
-				console.log(playad);
+			mediaobj.addEventListener('ended',function() {	//IsEnded Event Listener
+				//console.log("end event");
+				//console.log(playad);
 				if (playad) {
-					console.log("load media");
+					//console.log("load media");
 					playad = false;
 					thismediaobj.setSrc(orgsrc);
 					thismediaobj.load();
@@ -266,7 +266,7 @@ $(function() {
 		
 	});
 
-	window.writeimg = function (content,objbox) {
+	window.writeimg = function (content,objbox,arg1,arg2) {
 		switch (content) {
 			case "w_7days" :
 				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=weather/menu/UploadGraphic/media2/panel02.jpg&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;'>");
@@ -274,10 +274,18 @@ $(function() {
 			case "w_radar" :
 				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=accuwx/radarwi.png&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;'>");
 				break;
+			case "adspace" :
+				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=appcontent/bannerads/"+arg1+"/"+arg2+".jpg&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;'>");
+				break;
 		}
 	};
+	
+	$(".adspace").each(function() {
+		var adsku = $(this).data("sku"); var adfolder = $(this).data("folder"); var adtype = $(this).data("type");
+		writeimg("adspace","[data-sku='"+adsku+"']",adfolder,adtype);
+	});
 
-	if (history.length>1) {$('#back_btn').show();} else {$('#back_btn').hide();} //Contols the back btn
+	if (history.length>1) {$('.back_btn').show();} else {$('.back_btn').hide();} //Contols the back btn
 	
 	$("#pageheadercontent_master").clone().appendTo(".headerchild");
 
@@ -331,7 +339,7 @@ $(function() {
 
 <div id="pageheadercontent_master">
 
-<a href="javascript:history.go(-1);" id="back_btn" style="position:fixed;left:5px;bottom:5px;" data-role="button" data-icon="back" data-mini="true" data-iconpos="left" data-iconpos="notext" data-theme="c" data-inline="true">Back</a>
+<a href="javascript:history.go(-1);" class="back_btn" style="position:fixed;left:5px;bottom:5px;" data-role="button" data-icon="back" data-mini="true" data-iconpos="left" data-iconpos="notext" data-theme="c" data-inline="true">Back</a>
 
 <div id="headercontainer" data-role="header" data-position="fixed" data-id="header">
 	<img src="img/logo_lrg.fw.png" style="position:absolute;top:-5px;left:0px;">
@@ -349,7 +357,13 @@ $(function() {
 <div id="main_topstory"></div>
 
 <div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="101" data-folder="fleetfarm" data-type="300x100"></div>
+<div style="height:8px;clear:both;"></div>
 <div id="topmoreheadlines"></div>
+<div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="102" data-folder="fleetfarm" data-type="300x100"></div>
+<div style="height:8px;clear:both;"></div>
+
 
 <div style="height:8px;clear:both;"></div>
 <script>$(function() {
@@ -367,11 +381,14 @@ loaddata("stories","headlines",encodeURIComponent("eqADD1datarq=yes&STORYDATEtyp
 
 <div class="headerchild"></div>
 <div data-role="content">
+<div class="adspace" data-sku="201" data-folder="fleetfarm" data-type="320x50_playdate"></div>
+<div style="height:8px;clear:both;"></div>
 <div id="main_storydetails"></div>
 
 
 </div>
-
+<div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="202" data-folder="fleetfarm" data-type="320x50_playdate"></div>
 </div>
 
 
@@ -383,10 +400,14 @@ loaddata("stories","headlines",encodeURIComponent("eqADD1datarq=yes&STORYDATEtyp
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Local News Headlines</h3>
 <div style="clear:both;height:8px;"></div>
 <div id="main_localnews"></div>
-
+<div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="301" data-folder="fleetfarm" data-type="320x50_playdate"></div>
+<div style="height:8px;clear:both;"></div>
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Regional News Headlines</h3>
 <div style="clear:both;height:8px;"></div>
 <div id="main_regionalnews"></div>
+<div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="302" data-folder="fleetfarm" data-type="300x100"></div>
 <script>$(function() {
 loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=General News&eqSUBCATdatarq=Local News&STORYDATEtype=date&deSTORYDATEsort=1&deADD3sort=2"),8,1,"main_localnews");
 loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=General News&eqSUBCATdatarq=Regional News&STORYDATEtype=date&deSTORYDATEsort=1&deADD3sort=2"),8,1,"main_regionalnews");
@@ -405,10 +426,14 @@ loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=General News&
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Local Sports Headlines</h3>
 <div style="clear:both;height:8px;"></div>
 <div id="main_localsports"></div>
-
+<div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="401" data-folder="fleetfarm" data-type="320x50_playdate"></div>
+<div style="height:8px;clear:both;"></div>
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Regional Sports Headlines</h3>
 <div style="clear:both;height:8px;"></div>
 <div id="main_regionalsports"></div>
+<div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="402" data-folder="fleetfarm" data-type="300x100"></div>
 <script>$(function() {
 loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBCATdatarq=Local News&STORYDATEtype=date&deSTORYDATEsort=1&deADD3sort=2"),8,1,"main_localsports");
 loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBCATdatarq=Regional News&STORYDATEtype=date&deSTORYDATEsort=1&deADD3sort=2"),8,1,"main_regionalsports");
@@ -428,7 +453,9 @@ loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBC
 <div id="7daycontainer">
 <script>$(function() { writeimg("w_7days","#7daycontainer"); });</script>
 </div>
-
+<div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="501" data-folder="fleetfarm" data-type="300x100"></div>
+<div style="height:8px;clear:both;"></div>
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Weather Highlights</h3>
 <div style="clear:both;height:8px;"></div>
 <div id="main_weatherhighlights"></div>
@@ -455,13 +482,18 @@ setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcon
 <script>$(function() { writeimg("w_radar","#radarcontainer"); });</script>
 
 </div>
-
+<div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="601" data-folder="fleetfarm" data-type="320x50_playdate"></div>
 </div>
 
 <div data-role="page" id="pg_videomain">
 
 <div class="headerchild"></div>
 <div data-role="content">
+
+<div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="701" data-folder="fleetfarm" data-type="320x50_playdate"></div>
+<div style="height:8px;clear:both;"></div>
 
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />WJFW Mobile Video</h3>
 
