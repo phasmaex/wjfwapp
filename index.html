@@ -39,30 +39,39 @@
 		}
 	</style>
 	
-	<!--<script>
-	$.extend({
-	  getUrlVars: function(){
-		var vars = [], hash;
-		var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-		for(var i = 0; i < hashes.length; i++)
-		{
-		  hash = hashes[i].split('=');
-		  vars.push(hash[0]);
-		  vars[hash[0]] = hash[1];
-		}
-		return vars;
-	  },
-	  getUrlVar: function(name){
-		return $.getUrlVars()[name];
-	  }
-	});
-	</script>-->
-	
 	
 <script>
 $(function() {
-		//Check Connectino Function - checks the state of the internet conection available, and makes sure that a connection to WJFW can be established.
-	/*function checkconnection() {
+
+	//app settings object and app initilization
+	var appsettings = new Object();
+	
+	window.testconnection = function () {
+		appsettings.connectioncheck = checkconnection();
+		if (appsettings.connectioncheck) {
+			console.log('good connection, proceed');
+		}
+		else {
+			console.log('bad connection, fail');
+			$.mobile.changePage("#pg_noconnection");
+		}
+	}
+	testconnection();
+		
+		appsettings.imgcompressionratio = 90;
+		appsettings.veiwport_w = $(window).width();
+		appsettings.veiwport_h= $(window).height();
+		//console.log("viewport: "+appsettings.veiwport_w+" - "+appsettings.veiwport_h);
+		if (appsettings.connectioncheck) { $.getJSON("http://www.wjfw.com/appcontent/videoads.html", function(data) {
+			console.log(data)
+			appsettings.videoads = data;
+		}); };
+		//appsettings.videoads = vidadsraw.responceText
+		console.log(appsettings.videoads);
+	
+	
+	//Check Connectino Function - checks the state of the internet conection available, and makes sure that a connection to WJFW can be established.
+	function checkconnection() {
 		var networkState = navigator.network.connection.type;
 		
 		 var states = {};
@@ -75,7 +84,8 @@ $(function() {
 			states[Connection.NONE]     = 'No network connection';
 
 			console.log('Connection type: ' + states[networkState]);
-
+			appsettings.connectionraw = networkState;
+			appsettings.connectiontype = states[networkState];
 		
 		switch (networkState) {
 			case Connection.UNKNOWN:
@@ -86,21 +96,48 @@ $(function() {
 				return true;
 				break;
 		}
-	}*/
+	}
 	
-	var appsettings = new Object();
+	//Create Device Info Object
+	var deviceinfo = new Object();
+		deviceinfo.model = device.model;
+		deviceinfo.platform = device.platform;
+		deviceinfo.name = device.name;
+		deviceinfo.version = device.version;
+		deviceinfo.uuid = device.uuid;	
 		
-		appsettings.imgcompressionratio = 90;
-		appsettings.veiwport_w = $(window).width();
-		appsettings.veiwport_h= $(window).height();
-		//console.log("viewport: "+appsettings.veiwport_w+" - "+appsettings.veiwport_h);
-		$.getJSON("http://www.wjfw.com/appcontent/videoads.html", function(data) {
-			console.log(data)
-			appsettings.videoads = data;
+	if (appsettings.connectioncheck) {
+		//check for registration, if none register device
+		console.log("registation check");
+		$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=checkreg&_uuid="+deviceinfo.uuid, function(data) {
+			console.log(data);
+			if (data.returndata == "NOTFOUND") {
+				appsettings.isreg = false;
+				console.log("none found");
+			}
+			else {
+				appsettings.isreg = true;
+				appsettings.homelocation = data.returndata;
+				console.log("found registered user");
+			}
 		});
-		//appsettings.videoads = vidadsraw.responceText
-		console.log(appsettings.videoads);
-	
+		
+		//if no registration, and new user return
+		if (!appsettings.isreg) {
+			console.log("register new account");
+			var regstring = "_uuid="+deviceinfo.uuid+"&_dmodel="+deviceinfo.model+"&_dplatform="+deviceinfo.platform+"&_dname="+deviceinfo.name+"&_dversion="+deviceinfo.version;
+			$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=createreg&"+regstring, function(data) {
+			console.log(data);
+			if (data.returndata == deviceinfo.uuid) {
+				appsettings.isreg = true;
+			}
+			else {
+				console.log("failed to register new account");
+			};
+		});
+		};
+		
+	};
 	
 	
 	var datatream = new Object();
@@ -110,6 +147,7 @@ $(function() {
 	$(contentbox).html("<img src='/img/220.GIF'>");
 	
 	var searchstring = 'loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query+'&maxrecords='+maxrecords+'&beginat='+beginat;
+	if (appsettings.connectioncheck) { //disable all requests if bad connection
 	jQuery.ajax({
       type: "GET",
       url: "http://www.wjfw.com/appcontent/apploaddata.html",
@@ -123,6 +161,7 @@ $(function() {
 		console.log(searchstring);
       }
     });
+	};
 	
 	//$.get('http://www.wjfw.com/appcontent/apploaddata.html?loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query,processdata,"json").done(function() {console.log( "loaded" );}).fail(function(event,xhr,options,exc) { console.log( "error: " + xhr.status +" - "+xhr.responseText+" - "+exc);}).always(function() {console.log( "finished" );});
 	
@@ -249,8 +288,8 @@ $(function() {
 					//console.log("play ad");
 					thismediaobj.pause();
 					orgsrc = thismediaobj.src;
-					console.log("ADVERT SRC: "+appsettings.videoads.addarray[Math.floor(Math.random()*2)].vidurl);
-					thismediaobj.setSrc(appsettings.videoads.addarray[Math.floor(Math.random()*2)].vidurl);
+					//console.log("ADVERT SRC: "+appsettings.videoads.addarray[Math.floor(Math.random()*appsettings.videoads.addarray.length)].vidurl);
+					thismediaobj.setSrc(appsettings.videoads.addarray[Math.floor(Math.random()*appsettings.videoads.addarray.length)].vidurl);
 					thismediaobj.load();
 					thismediaobj.play();
 				}	
@@ -273,17 +312,19 @@ $(function() {
 	});
 
 	window.writeimg = function (content,objbox,arg1,arg2) {
+	if (appsettings.connectioncheck) { //disable all requests if bad connection
 		switch (content) {
 			case "w_7days" :
 				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=weather/menu/UploadGraphic/media2/panel02.jpg&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;'>");
 				break;
 			case "w_radar" :
-				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=accuwx/radarwi.png&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;'>");
+				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=accuwx/radarwi.png&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;' id='radarslide'>");
 				break;
 			case "adspace" :
 				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=appcontent/bannerads/"+arg1+"/"+arg2+".jpg&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;'>");
 				break;
 		}
+	};
 	};
 	
 	$(".adspace").each(function() {
@@ -296,19 +337,50 @@ $(function() {
 	$("#pageheadercontent_master").clone().appendTo(".headerchild");
 
 	$(document).on('pagebeforeshow', '[data-role="page"]', function(){                
-    $("#navpanel").clone().appendTo($(this));
-    $.mobile.activePage.find('#navpanel').panel();
-    $(document).on('click', '.navpannel_btn', function(){   
-         $.mobile.activePage.find('#navpanel').panel("open");       
-    });  
+		$("#navpanel").clone().appendTo($(this));
+		$.mobile.activePage.find('#navpanel').panel();
+		$(document).on('click', '.navpannel_btn', function(){   
+			 $.mobile.activePage.find('#navpanel').panel("open");       
+		});  
 
-	$("#settings").clone().appendTo($(this));
-    $.mobile.activePage.find('#settings').panel();
-    $(document).on('click', '.settingspannel_btn', function(){   
-         $.mobile.activePage.find('#settings').panel("open");       
-    });  
-});
+		$("#settings").clone().appendTo($(this));
+		$.mobile.activePage.find('#settings').panel();
+		$(document).on('click', '.settingspannel_btn', function(){   
+			 $.mobile.activePage.find('#settings').panel("open");       
+		});  
+	});
+	
+	/*var k=0
+	var speed = 250
+	var Pic = new Array()
+	Pic[0] = '/accuwx/radarwi1.png'
+	Pic[1] = '/accuwx/radarwi2.png'
+	Pic[2] = '/accuwx/radarwi3.png'
+	Pic[3] = '/accuwx/radarwi4.png'
+	Pic[4] = '/accuwx/radarwi5.png'
+	Pic[5] = '/accuwx/radarwi6.png'
+	Pic[6] = '/accuwx/radarwi7.png'
+	Pic[7] = '/accuwx/radarwi8.png'
+	Pic[8] = '/accuwx/radarwi9.png'
 
+	var url = "http://www.wjfw.com"
+	var t
+	var j = 0
+	var p = Pic.length
+	var preLoad = new Array()
+	for (i = 0; i < p; i++){
+				   preLoad[i] = new Image()
+				   preLoad[i].src = url + Pic[i]
+	}
+	function runSlideShow(){
+				   document.images.radarslides.src = preLoad[j].src
+				   j = j + 1
+				   if (j > (p-1) )  j = 0
+				   t = setTimeout('runSlideShow()', speed)
+	}
+	window.runloop = function (){runSlideShow()}*/
+
+	
 });
 </script>
 
@@ -486,9 +558,10 @@ setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcon
 });</script>-->
 <script>$(function() { writeimg("w_radar","#radarcontainer"); });</script>
 
-</div>
+
 <div style="height:8px;clear:both;"></div>
 <div class="adspace" data-sku="601" data-folder="fleetfarm" data-type="320x50_playdate"></div>
+</div>
 </div>
 
 <div data-role="page" id="pg_videomain">
@@ -533,6 +606,22 @@ loaddata("videolist","","a248d92ab658bd6fc81a965e0e6af7939af56117",0,0,"videolis
 
 </div>
 
+<div data-role="page" id="pg_noconnection">
+
+<div id="headercontainer" data-role="header" data-position="fixed" data-id="header">
+	<img src="img/logo_lrg.fw.png" style="position:absolute;top:-5px;left:0px;">
+</div>
+<div data-role="content">
+
+
+<h2 style="text-align:center;">We're Sorry :(</h2>
+<div style="text-align:center;">
+It seems you have no connection to the internet. Please connect your device to a wifi or cell data source to use the WJFW Mobile App.
+</div>
+
+</div>
+
+</div>
 
 
 </body>
