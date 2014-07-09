@@ -58,7 +58,7 @@ $(function() {
 			states[Connection.CELL_4G]  = 'Cell 4G connection';
 			states[Connection.NONE]     = 'No network connection';
 
-			console.log('Connection type: ' + states[networkState]);
+			alert('Connection type: ' + states[networkState]);
 			appsettings.connectionraw = networkState;
 			appsettings.connectiontype = states[networkState];
 		
