@@ -69,6 +69,11 @@
 	<preference name="android-installLocation" value="internalOnly" />
 	<preference name="splash-screen-duration" value="3000"/>
 	
+	<!--Allow Plugins-->
+	<gap:plugin name="org.apache.cordova.core.network-information"/>
+	<gap:plugin name="org.apache.cordova.core.device"/>
+
+	
 	<!--WhiteList Access Commands-->
 	
 	<access origin="http://www.wjfw.com" />
