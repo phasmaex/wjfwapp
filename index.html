@@ -5,7 +5,6 @@
 	
 	<!--Include PhoneGap API--->
 	<script src="phonegap.js"></script>
-	<script src="http://debug.build.phonegap.com/target/target-script-min.js#wjfwmobi"></script>
 	
 	<!--Apple Web App Config --->
 	<!--<link rel="apple-touch-icon" href="icon_57.png" />
@@ -46,8 +45,9 @@ $(function() {
 
 		//Check Connectino Function - checks the state of the internet conection available, and makes sure that a connection to WJFW can be established.
 	function checkconnection() {
+	alert('checking connection');
 		var networkState = navigator.connection.type;
-		console.log(networkState);
+		alert(networkState);
 		
 		var states = {};
 			states[Connection.UNKNOWN]  = 'Unknown connection';
