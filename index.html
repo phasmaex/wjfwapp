@@ -86,7 +86,18 @@ $(function() {
 			$.mobile.changePage("#pg_noconnection");
 		}
 	}
-	testconnection();
+	
+	document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        //checkConnection();
+		testconnection();
+    }
+
+	
+	
 		
 		appsettings.imgcompressionratio = 90;
 		appsettings.veiwport_w = $(window).width();
