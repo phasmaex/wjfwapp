@@ -45,10 +45,10 @@ $(function() {
 
 		//Check Connectino Function - checks the state of the internet conection available, and makes sure that a connection to WJFW can be established.
 	function checkconnection() {
-		var networkState = navigator.network.connection.type;
+		var networkState = navigator.connection.type;
 		console.log(networkState);
 		
-		 /*var states = {};
+		var states = {};
 			states[Connection.UNKNOWN]  = 'Unknown connection';
 			states[Connection.ETHERNET] = 'Ethernet connection';
 			states[Connection.WIFI]     = 'WiFi connection';
@@ -69,7 +69,7 @@ $(function() {
 			default:
 				return true;
 				break;
-		}*/
+		}
 	}
 
 
