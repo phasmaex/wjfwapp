@@ -81,6 +81,6 @@
 	<access origin="http://cdn.bimvid.com" />
 	<access origin="http://cdn.bimfs.com" />
 	<access origin="http://media.productionhub.com.s3.amazonaws.com" />
-
+<access origin="http://debug.build.phonegap.com" />
 	
 </widget>
