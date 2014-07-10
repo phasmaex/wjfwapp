@@ -70,7 +70,8 @@
 	<preference name="splash-screen-duration" value="3000"/>
 	
 	<!--Allow Plugins-->
-	
+	<gap:plugin name="org.apache.cordova.device" version="0.2.8" />
+	<gap:plugin name="org.apache.cordova.network-information" version="0.2.7" />
 
 
 	
