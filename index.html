@@ -90,7 +90,7 @@ $(function() {
 		}
 	}
 	
-	testconnection();
+	setTimeout(function(){alert('runningtimeout');testconnection();},500);
 		
 		appsettings.imgcompressionratio = 90;
 		appsettings.veiwport_w = $(window).width();
