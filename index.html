@@ -42,14 +42,88 @@
 	
 <script>
 $(function() {
+	setTimeout(function(){alert('runningtimeout');initapp();},500);
+	
+	$("#appcontents").css("visibility","hidden");
+	
+	//create global variables and info objects
+	var appsettings = new Object();
+	var deviceinfo = new Object();
+	var datatream = new Object();
+	
 
+	function initapp() {
+		testconnection();
+		
+		$("#appcontents").css("visibility","visible");
+		$("#initloadingspinner").css("visibility","hidden");
+		
+		appsettings.imgcompressionratio = 90;
+		appsettings.veiwport_w = $(window).width();
+		appsettings.veiwport_h= $(window).height();
+		//console.log("viewport: "+appsettings.veiwport_w+" - "+appsettings.veiwport_h);
+		if (appsettings.connectioncheck) { $.getJSON("http://www.wjfw.com/appcontent/videoads.html", function(data) {
+			console.log(data)
+			appsettings.videoads = data;
+		}); };
+		//appsettings.videoads = vidadsraw.responceText
+		console.log(appsettings.videoads);
+		
+		//Create Device Info Object
+		deviceinfo.model = device.model;
+		deviceinfo.platform = device.platform;
+		deviceinfo.name = device.name;
+		deviceinfo.version = device.version;
+		deviceinfo.uuid = device.uuid;	
+		
+		if (appsettings.connectioncheck) {
+			//check for registration, if none register device
+			console.log("registation check");
+			$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=checkreg&_uuid="+deviceinfo.uuid, function(data) {
+				console.log(data);
+				if (data.returndata == "NOTFOUND") {
+					appsettings.isreg = false;
+					console.log("none found");
+				}
+				else {
+					appsettings.isreg = true;
+					appsettings.homelocation = data.returndata;
+					console.log("found registered user");
+				}
+			});
+			
+			//if no registration, and new user return
+			if (!appsettings.isreg) {
+				console.log("register new account");
+				var regstring = "_uuid="+deviceinfo.uuid+"&_dmodel="+deviceinfo.model+"&_dplatform="+deviceinfo.platform+"&_dname="+deviceinfo.name+"&_dversion="+deviceinfo.version;
+				$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=createreg&"+regstring, function(data) {
+				console.log(data);
+				if (data.returndata == deviceinfo.uuid) {
+					appsettings.isreg = true;
+				}
+				else {
+					console.log("failed to register new account");
+				};
+			});
+			};
+			
+		};
+		
+		$(".adspace").each(function() {
+			var adsku = $(this).data("sku"); var adfolder = $(this).data("folder"); var adtype = $(this).data("type");
+			writeimg("adspace","[data-sku='"+adsku+"']",adfolder,adtype);
+		});
+		
+		$("#pageheadercontent_master").clone().appendTo(".headerchild");
+		
+	};
+	
+	
 		//Check Connectino Function - checks the state of the internet conection available, and makes sure that a connection to WJFW can be established.
 	function checkconnection() {
-	alert('checking connection');
+	console.log('checking connection');
 		var networkState = navigator.connection.type;
-		alert(networkState);
-		alert(Connection.UNKNOWN);
-		alert('test');
+		console.log(networkState);
 		
 		var states = {};
 			states[Connection.UNKNOWN]  = 'Unknown connection';
@@ -60,7 +134,7 @@ $(function() {
 			states[Connection.CELL_4G]  = 'Cell 4G connection';
 			states[Connection.NONE]     = 'No network connection';
 
-			alert('Connection type: ' + states[networkState]);
+			console.log('Connection type: ' + states[networkState]);
 			appsettings.connectionraw = networkState;
 			appsettings.connectiontype = states[networkState];
 		
@@ -76,9 +150,6 @@ $(function() {
 	}
 
 
-	//app settings object and app initilization
-	var appsettings = new Object();
-	
 	window.testconnection = function () {
 		appsettings.connectioncheck = checkconnection();
 		if (appsettings.connectioncheck) {
@@ -90,90 +161,33 @@ $(function() {
 		}
 	}
 	
-	setTimeout(function(){alert('runningtimeout');testconnection();},500);
-		
-		appsettings.imgcompressionratio = 90;
-		appsettings.veiwport_w = $(window).width();
-		appsettings.veiwport_h= $(window).height();
-		//console.log("viewport: "+appsettings.veiwport_w+" - "+appsettings.veiwport_h);
-		if (appsettings.connectioncheck) { $.getJSON("http://www.wjfw.com/appcontent/videoads.html", function(data) {
-			console.log(data)
-			appsettings.videoads = data;
-		}); };
-		//appsettings.videoads = vidadsraw.responceText
-		console.log(appsettings.videoads);
-	
-	
 
 	
-	//Create Device Info Object
-	var deviceinfo = new Object();
-		deviceinfo.model = device.model;
-		deviceinfo.platform = device.platform;
-		deviceinfo.name = device.name;
-		deviceinfo.version = device.version;
-		deviceinfo.uuid = device.uuid;	
-		
-	if (appsettings.connectioncheck) {
-		//check for registration, if none register device
-		console.log("registation check");
-		$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=checkreg&_uuid="+deviceinfo.uuid, function(data) {
-			console.log(data);
-			if (data.returndata == "NOTFOUND") {
-				appsettings.isreg = false;
-				console.log("none found");
-			}
-			else {
-				appsettings.isreg = true;
-				appsettings.homelocation = data.returndata;
-				console.log("found registered user");
-			}
-		});
-		
-		//if no registration, and new user return
-		if (!appsettings.isreg) {
-			console.log("register new account");
-			var regstring = "_uuid="+deviceinfo.uuid+"&_dmodel="+deviceinfo.model+"&_dplatform="+deviceinfo.platform+"&_dname="+deviceinfo.name+"&_dversion="+deviceinfo.version;
-			$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=createreg&"+regstring, function(data) {
-			console.log(data);
-			if (data.returndata == deviceinfo.uuid) {
-				appsettings.isreg = true;
-			}
-			else {
-				console.log("failed to register new account");
-			};
-		});
-		};
-		
-	};
 	
-	
-	var datatream = new Object();
 		//Load Data Function - will send to process data function
-	window.loaddata = function (datatype,displaytype,query,maxrecords,beginat,contentbox) {console.log('fetching '+datatype+'-'+displaytype);
-	
-	$(contentbox).html("<img src='/img/220.GIF'>");
-	
-	var searchstring = 'loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query+'&maxrecords='+maxrecords+'&beginat='+beginat;
-	if (appsettings.connectioncheck) { //disable all requests if bad connection
-	jQuery.ajax({
-      type: "GET",
-      url: "http://www.wjfw.com/appcontent/apploaddata.html",
-      dataType: "json",
-      data: searchstring,
-      success: processdata,
-      error: function (xhr, txtStatus, thrownError) {
-        console.log(xhr.status);
-        console.log(txtStatus);
-		console.log(thrownError);
-		console.log(searchstring);
-      }
-    });
+	window.loaddata = function (datatype,displaytype,query,maxrecords,beginat,contentbox) {
+		console.log('fetching '+datatype+'-'+displaytype);
+		
+		$(contentbox).html("<img src='/img/220.GIF'>");
+		
+		var searchstring = 'loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query+'&maxrecords='+maxrecords+'&beginat='+beginat;
+		if (appsettings.connectioncheck) { //disable all requests if bad connection
+			jQuery.ajax({
+			  type: "GET",
+			  url: "http://www.wjfw.com/appcontent/apploaddata.html",
+			  dataType: "json",
+			  data: searchstring,
+			  success: processdata,
+			  error: function (xhr, txtStatus, thrownError) {
+				console.log(xhr.status);
+				console.log(txtStatus);
+				console.log(thrownError);
+				console.log(searchstring);
+			  }
+			});
+		};
 	};
 	
-	//$.get('http://www.wjfw.com/appcontent/apploaddata.html?loaddatatype='+datatype+'&displaytype='+displaytype+'&contentbox='+contentbox+'&q='+query,processdata,"json").done(function() {console.log( "loaded" );}).fail(function(event,xhr,options,exc) { console.log( "error: " + xhr.status +" - "+xhr.responseText+" - "+exc);}).always(function() {console.log( "finished" );});
-	
-	}
 		//Process Data Function - recieves loaded data from loaddata() function, then formats and displays the data acordingly
 	function processdata(data) {
 		console.log("processing response");
@@ -335,14 +349,13 @@ $(function() {
 	};
 	};
 	
-	$(".adspace").each(function() {
-		var adsku = $(this).data("sku"); var adfolder = $(this).data("folder"); var adtype = $(this).data("type");
-		writeimg("adspace","[data-sku='"+adsku+"']",adfolder,adtype);
-	});
-
-	if (history.length>1) {$('.back_btn').show();} else {$('.back_btn').hide();} //Contols the back btn
 	
-	$("#pageheadercontent_master").clone().appendTo(".headerchild");
+	//--------------------------------------------------------------------
+	//-------------------------------------------------------------------- FIX BACK BUTTON WITH NEW CHECK ON PAGE CHANGE
+	if (history.length>1) {$('.back_btn').show();} else {$('.back_btn').hide();} //Contols the back btn
+	//----------------------------------------------------------------------
+	//-----------------------------------------------------------------------
+	
 
 	$(document).on('pagebeforeshow', '[data-role="page"]', function(){                
 		$("#navpanel").clone().appendTo($(this));
@@ -398,7 +411,9 @@ $(function() {
 </head>
 <body marginheight="0" marginwidth="0" topmargin="0">
 
+<img src='/img/220.GIF' id="initloadingspinner">
 
+<div id="appcontents">
 <div data-role="page" id="pg_index">
 
 <div data-role="panel" id="navpanel" class="fixpanel" data-position="right" data-display="push" data-dismissible="true" data-theme="a">
@@ -631,6 +646,7 @@ It seems you have no connection to the internet. Please connect your device to a
 
 </div>
 
+</div>
 
 </body>
 </html>
