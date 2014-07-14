@@ -42,6 +42,7 @@
 	
 <script>
 $(function() {
+	setTimeout(function(){testconnection();},200);
 	setTimeout(function(){initapp();},500);
 	
 	$("#appcontents").css("visibility","hidden");
@@ -51,9 +52,9 @@ $(function() {
 	var deviceinfo = new Object();
 	var datatream = new Object();
 	
-
+	
 	function initapp() {
-		testconnection();
+		
 		
 		$("#appcontents").css("visibility","visible");
 		$("#initloadingspinner").css("visibility","hidden");
@@ -353,7 +354,7 @@ $(function() {
 	
 	var backbtnshowing = false;
 	$(document).on('pagechange', '[data-role="page"]', function(){
-		if ((history.length>1)&(!backbtnshowing)) {$('.back_btn').show();backbtnshowing=true;} else {$('.back_btn').hide();backbtnshowing=false;} //Contols the back btn
+		if (history.length>1) { if (!backbtnshowing) { $('.back_btn').show();backbtnshowing=true; }; } else {$('.back_btn').hide();backbtnshowing=false;} //Contols the back btn
 	});
 	
 
