@@ -77,13 +77,13 @@ $(function() {
 		deviceinfo.version = device.version;
 		deviceinfo.uuid = device.uuid;	
 		
-		alert(appsettings.connectioncheck);
+		//alert(appsettings.connectioncheck);
 		if (appsettings.connectioncheck) {
-			alert('regcheck running');
+			//alert('regcheck running');
 			//check for registration, if none register device
 			console.log("registation check");
 			$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=checkreg&_uuid="+deviceinfo.uuid, function(data) {
-				console.log(data);
+				console.log(data.returndata);
 				if (data.returndata == "NOTFOUND") {
 					appsettings.isreg = false;
 					console.log("none found");
@@ -96,7 +96,7 @@ $(function() {
 			});
 			
 			//if no registration, and new user return
-			if (!appsettings.isreg) {
+			/*if (!appsettings.isreg) {
 				console.log("register new account");
 				var regstring = "_uuid="+deviceinfo.uuid+"&_dmodel="+deviceinfo.model+"&_dplatform="+deviceinfo.platform+"&_dname="+deviceinfo.name+"&_dversion="+deviceinfo.version;
 				$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=createreg&"+regstring, function(data) {
@@ -108,7 +108,7 @@ $(function() {
 					console.log("failed to register new account");
 				};
 			});
-			};
+			};*/
 			
 		};
 		
