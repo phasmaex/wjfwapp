@@ -373,13 +373,13 @@ $(function() {
 
 	$(document).on('pagebeforecreate', '[data-role="page"]', function(){   
 				//alert('create panel'+$(this).attr("id"));
-				alert('active page '+$.mobile.activePage.attr("id"));
+				//alert('active page '+$.mobile.activePage.attr("id"));
 		$("#navpanel").clone().appendTo($(this));
-		$.mobile.activePage.find('#navpanel').panel();
+		$(this).find('#navpanel').panel();
 	  
 
 		$("#settings").clone().appendTo($(this));
-		$.mobile.activePage.find('#settings').panel();
+		$(this).find('#settings').panel();
 		
 	});
 	
