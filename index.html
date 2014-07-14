@@ -82,12 +82,22 @@ $(function() {
 			//alert('regcheck running');
 			//check for registration, if none register device
 			console.log("registation check");
-			console.log("http://www.wjfw.com/appcontent/appreg.html?q=checkreg&_uuid="+deviceinfo.uuid);
+			//console.log("http://www.wjfw.com/appcontent/appreg.html?q=checkreg&_uuid="+deviceinfo.uuid);
 			$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=checkreg&_uuid="+deviceinfo.uuid, function(data) {
 				console.log(data.returndata);
 				if (data.returndata == "NOTFOUND") {
 					appsettings.isreg = false;
-					console.log("none found");
+					console.log("none found - register new account");
+					var regstring = "_uuid="+deviceinfo.uuid+"&_dmodel="+deviceinfo.model+"&_dplatform="+deviceinfo.platform+"&_dname="+deviceinfo.name+"&_dversion="+deviceinfo.version;
+					$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=createreg&"+regstring, function(data) {
+						console.log(data);
+						if (data.returndata == deviceinfo.uuid) {
+							appsettings.isreg = true;
+						}
+						else {
+							console.log("failed to register new account");
+						};
+					});
 				}
 				else {
 					appsettings.isreg = true;
