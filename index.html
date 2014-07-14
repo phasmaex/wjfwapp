@@ -42,7 +42,7 @@
 	
 <script>
 $(function() {
-	setTimeout(function(){alert('runningtimeout');initapp();},500);
+	setTimeout(function(){initapp();},500);
 	
 	$("#appcontents").css("visibility","hidden");
 	
@@ -357,7 +357,7 @@ $(function() {
 	});
 	
 
-	/*$(document).on('pagebeforecreate', '[data-role="page"]', function(){                
+	$(document).on('pagebeforecreate', '[data-role="page"]', function(){                
 		$("#navpanel").clone().appendTo($(this));
 		$.mobile.activePage.find('#navpanel').panel();
 		$(document).on('click', '.navpannel_btn', function(){   
@@ -369,9 +369,9 @@ $(function() {
 		$(document).on('click', '.settingspannel_btn', function(){   
 			 $.mobile.activePage.find('#settings').panel("open");       
 		});  
-	});*/
+	});
 	
-		$('div[data-role="page"]').each(function() {
+	/*	$('div[data-role="page"]').each(function() {
 			$("#navpanel").clone().appendTo($(this));
 			$(this).find('#navpanel').panel();
 			
@@ -384,7 +384,7 @@ $(function() {
 		}); 
 		$(document).on('click', '.settingspannel_btn', function(){   
 			 $.mobile.activePage.find('#settings').panel("open");       
-		});
+		}); */
 	
 	/*var k=0
 	var speed = 250
@@ -483,8 +483,10 @@ $(function() {
 
 <div style="height:8px;clear:both;"></div>
 <script>$(function() {
+setTimeout(function(){
 loaddata("stories","topstory",encodeURIComponent("eqADD1datarq=yes&STORYDATEtype=date&STORYDATEsort=1&STORYDATEsdir=de"),1,1,"main_topstory");
 loaddata("stories","headlines",encodeURIComponent("eqADD1datarq=yes&STORYDATEtype=date&STORYDATEsort=1&STORYDATEsdir=de"),4,2,"topmoreheadlines");
+},1000);
 });</script>
 
 
@@ -524,8 +526,10 @@ loaddata("stories","headlines",encodeURIComponent("eqADD1datarq=yes&STORYDATEtyp
 <div style="height:8px;clear:both;"></div>
 <div class="adspace" data-sku="302" data-folder="fleetfarm" data-type="300x100"></div>
 <script>$(function() {
+setTimeout(function(){
 loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=General News&eqSUBCATdatarq=Local News&STORYDATEtype=date&deSTORYDATEsort=1&deADD3sort=2"),8,1,"main_localnews");
 loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=General News&eqSUBCATdatarq=Regional News&STORYDATEtype=date&deSTORYDATEsort=1&deADD3sort=2"),8,1,"main_regionalnews");
+},1000);
 });</script>
 
 </div>
@@ -550,8 +554,10 @@ loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=General News&
 <div style="height:8px;clear:both;"></div>
 <div class="adspace" data-sku="402" data-folder="fleetfarm" data-type="300x100"></div>
 <script>$(function() {
+setTimeout(function(){
 loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBCATdatarq=Local News&STORYDATEtype=date&deSTORYDATEsort=1&deADD3sort=2"),8,1,"main_localsports");
 loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBCATdatarq=Regional News&STORYDATEtype=date&deSTORYDATEsort=1&deADD3sort=2"),8,1,"main_regionalsports");
+},1000);
 });</script>
 
 </div>
@@ -566,7 +572,7 @@ loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBC
 
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />7 Day Forcast</h3>
 <div id="7daycontainer">
-<script>$(function() { writeimg("w_7days","#7daycontainer"); });</script>
+<script>$(function() { setTimeout(function(){writeimg("w_7days","#7daycontainer");},1000); });</script>
 </div>
 <div style="height:8px;clear:both;"></div>
 <div class="adspace" data-sku="501" data-folder="fleetfarm" data-type="300x100"></div>
@@ -594,7 +600,7 @@ loaddata("weather","highlights","",1,1,"main_weatherhighlights");
 <!--<script>$(function() {
 setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcontainer").width()+'" scrolling="false" frameborder="0" height="320" name="1" src="http://wviimaps.accuweather.com/adc2004/common/includes/maptiles/maptiles-h.asp?zm=6&lat=44.80&lon=-88.50&w='+$("#radarcontainer").width()+'&h=320&css=018CCF|007FC0|018CCF|007FC0#"></iframe>'); },2000);
 });</script>-->
-<script>$(function() { writeimg("w_radar","#radarcontainer"); });</script>
+<script>$(function() { setTimeout(function(){writeimg("w_radar","#radarcontainer");},1000); });</script>
 
 
 <div style="height:8px;clear:both;"></div>
@@ -619,7 +625,9 @@ setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcon
 <a data-passsku='6698edd380099295407e8f18bc771375897f76d3' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a><span style='clear:both;'></span></div>-->
 </div>
 <script>$(function() {
+setTimeout(function(){
 loaddata("videolist","","a248d92ab658bd6fc81a965e0e6af7939af56117",0,0,"videolistcontainer");
+},1000);
 });</script>
 
 
