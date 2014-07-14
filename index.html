@@ -82,6 +82,7 @@ $(function() {
 			//alert('regcheck running');
 			//check for registration, if none register device
 			console.log("registation check");
+			console.log("http://www.wjfw.com/appcontent/appreg.html?q=checkreg&_uuid="+deviceinfo.uuid);
 			$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=checkreg&_uuid="+deviceinfo.uuid, function(data) {
 				console.log(data.returndata);
 				if (data.returndata == "NOTFOUND") {
