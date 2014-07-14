@@ -371,7 +371,8 @@ $(function() {
 	});*/
 	
 
-	$(document).on('pagebeforecreate', '[data-role="page"]', function(){                
+	$(document).on('pagebeforecreate', '[data-role="page"]', function(){   
+				alert('create panel'+$(this).attr("id"));
 		$("#navpanel").clone().appendTo($(this));
 		$.mobile.activePage.find('#navpanel').panel();
 		$(document).on('click', '.navpannel_btn', function(){   
