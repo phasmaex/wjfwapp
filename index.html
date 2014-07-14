@@ -375,16 +375,19 @@ $(function() {
 				alert('create panel'+$(this).attr("id"));
 		$("#navpanel").clone().appendTo($(this));
 		$.mobile.activePage.find('#navpanel').panel();
-		$(document).on('click', '.navpannel_btn', function(){   
-			 $.mobile.activePage.find('#navpanel').panel("open");       
-		});  
+	  
 
 		$("#settings").clone().appendTo($(this));
 		$.mobile.activePage.find('#settings').panel();
+		
+	});
+	
+		$(document).on('click', '.navpannel_btn', function(){   
+			 $.mobile.activePage.find('#navpanel').panel("open");       
+		});
 		$(document).on('click', '.settingspannel_btn', function(){   
 			 $.mobile.activePage.find('#settings').panel("open");       
 		});  
-	});
 	
 	/*	$('div[data-role="page"]').each(function() {
 			$("#navpanel").clone().appendTo($(this));
