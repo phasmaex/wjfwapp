@@ -91,7 +91,7 @@ $(function() {
 			//console.log("http://www.wjfw.com/appcontent/appreg.html?q=checkreg&_uuid="+deviceinfo.uuid);
 			$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=checkreg&_uuid="+deviceinfo.uuid, function(data) {
 				console.log(data.returndata);
-				if (data.returndata == "NOTFOUND") {
+				if (data.returndata.uuid == "NOTFOUND") {
 					appsettings.isreg = false;
 					console.log("none found - register new account");
 					var regstring = "_uuid="+deviceinfo.uuid+"&_dmodel="+deviceinfo.model+"&_dplatform="+deviceinfo.platform+"&_dname="+deviceinfo.name+"&_dversion="+deviceinfo.version;
@@ -99,10 +99,12 @@ $(function() {
 						console.log(data);
 						if (data.returndata == deviceinfo.uuid) {
 							appsettings.isreg = true;
-							vex.dialog.confirm({
-								'message': '<b>Welcome!</b><br>We\'ve noticed this is your first time using the WJFW Mobile App. Would you like to set up your Home Location now?<br><i>(You can always do this later from the settings menu.)</i>',
-								'callback': function(value) { if(value){changelocation();} else { vex.dialog.alert('Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)'); } }
-							});
+							setTimeout(function() {
+								vex.dialog.confirm({
+									'message': '<b>Welcome!</b><br>We\'ve noticed this is your first time using the WJFW Mobile App. Would you like to set up your Home Location now?<br><i>(You can always do this later from the settings menu.)</i>',
+									'callback': function(value) { if(value){changelocation();} else { vex.dialog.alert('Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)'); } }
+								});
+							},700);
 						}
 						else {
 							console.log("failed to register new account");
@@ -111,13 +113,31 @@ $(function() {
 				}
 				else {
 					appsettings.isreg = true;
-					appsettings.homelocation = data.returndata;
+					appsettings.homelocation = data.returndata.homelocation;
+					appsettings.asksethome = data.returndata.asksethome;
 					console.log("found registered user");
-					if (appsettings.homelocation == "") {
-						vex.dialog.confirm({
+					if ((appsettings.homelocation == "")&&(asksethome)) {
+						setTimeout(function() {
+							vex.dialog.confirm({
 								'message': 'We\'ve noticed you haven\'t set your Home Location yet. Would you like to do this now?<br><i>(You can always do this later from the settings menu.)</i>',
-								'callback': function(value) { if(value){changelocation();} else { vex.dialog.alert('Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)'); } }
+								'callback': function(value) {
+									if(value){ changelocation(); }
+									else {
+										vex.dialog.open({
+											'message': 'Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)',
+											'input':'<input name="noshow" type="checkbox" value="noshow"> Don\'t show this message again',
+											'buttons': [ $.extend({}, vex.dialog.buttons.YES, { text: 'Ok'}) ],
+											'callback': function(data) {
+												if (data.noshow == "noshow") {
+													appsettings.asksethome = false;
+													savesettings("asksethome");
+												}
+											}
+										});
+									}
+								}
 							});
+						},700);
 					};
 					
 				}
@@ -194,7 +214,22 @@ $(function() {
 	}
 	
 	function changelocation() {
-		alert('change location function');
+		//alert('change location function');
+		var mywindow = vex.open({
+			content: 'Fetching Location...<br><Br><img src="img/220.GIF">',
+			afterOpen: function() {
+				setTimeout(function() { mywindow.content = "testing"; },1000);
+			},
+			afterClose: function() {
+				
+			}
+		});
+		
+	}
+	function savesettings(setting) {
+		$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=savesettings&uuid="+deviceinfo.uuid+"&_"+setting+"="+eval("appsettings."+setting), function(data) {
+			console.log("save settings - "+data.returndata)
+		}); 
 	}
 	
 	
