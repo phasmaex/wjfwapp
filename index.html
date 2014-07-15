@@ -55,14 +55,6 @@ $(function() {
 	
 	function initapp() {
 		
-		$(document).on('click', '.navpannel_btn', function(){   
-			alert('active page '+$.mobile.activePage.attr("id"));
-			 $.mobile.activePage.find('#navpanel').panel("open");       
-		});
-		$(document).on('click', '.settingspannel_btn', function(){   
-			 $.mobile.activePage.find('#settings').panel("open");       
-		}); 
-		
 		
 		$("#appcontents").css("visibility","visible");
 		$("#initloadingspinner").css("visibility","hidden");
@@ -391,7 +383,13 @@ $(function() {
 		
 	});
 	
-		 
+		$(document).on('click', '.navpannel_btn', function(){   
+			alert('active page '+$.mobile.activePage.attr("id"));
+			 $.mobile.activePage.find('#navpanel').panel("open");       
+		});
+		$(document).on('click', '.settingspannel_btn', function(){   
+			 $.mobile.activePage.find('#settings').panel("open");       
+		});  
 	
 	/*	$('div[data-role="page"]').each(function() {
 			$("#navpanel").clone().appendTo($(this));
