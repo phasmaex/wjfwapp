@@ -116,7 +116,7 @@ $(function() {
 					appsettings.homelocation = data.returndata.homelocation;
 					appsettings.asksethome = data.returndata.asksethome;
 					console.log("found registered user");
-					if ((appsettings.homelocation == "")&&(asksethome)) {
+					if ((appsettings.homelocation == "")&&(appsettings.asksethome)) {
 						setTimeout(function() {
 							vex.dialog.confirm({
 								'message': 'We\'ve noticed you haven\'t set your Home Location yet. Would you like to do this now?<br><i>(You can always do this later from the settings menu.)</i>',
