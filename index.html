@@ -24,6 +24,12 @@
 	<link rel="stylesheet" href="mejs/mediaelementplayer_forcepng.css" />
 	<!--<script src="mejs/mep-feature-ads.js"></script>--> <!--extend for preroll ads-->
 	
+	<!--Vex Dialogs--->
+	<script src="js/vex.combined.min.js"></script>
+	<script>vex.defaultOptions.className = 'vex-theme-os';</script>
+	<link rel="stylesheet" href="css/vex.css" />
+	<link rel="stylesheet" href="css/vex-theme-os.css" />
+	
 	<!--WJFW_App CSS-->
 	<link rel="stylesheet" href="css/wjfwapp_styles.css" />
 	
@@ -93,6 +99,10 @@ $(function() {
 						console.log(data);
 						if (data.returndata == deviceinfo.uuid) {
 							appsettings.isreg = true;
+							vex.dialog.confirm({
+								'message': '<b>Welcome!</b><br>We\'ve noticed this is your first time using the WJFW Mobile App. Would you like to set up your Home Location now?<br><i>(You can always do this later from the settings menu.)</i>',
+								'callback': function(value) { if(value){changelocation();} else { vex.dialog.alert('Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)'); } }
+							});
 						}
 						else {
 							console.log("failed to register new account");
@@ -103,6 +113,13 @@ $(function() {
 					appsettings.isreg = true;
 					appsettings.homelocation = data.returndata;
 					console.log("found registered user");
+					if (appsettings.homelocation == "") {
+						vex.dialog.confirm({
+								'message': 'We\'ve noticed you haven\'t set your Home Location yet. Would you like to do this now?<br><i>(You can always do this later from the settings menu.)</i>',
+								'callback': function(value) { if(value){changelocation();} else { vex.dialog.alert('Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)'); } }
+							});
+					};
+					
 				}
 			});
 			
@@ -176,7 +193,9 @@ $(function() {
 		}
 	}
 	
-
+	function changelocation() {
+		alert('change location function');
+	}
 	
 	
 		//Load Data Function - will send to process data function
@@ -370,41 +389,19 @@ $(function() {
 		if (history.length>1) { if (!backbtnshowing) { $('.back_btn').show();backbtnshowing=true; }; } else {$('.back_btn').hide();backbtnshowing=false;} //Contols the back btn
 	});*/
 	
-
 	$(document).on('pagebeforecreate', '[data-role="page"]', function(){   
-				alert('create panel'+$(this).attr("id"));
-				//alert('active page '+$.mobile.activePage.attr("id"));
 		$("#navpanel").clone().appendTo($(this));
 		$(this).find('#navpanel').panel();
-	  
-
 		$("#settings").clone().appendTo($(this));
 		$(this).find('#settings').panel();
-		
 	});
 	
 		$(document).on('click', '.navpannel_btn', function(){   
-			alert('active page '+$.mobile.activePage.attr("id"));
 			 $.mobile.activePage.find('#navpanel').panel("open");       
 		});
 		$(document).on('click', '.settingspannel_btn', function(){   
 			 $.mobile.activePage.find('#settings').panel("open");       
 		});  
-	
-	/*	$('div[data-role="page"]').each(function() {
-			$("#navpanel").clone().appendTo($(this));
-			$(this).find('#navpanel').panel();
-			
-			$("#settings").clone().appendTo($(this));
-			$(this).find('#settings').panel();
-		});
-	
-		$(document).on('click', '.navpannel_btn', function(){   
-			 $.mobile.activePage.find('#navpanel').panel("open");       
-		}); 
-		$(document).on('click', '.settingspannel_btn', function(){   
-			 $.mobile.activePage.find('#settings').panel("open");       
-		}); */
 	
 	/*var k=0
 	var speed = 250
@@ -458,7 +455,7 @@ $(function() {
     <li><a href="#pg_news">News</a></li>
     <li><a href="#pg_sports">Sports</a></li>
     <li><a href="#pg_weather">Weather</a></li>
-    <li><a href="#pg_radar">Interactive Radar</a></li>
+    <li><a href="#pg_radar">Radar</a></li>
     <li><a href="#pg_videomain">Video</a></li>
 </ul>
 
@@ -617,7 +614,7 @@ loaddata("weather","highlights","",1,1,"main_weatherhighlights");
 <div class="headerchild"></div>
 <div data-role="content">
 
-<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Interactive Radar</h3>
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Radar</h3>
 <div id="radarcontainer" style="width:98%;margin:5px auto;text-align:center;"><img src="img/220.GIF"></div>
 <!--<script>$(function() {
 setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcontainer").width()+'" scrolling="false" frameborder="0" height="320" name="1" src="http://wviimaps.accuweather.com/adc2004/common/includes/maptiles/maptiles-h.asp?zm=6&lat=44.80&lon=-88.50&w='+$("#radarcontainer").width()+'&h=320&css=018CCF|007FC0|018CCF|007FC0#"></iframe>'); },2000);
