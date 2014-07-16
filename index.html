@@ -242,9 +242,9 @@ $(function() {
 	}
 	function showlocationresults() {
 	alert('running showresults');
-	var contentstring = '<div is="vexlocationwindow" style="text-align:center;">Please choose your Home Location from the list below<br><ul data-role="listview" data-inset="true">';
+	var contentstring = '<div is="vexlocationwindow" style="text-align:center;">Please choose your Home Location from the list below<br><ul id="loclist" data-role="listview" data-inset="true">';
 	for (x=0;x<3;x++) {
-		contentstring += '<li><a href="javascript:confirmloc('+x+');">'+appsettings.homelocationsarray[x].record.place+', '+appsettings.homelocationsarray[x].record.state+' '+appsettings.homelocationsarray[x].record.zipcode+'</a></li>';
+		contentstring += '<li><a href="javascript:confirmloc('+x+');">'+decodeURIComponent(appsettings.homelocationsarray[x].record.place)+', '+appsettings.homelocationsarray[x].record.state+' '+appsettings.homelocationsarray[x].record.zipcode+'</a></li>';
 	};
 	contentstring += '</ul></div>';
 	
@@ -270,11 +270,12 @@ $(function() {
 					});
 				}})
 			]
-		});		
+		});
+		$("#loclist").listview();
 	}
-	function confirmloc(skuindex) {
+	window.confirmloc = function (skuindex) {
 		vex.dialog.confirm({
-			message: 'Set Home Location As '+appsettings.homelocationsarray[skuindex].record.place+', '+appsettings.homelocationsarray[skuindex].record.state+' '+appsettings.homelocationsarray[skuindex].record.zipcode+'?',
+			message: 'Set Home Location As '+decodeURIComponent(appsettings.homelocationsarray[skuindex].record.place)+', '+appsettings.homelocationsarray[skuindex].record.state+' '+appsettings.homelocationsarray[skuindex].record.zipcode+'?',
 			callback: function(value) {
 				if (value) {
 					appsettings.homelocation = appsettings.homelocationsarray[skuindex].record.zipcode;
