@@ -221,22 +221,22 @@ $(function() {
 			escapeButtonCloses: false,
 			overlayClosesOnClick: false
 		});
-		setTimeout(function() {
 		
-		alert('fetching position');
 		navigator.geolocation.getCurrentPosition(function(position){
-			alert('fetch success');
+			//alert('fetch success');
 			appsettings.mypos = position;
-			alert(position.coords.latitude +", "+position.coords.longitude);
+			//alert(appsettings.mypos.coords.latitude +", "+appsettings.mypos.coords.longitude);
+			vex.close(mywindow.data().vex.id);
+			showlocationresults();
 		},function (error) {
 			alert('fetch error');
 			alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
 		});
-		alert('done fetching');
-		alert(appsettings.mypos.coords.latitude +", "+appsettings.mypos.coords.longitude);
 		
-		},300);
-		
+	}
+	function showlocationresults() {
+		alert('gettinglocation');
+		alert(fetchzipdata(appsettings.mypos.coords.latitude,appsettings.mypos.coords.longitude));
 	}
 	function fetchzipdata(lat,lng) {
 		return $.getJSON("http://www.wjfw.com/appcontent/geodata/pollgeodata.html?q=bycoord&lat="+lat+"&lng="+lng+"&radius=25&maxrecords=20", function(data) {
