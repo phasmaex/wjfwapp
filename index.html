@@ -223,8 +223,12 @@ $(function() {
 		});
 		setTimeout(function() {
 		
-		var mypos = navigator.geolocation.getCurrentPosition(function(position){return position;});
-		alert(mypos.coords.latitude +", "+mypos.coords.longitude);
+		alert('fetings position');
+		navigator.geolocation.getCurrentPosition(function(position){
+			appsettings.mypos = position;
+		});
+		alert('done fetching');
+		alert(appsettings.mypos.coords.latitude +", "+appsettings.mypos.coords.longitude);
 		
 		},300);
 		
