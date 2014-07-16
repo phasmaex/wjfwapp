@@ -244,7 +244,7 @@ $(function() {
 	alert('running showresults');
 	var contentstring = '<div is="vexlocationwindow" style="text-align:center;">Please choose your Home Location from the list below<br><ul data-role="listview" data-inset="true">';
 	for (x=0;x<3;x++) {
-		contentstring += '<li><a href="javascript:confirmloc('+x+');">'+homelocationsarray[x].record.place+', '+homelocationsarray[x].record.state+' '+homelocationsarray[x].record.zipcode+'</a></li>';
+		contentstring += '<li><a href="javascript:confirmloc('+x+');">'+appsettings.homelocationsarray[x].record.place+', '+appsettings.homelocationsarray[x].record.state+' '+appsettings.homelocationsarray[x].record.zipcode+'</a></li>';
 	};
 	contentstring += '</ul></div>';
 	
@@ -252,15 +252,32 @@ $(function() {
 			content: contentstring,
 			showCloseButton: false,
 			escapeButtonCloses: false,
-			overlayClosesOnClick: false
+			overlayClosesOnClick: false,
+			buttons: [
+				 $.extend({}, vex.dialog.buttons.NO, { text: 'Cancel', click: function($vexContent, event) {
+					vex.close(popwindows.loclist.data().vex.id);
+					popwindows.loclist = "";
+					vex.dialog.open({
+						'message': 'Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)',
+						'input':'<input name="noshow" type="checkbox" value="noshow"> Don\'t show this message again',
+						'buttons': [ $.extend({}, vex.dialog.buttons.YES, { text: 'Ok'}) ],
+						'callback': function(data) {
+							if (data.noshow == "noshow") {
+								appsettings.asksethome = false;
+								savesettings("asksethome");
+							}
+						}
+					});
+				}})
+			]
 		});		
 	}
 	function confirmloc(skuindex) {
 		vex.dialog.confirm({
-			message: 'Set Home Location As '+homelocationsarray[skuindex].record.place+', '+homelocationsarray[skuindex].record.state+' '+homelocationsarray[skuindex].record.zipcode+'?',
+			message: 'Set Home Location As '+appsettings.homelocationsarray[skuindex].record.place+', '+appsettings.homelocationsarray[skuindex].record.state+' '+appsettings.homelocationsarray[skuindex].record.zipcode+'?',
 			callback: function(value) {
 				if (value) {
-					appsettings.homelocation = homelocationsarray[skuindex].record.zipcode;
+					appsettings.homelocation = appsettings.homelocationsarray[skuindex].record.zipcode;
 					savesettings(homelocation);
 					vex.close(popwindows.loclist.data().vex.id);
 					popwindows.loclist = ""; //clear window data
