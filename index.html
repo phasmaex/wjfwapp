@@ -216,16 +216,24 @@ $(function() {
 	function changelocation() {
 		//alert('change location function');
 		var mywindow = vex.open({
-			content: 'Fetching Location...<br><Br><img src="img/220.GIF">',
+			content: '<div is="vexlocationwindow" style="text-align:center;">Fetching Location...<br><Br><img src="img/220.GIF"></div>',
+			showCloseButton: false,
+			escapeButtonCloses: false,
+			overlayClosesOnClick: false,
 			afterOpen: function() {
-				setTimeout(function() { mywindow.content = "testing"; },1000);
-			},
-			afterClose: function() {
-				
+				var mypos = navigator.geolocation.getCurrentPosition(function(position){return position;});
+				alert(mypos.coords.latitude +", "+mypos.coords.longitude);
 			}
 		});
 		
 	}
+	function fetchzipdata(lat,lng) {
+		return $.getJSON("http://www.wjfw.com/appcontent/geodata/pollgeodata.html?q=bycoord&lat="+lat+"&lng="+lng+"&radius=25&maxrecords=20", function(data) {
+			appsettings.ziparray = data.returndata;
+			return true;
+		});
+	}
+	
 	function savesettings(setting) {
 		$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=savesettings&uuid="+deviceinfo.uuid+"&_"+setting+"="+eval("appsettings."+setting), function(data) {
 			console.log("save settings - "+data.returndata)
