@@ -244,8 +244,8 @@ $(function() {
 	//alert('running showresults');
 	var contentstring = '<div is="vexlocationwindow" style="text-align:center;">Please choose your Home Location from the list below<br><ul id="loclist" data-role="listview" data-inset="true">';
 	for (x=0;x<3;x++) {
-	alert(decodeURI(appsettings.homelocationsarray[x].record.place));
-		contentstring += '<li><a href="#" data-skuindex="'+x+'" class="loclistitem">'+decodeURI(appsettings.homelocationsarray[x].record.place)+', '+appsettings.homelocationsarray[x].record.state+' '+appsettings.homelocationsarray[x].record.zipcode+'</a></li>';
+	//alert(decodeURI(appsettings.homelocationsarray[x].record.place));
+		contentstring += '<li data-skuindex="'+x+'" class="loclistitem">'+decodeURI(appsettings.homelocationsarray[x].record.place)+', '+appsettings.homelocationsarray[x].record.state+' '+appsettings.homelocationsarray[x].record.zipcode+'</li>';
 	};
 	contentstring += '</ul></div>';
 	
@@ -255,7 +255,7 @@ $(function() {
 		$("#loclist").listview();
 		$(document).on("click",".loclistitem", function() {
 			var mydatasku = $(this).data("skuindex");
-			alert(mydatasku);
+			//alert(mydatasku);
 			confirmloc(mydatasku);
 		});
 	}
