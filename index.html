@@ -223,9 +223,14 @@ $(function() {
 		});
 		setTimeout(function() {
 		
-		alert('fetings position');
+		alert('fetching position');
 		navigator.geolocation.getCurrentPosition(function(position){
+			alert('fetch success');
 			appsettings.mypos = position;
+			alert(position.coords.latitude +", "+position.coords.longitude);
+		},function (error) {
+			alert('fetch error');
+			alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
 		});
 		alert('done fetching');
 		alert(appsettings.mypos.coords.latitude +", "+appsettings.mypos.coords.longitude);
