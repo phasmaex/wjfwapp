@@ -241,7 +241,7 @@ $(function() {
 		
 	}
 	function showlocationresults() {
-	alert('running showresults');
+	//alert('running showresults');
 	var contentstring = '<div is="vexlocationwindow" style="text-align:center;">Please choose your Home Location from the list below<br><ul id="loclist" data-role="listview" data-inset="true">';
 	for (x=0;x<3;x++) {
 		contentstring += '<li><a href="#" data-skuindex="'+x+'" class="loclistitem">'+decodeURIComponent(appsettings.homelocationsarray[x].record.place)+', '+appsettings.homelocationsarray[x].record.state+' '+appsettings.homelocationsarray[x].record.zipcode+'</a></li>';
@@ -251,7 +251,7 @@ $(function() {
 	popwindows.loclistdata = contentstring;
 	
 		loclistwindowopen();
-		$("#loclist").listview();
+		$("#loclist").listview("refresh");
 		$(document).on("click",".loclistitem", function() {
 			var mydatasku = $(this).data("skuindex");
 			confirmloc(mydatasku);
