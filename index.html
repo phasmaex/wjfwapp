@@ -287,7 +287,7 @@ $(function() {
 	function confirmloc(skuindex) {
 	vex.close(popwindows.loclist.data().vex.id);
 		vex.dialog.confirm({
-			message: 'Set Home Location As '+decodeURIComponent(appsettings.homelocationsarray[skuindex].record.place)+', '+appsettings.homelocationsarray[skuindex].record.state+' '+appsettings.homelocationsarray[skuindex].record.zipcode+'?',
+			message: 'Set Home Location As '+decodeURI(appsettings.homelocationsarray[skuindex].record.place)+', '+appsettings.homelocationsarray[skuindex].record.state+' '+appsettings.homelocationsarray[skuindex].record.zipcode+'?',
 			callback: function(value) {
 				if (value) {
 					appsettings.homelocation = appsettings.homelocationsarray[skuindex].record.zipcode;
