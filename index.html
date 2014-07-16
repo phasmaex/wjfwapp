@@ -241,11 +241,12 @@ $(function() {
 		
 	}
 	function showlocationresults() {
+	alert('running showresults');
 	var contentstring = '<div is="vexlocationwindow" style="text-align:center;">Please choose your Home Location from the list below<br><ul data-role="listview" data-inset="true">';
 	for (x=0;x<3;x++) {
 		contentstring += '<li><a href="javascript:confirmloc('+x+');">'+homelocationsarray[x].record.place+', '+homelocationsarray[x].record.state+' '+homelocationsarray[x].record.zipcode+'</a></li>';
-	}
-	contentstring += '</ul></div>'
+	};
+	contentstring += '</ul></div>';
 	
 		popwindows.loclist = vex.open({
 			content: contentstring,
@@ -269,10 +270,7 @@ $(function() {
 					});
 				}})
 			]
-		});
-		
-
-		
+		});		
 	}
 	function confirmloc(skuindex) {
 		vex.dialog.confirm({
