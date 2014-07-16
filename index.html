@@ -219,12 +219,14 @@ $(function() {
 			content: '<div is="vexlocationwindow" style="text-align:center;">Fetching Location...<br><Br><img src="img/220.GIF"></div>',
 			showCloseButton: false,
 			escapeButtonCloses: false,
-			overlayClosesOnClick: false,
-			afterOpen: function() {
-				var mypos = navigator.geolocation.getCurrentPosition(function(position){return position;});
-				alert(mypos.coords.latitude +", "+mypos.coords.longitude);
-			}
+			overlayClosesOnClick: false
 		});
+		setTimeout(function() {
+		
+		var mypos = navigator.geolocation.getCurrentPosition(function(position){return position;});
+		alert(mypos.coords.latitude +", "+mypos.coords.longitude);
+		
+		},300);
 		
 	}
 	function fetchzipdata(lat,lng) {
