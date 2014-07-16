@@ -252,24 +252,7 @@ $(function() {
 			content: contentstring,
 			showCloseButton: false,
 			escapeButtonCloses: false,
-			overlayClosesOnClick: false,
-			buttons: [
-				 $.extend({}, vex.dialog.buttons.NO, { text: 'Cancel', click: function($vexContent, event) {
-					vex.close(popwindows.loclist.data().vex.id);
-					popwindows.loclist = "";
-					vex.dialog.open({
-						'message': 'Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)',
-						'input':'<input name="noshow" type="checkbox" value="noshow"> Don\'t show this message again',
-						'buttons': [ $.extend({}, vex.dialog.buttons.YES, { text: 'Ok'}) ],
-						'callback': function(data) {
-							if (data.noshow == "noshow") {
-								appsettings.asksethome = false;
-								savesettings("asksethome");
-							}
-						}
-					});
-				}})
-			]
+			overlayClosesOnClick: false
 		});		
 	}
 	function confirmloc(skuindex) {
