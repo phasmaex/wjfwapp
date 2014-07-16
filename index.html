@@ -57,6 +57,7 @@ $(function() {
 	var appsettings = new Object();
 	var deviceinfo = new Object();
 	var datatream = new Object();
+	var popwindows = new Object();
 	
 	
 	function initapp() {
@@ -226,23 +227,69 @@ $(function() {
 			//alert('fetch success');
 			appsettings.mypos = position;
 			//alert(appsettings.mypos.coords.latitude +", "+appsettings.mypos.coords.longitude);
-			vex.close(mywindow.data().vex.id);
-			showlocationresults();
+			
+			var loc_jhxr = fetchzipdata(appsettings.mypos.coords.latitude,appsettings.mypos.coords.longitude);
+			loc_jhxr.done(function(data) {
+				appsettings.homelocationsarray = data.returndata;
+				vex.close(mywindow.data().vex.id);
+				showlocationresults();
+			});
 		},function (error) {
-			alert('fetch error');
-			alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
+			vex.close(mywindow.data().vex.id);
+			vex.dialog.alert('There was an error retrieving your location.<br><br><i>Error Message: Code '+error.code+' - '+error.message);
 		});
 		
 	}
 	function showlocationresults() {
-		alert('gettinglocation');
-		alert(fetchzipdata(appsettings.mypos.coords.latitude,appsettings.mypos.coords.longitude));
+	var contentstring = '<div is="vexlocationwindow" style="text-align:center;">Please choose your Home Location from the list below<br><ul data-role="listview" data-inset="true">';
+	for (x=0;x<3;x++) {
+		contentstring += '<li><a href="javascript:confirmloc('+x+');">'+homelocationsarray[x].record.place+', '+homelocationsarray[x].record.state+' '+homelocationsarray[x].record.zipcode+'</a></li>';
+	}
+	contentstring += '</ul></div>'
+	
+		popwindows.loclist = vex.open({
+			content: contentstring,
+			showCloseButton: false,
+			escapeButtonCloses: false,
+			overlayClosesOnClick: false,
+			buttons: [
+				 $.extend({}, vex.dialog.buttons.NO, { text: 'Cancel', click: function($vexContent, event) {
+					vex.close(popwindows.loclist.data().vex.id);
+					popwindows.loclist = "";
+					vex.dialog.open({
+						'message': 'Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)',
+						'input':'<input name="noshow" type="checkbox" value="noshow"> Don\'t show this message again',
+						'buttons': [ $.extend({}, vex.dialog.buttons.YES, { text: 'Ok'}) ],
+						'callback': function(data) {
+							if (data.noshow == "noshow") {
+								appsettings.asksethome = false;
+								savesettings("asksethome");
+							}
+						}
+					});
+				}})
+			]
+		});
+		
+
+		
+	}
+	function confirmloc(skuindex) {
+		vex.dialog.confirm({
+			message: 'Set Home Location As '+homelocationsarray[skuindex].record.place+', '+homelocationsarray[skuindex].record.state+' '+homelocationsarray[skuindex].record.zipcode+'?',
+			callback: function(value) {
+				if (value) {
+					appsettings.homelocation = homelocationsarray[skuindex].record.zipcode;
+					savesettings(homelocation);
+					vex.close(popwindows.loclist.data().vex.id);
+					popwindows.loclist = ""; //clear window data
+					vex.dialog.alert('Home Location Set!<br><i>(Remember you can always change it later from the settings menu.)</i>');
+				}
+			}
+		});
 	}
 	function fetchzipdata(lat,lng) {
-		return $.getJSON("http://www.wjfw.com/appcontent/geodata/pollgeodata.html?q=bycoord&lat="+lat+"&lng="+lng+"&radius=25&maxrecords=20", function(data) {
-			appsettings.ziparray = data.returndata;
-			return true;
-		});
+		return $.getJSON("http://www.wjfw.com/appcontent/geodata/pollgeodata.html?q=bycoord&lat="+lat+"&lng="+lng+"&radius=25&maxrecords=20");
 	}
 	
 	function savesettings(setting) {
