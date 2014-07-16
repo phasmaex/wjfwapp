@@ -244,45 +244,57 @@ $(function() {
 	alert('running showresults');
 	var contentstring = '<div is="vexlocationwindow" style="text-align:center;">Please choose your Home Location from the list below<br><ul id="loclist" data-role="listview" data-inset="true">';
 	for (x=0;x<3;x++) {
-		contentstring += '<li><a href="javascript:confirmloc('+x+');">'+decodeURIComponent(appsettings.homelocationsarray[x].record.place)+', '+appsettings.homelocationsarray[x].record.state+' '+appsettings.homelocationsarray[x].record.zipcode+'</a></li>';
+		contentstring += '<li><a href="#" data-skuindex="'+x+'" class="loclistitem">'+decodeURIComponent(appsettings.homelocationsarray[x].record.place)+', '+appsettings.homelocationsarray[x].record.state+' '+appsettings.homelocationsarray[x].record.zipcode+'</a></li>';
 	};
 	contentstring += '</ul></div>';
 	
-		popwindows.loclist = vex.open({
-			content: contentstring,
-			showCloseButton: false,
-			escapeButtonCloses: false,
-			overlayClosesOnClick: false,
-			buttons: [
-				 $.extend({}, vex.dialog.buttons.NO, { text: 'Cancel', click: function($vexContent, event) {
-					vex.close(popwindows.loclist.data().vex.id);
-					popwindows.loclist = "";
-					vex.dialog.open({
-						'message': 'Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)',
-						'input':'<input name="noshow" type="checkbox" value="noshow"> Don\'t show this message again',
-						'buttons': [ $.extend({}, vex.dialog.buttons.YES, { text: 'Ok'}) ],
-						'callback': function(data) {
-							if (data.noshow == "noshow") {
-								appsettings.asksethome = false;
-								savesettings("asksethome");
-							}
-						}
-					});
-				}})
-			]
-		});
+	popwindows.loclistdata = contentstring;
+	
+		loclistwindowopen();
 		$("#loclist").listview();
+		$(document).on("click",".loclistitem", function() {
+			var mydatasku = $(this).data("skuindex");
+			confirmloc(mydatasku);
+		});
 	}
-	window.confirmloc = function (skuindex) {
+	function loclistwindowopen() {
+		popwindows.loclist = vex.open({
+				content: popwindows.loclistdata,
+				showCloseButton: false,
+				escapeButtonCloses: false,
+				overlayClosesOnClick: false,
+				buttons: [
+					 $.extend({}, vex.dialog.buttons.NO, { text: 'Cancel', click: function($vexContent, event) {
+						vex.close(popwindows.loclist.data().vex.id);
+						popwindows.loclist = "";
+						vex.dialog.open({
+							'message': 'Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)',
+							'input':'<input name="noshow" type="checkbox" value="noshow"> Don\'t show this message again',
+							'buttons': [ $.extend({}, vex.dialog.buttons.YES, { text: 'Ok'}) ],
+							'callback': function(data) {
+								if (data.noshow == "noshow") {
+									appsettings.asksethome = false;
+									savesettings("asksethome");
+								}
+							}
+						});
+					}})
+				]
+			});
+	}
+	function confirmloc(skuindex) {
+	vex.close(popwindows.loclist.data().vex.id);
 		vex.dialog.confirm({
 			message: 'Set Home Location As '+decodeURIComponent(appsettings.homelocationsarray[skuindex].record.place)+', '+appsettings.homelocationsarray[skuindex].record.state+' '+appsettings.homelocationsarray[skuindex].record.zipcode+'?',
 			callback: function(value) {
 				if (value) {
 					appsettings.homelocation = appsettings.homelocationsarray[skuindex].record.zipcode;
 					savesettings(homelocation);
-					vex.close(popwindows.loclist.data().vex.id);
 					popwindows.loclist = ""; //clear window data
 					vex.dialog.alert('Home Location Set!<br><i>(Remember you can always change it later from the settings menu.)</i>');
+				}
+				else {
+					loclistwindowopen();
 				}
 			}
 		});
