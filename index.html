@@ -148,9 +148,9 @@ $(function() {
 					appsettings.homelocation = data.returndata.homelocation;
 					appsettings.asksethome = data.returndata.asksethome;
 					//alert(appsettings.homelocation);
-					alert(appsettings.asksethome);
+					//alert(appsettings.asksethome);
 					console.log("found registered user");
-					if ((appsettings.homelocation == "")&&(appsettings.asksethome)) {
+					if ((appsettings.homelocation == "")&&(appsettings.asksethome == "true")) {
 						setTimeout(function() {
 							vex.dialog.confirm({
 								'message': 'We\'ve noticed you haven\'t set your Home Location yet. Would you like to do this now?<br><i>(You can always do this later from the settings menu.)</i>',
@@ -295,8 +295,8 @@ $(function() {
 		});
 	}
 	function loclistwindowopen() {
-		popwindows.loclist = vex.open({
-				content: popwindows.loclistdata,
+		popwindows.loclist = vex.dialog.open({
+				message: popwindows.loclistdata,
 				showCloseButton: false,
 				escapeButtonCloses: false,
 				overlayClosesOnClick: false,
