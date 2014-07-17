@@ -43,6 +43,27 @@
 		  /* Move the controls into the space below the player. */
 		  bottom: -30px;
 		}
+		
+		.btnbg_blue {
+			background: rgb(79,133,187);
+			background: -moz-linear-gradient(top, rgba(79,133,187,1) 0%, rgba(34,107,181,1) 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(79,133,187,1)), color-stop(100%,rgba(34,107,181,1)));
+			background: -webkit-linear-gradient(top, rgba(79,133,187,1) 0%,rgba(34,107,181,1) 100%);
+			background: -o-linear-gradient(top, rgba(79,133,187,1) 0%,rgba(34,107,181,1) 100%);
+			background: -ms-linear-gradient(top, rgba(79,133,187,1) 0%,rgba(34,107,181,1) 100%);
+			background: linear-gradient(to bottom, rgba(79,133,187,1) 0%,rgba(34,107,181,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4f85bb', endColorstr='#226bb5',GradientType=0 );
+		}
+		.loclistitem {
+			width:100%;
+			border:1px solid #333333;
+			border-radius:7px;
+			margin:3px 0px;
+			color: #FFFFFF;
+			font-size:18px;
+			font-weight:bold;
+			text-align:center;
+		}
 	</style>
 	
 	
@@ -242,17 +263,17 @@ $(function() {
 	}
 	function showlocationresults() {
 	//alert('running showresults');
-	var contentstring = '<div is="vexlocationwindow" style="text-align:center;">Please choose your Home Location from the list below<br><ul id="loclist" data-role="listview" data-inset="true">';
+	var contentstring = '<div is="vexlocationwindow" style="text-align:center;">Please choose your Home Location from the list below<br><table width="90%"><tr><td>';
 	for (x=0;x<3;x++) {
 	//alert(decodeURI(appsettings.homelocationsarray[x].record.place));
-		contentstring += '<li data-skuindex="'+x+'" class="loclistitem">'+decodeURI(appsettings.homelocationsarray[x].record.place)+', '+appsettings.homelocationsarray[x].record.state+' '+appsettings.homelocationsarray[x].record.zipcode+'</li>';
+		contentstring += '<div data-skuindex="'+x+'" class="loclistitem btnbg_blue">'+decodeURI(appsettings.homelocationsarray[x].record.place)+', '+appsettings.homelocationsarray[x].record.state+' '+appsettings.homelocationsarray[x].record.zipcode+'</div>';
 	};
-	contentstring += '</ul></div>';
+	contentstring += '</td></tr></table></div>';
 	
 	popwindows.loclistdata = contentstring;
 	
 		loclistwindowopen();
-		$("#loclist").listview();
+		
 		$(document).on("click",".loclistitem", function() {
 			var mydatasku = $(this).data("skuindex");
 			//alert(mydatasku);
@@ -297,7 +318,6 @@ $(function() {
 				}
 				else {
 					loclistwindowopen();
-					//$("#loclist").listview("refresh");
 				}
 			}
 		});
