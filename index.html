@@ -147,6 +147,7 @@ $(function() {
 					appsettings.isreg = true;
 					appsettings.homelocation = data.returndata.homelocation;
 					appsettings.asksethome = data.returndata.asksethome;
+					alert(appsettings.homelocation);
 					console.log("found registered user");
 					if ((appsettings.homelocation == "")&&(appsettings.asksethome)) {
 						setTimeout(function() {
