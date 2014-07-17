@@ -341,6 +341,7 @@ $(function() {
 	}
 	
 	function savesettings(setting) {
+		alert("http://www.wjfw.com/appcontent/appreg.html?q=savesettings&uuid="+deviceinfo.uuid+"&_"+setting+"="+eval("appsettings."+setting));
 		$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=savesettings&uuid="+deviceinfo.uuid+"&_"+setting+"="+eval("appsettings."+setting), function(data) {
 			console.log("save settings - "+data.returndata)
 		}); 
