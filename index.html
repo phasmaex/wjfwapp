@@ -285,8 +285,8 @@ $(function() {
 		loclistwindowopen();
 		
 		$(document).on("click",".loclistitem", function() {
-			$(this).addclass("btnbg_blueclick");
-			setTimeout(function() { $(this).removeclass("btnbg_blueclick"); },800);
+			$(this).addClass("btnbg_blueclick").removeClass("btnbg_blue");
+			setTimeout(function() { $(this).removeClass("btnbg_blueclick").addClass("btnbg_blue"); },800);
 			var mydatasku = $(this).data("skuindex");
 			//alert(mydatasku);
 			confirmloc(mydatasku);
