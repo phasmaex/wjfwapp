@@ -147,7 +147,8 @@ $(function() {
 					appsettings.isreg = true;
 					appsettings.homelocation = data.returndata.homelocation;
 					appsettings.asksethome = data.returndata.asksethome;
-					alert(appsettings.homelocation);
+					//alert(appsettings.homelocation);
+					alert(appsettings.asksethome);
 					console.log("found registered user");
 					if ((appsettings.homelocation == "")&&(appsettings.asksethome)) {
 						setTimeout(function() {
@@ -300,7 +301,7 @@ $(function() {
 				escapeButtonCloses: false,
 				overlayClosesOnClick: false,
 				buttons: [
-					 $.extend({}, vex.dialog.buttons.NO, { text: 'Cancel', click: function($vexContent, event) {
+					 $.extend({}, vex.dialog.buttons.NO, { click: function($vexContent, event) {
 						vex.close(popwindows.loclist.data().vex.id);
 						popwindows.loclist = "";
 						vex.dialog.open({
@@ -341,7 +342,7 @@ $(function() {
 	}
 	
 	function savesettings(setting) {
-		alert("http://www.wjfw.com/appcontent/appreg.html?q=savesettings&uuid="+deviceinfo.uuid+"&_"+setting+"="+eval("appsettings."+setting));
+		//alert("http://www.wjfw.com/appcontent/appreg.html?q=savesettings&uuid="+deviceinfo.uuid+"&_"+setting+"="+eval("appsettings."+setting));
 		$.getJSON("http://www.wjfw.com/appcontent/appreg.html?q=savesettings&uuid="+deviceinfo.uuid+"&_"+setting+"="+eval("appsettings."+setting), function(data) {
 			console.log("save settings - "+data.returndata)
 		}); 
@@ -614,7 +615,7 @@ $(function() {
 <ul data-role="listview">
 
 	<li data-role="list-divider">Settings</li>
-    <li><a href="#">Change Location</a></li>
+    <li><a href="#">Change Home Location</a></li>
     <li><a href="#">Notifications</a></li>
 	<li><a href="#">Contact Us</a></li>
 </ul>
