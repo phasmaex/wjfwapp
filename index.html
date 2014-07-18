@@ -172,6 +172,9 @@ $(function() {
 								}
 							});
 						},700);
+					}
+					else {
+						getcurtemperature();
 					};
 					
 				}
@@ -330,6 +333,7 @@ $(function() {
 					savesettings("homelocation");
 					popwindows.loclist = ""; //clear window data
 					vex.dialog.alert('Home Location Set!<br><i>(Remember you can always change it later from the settings menu.)</i>');
+					getcurtemperature();
 				}
 				else {
 					loclistwindowopen();
