@@ -354,19 +354,23 @@ $(function() {
 	
 	function getcurtemperature() {
 		alert('get temp');
-		var content = "";
+		var weathertempcontent = "";
+		alert(appsettings.homelocation);
 		if (appsettings.homelocation == "") {
-			content = "Please set up your Home Location to use this feature.";
-			$("#main_curweather").html(content);
+			alert("no go");
+			weathertempcontent = "Please set up your Home Location to use this feature.";
+			$("#main_curweather").html(weathertempcontent);
 		}
 		else {
+			alert("fetching content");
 			$.getJSON("http://wjfw.com/appcontent/apploaddata.html?loaddatatype=curweather&q="+appsettings.homelocation, function(data) {
 				//console.log("save settings - "+data.returndata)
+				alert(data.returndata);
 				appsettings.homelocationweather = data.returndata;
 				
-				content += "Current Temperature for <b>: <span style='font-size:20px;font-weight:bold;'>"+data.returndata.temperature+"&deg;</span><br>";
-				content += "<i>RealFeel "+data.returndata.realfeel+"&deg;</i><br>Windspeed "+data.returndata.windspeed+"mph "+data.returndata.winddirection+"<br>";
-				$("#main_curweather").html(content);
+				weathertempcontent += "Current Temperature for <b>: <span style='font-size:20px;font-weight:bold;'>"+data.returndata.temperature+"&deg;</span><br>";
+				weathertempcontent += "<i>RealFeel "+data.returndata.realfeel+"&deg;</i><br>Windspeed "+data.returndata.windspeed+"mph "+data.returndata.winddirection+"<br>";
+				$("#main_curweather").html(weathertempcontent);
 			});
 		}
 	}
