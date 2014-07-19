@@ -363,7 +363,7 @@ $(function() {
 		}
 		else {
 			alert("fetching content");
-			$.getJSON("http://wjfw.com/appcontent/apploaddata.html?loaddatatype=curweather&q="+appsettings.homelocation, function(data) {
+			$.getJSON("http://www.wjfw.com/appcontent/apploaddata.html?loaddatatype=curweather&q="+appsettings.homelocation, function(data) {
 				//console.log("save settings - "+data.returndata)
 				alert(data.returndata);
 				appsettings.homelocationweather = data.returndata;
