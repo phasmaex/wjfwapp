@@ -371,6 +371,9 @@ $(function() {
 				weathertempcontent += "Current Temperature for <b>: <span style='font-size:20px;font-weight:bold;'>"+data.returndata.temperature+"&deg;</span><br>";
 				weathertempcontent += "<i>RealFeel "+data.returndata.realfeel+"&deg;</i><br>Windspeed "+data.returndata.windspeed+"mph "+data.returndata.winddirection+"<br>";
 				$("#main_curweather").html(weathertempcontent);
+			}).fail(function(jqxhr,textstatus,error){
+				var err = textstatus + ", " + error;
+				alert("Request Failed: "+err);
 			});
 		}
 	}
