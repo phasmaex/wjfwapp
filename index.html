@@ -353,27 +353,31 @@ $(function() {
 	}
 	
 	function getcurtemperature() {
-		alert('get temp');
+		console.log('get temp');
 		var weathertempcontent = "";
-		alert(appsettings.homelocation);
+		//alert(appsettings.homelocation);
 		if (appsettings.homelocation == "") {
-			alert("no go");
-			weathertempcontent = "Please set up your Home Location to use this feature.";
+			console.log("no go");
+			weathertempcontent = "<div style='width:100%;text-align:center;font-weight:bold;font-size:18px;'>Please set up your Home Location to use this feature.</div>";
 			$("#main_curweather").html(weathertempcontent);
+			$("#weather_curweather").html(weathertempcontent);
 		}
 		else {
-			alert("fetching content");
+			console.log("fetching content");
 			$.getJSON("http://www.wjfw.com/appcontent/apploaddata.html?loaddatatype=curweather&q="+appsettings.homelocation, function(data) {
-				//console.log("save settings - "+data.returndata)
-				alert(data.returndata);
 				appsettings.homelocationweather = data.returndata;
-				
-				weathertempcontent += "Current Temperature for <b>: <span style='font-size:20px;font-weight:bold;'>"+data.returndata.temperature+"&deg;</span><br>";
-				weathertempcontent += "<i>RealFeel "+data.returndata.realfeel+"&deg;</i><br>Windspeed "+data.returndata.windspeed+"mph "+data.returndata.winddirection+"<br>";
+				weathertempcontent += "Current Temperature for <b>"+data.returndata.city+" <i>("+appsettings.homelocation+")</i></b>:<br>";
+				weathertempcontent += "<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=weather/icons/"+data.returndata.weathericon+".png&setres="+appsettings.imgcompressionratio+"' style='float:left;margin-right:5px;'>";
+				weathertempcontent += "<span style='font-size:20px;font-weight:bold;'>"+data.returndata.temperature+"&deg;</span><br>";
+				weathertempcontent += "<i>RealFeel "+data.returndata.realfeel+"&deg;</i><br style='clear:both;'>Windspeed "+data.returndata.windspeed+"mph "+data.returndata.winddirection+"<br>";
 				$("#main_curweather").html(weathertempcontent);
+				$("#weather_curweather").html(weathertempcontent);
 			}).fail(function(jqxhr,textstatus,error){
 				var err = textstatus + ", " + error;
-				alert("Request Failed: "+err);
+				console.log("Request Failed: "+err);
+				weathertempcontent = "<div style='width:100%;text-align:center;font-weight:bold;font-size:18px;'>There was an error fetching weather data.</div>";
+				$("#main_curweather").html(weathertempcontent);
+				$("#weather_curweather").html(weathertempcontent);
 			});
 		}
 	}
@@ -769,7 +773,9 @@ loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBC
 
 <div class="headerchild"></div>
 <div data-role="content">
-
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Current Weather</h3>
+<div style="clear:both;height:8px;"></div>
+<div id="weather_curweather"></div>
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />7 Day Forcast</h3>
 <div id="7daycontainer">
 <script>$(function() { setTimeout(function(){writeimg("w_7days","#7daycontainer");},1000); });</script>
@@ -870,6 +876,26 @@ It seems you have no connection to the internet. Please connect your device to a
 </div>
 
 </div>
+
+<div data-role="page" id="pg_homelocationsettings">
+
+<div id="headercontainer" data-role="header" data-position="fixed" data-id="header">
+	<img src="img/logo_lrg.fw.png" style="position:absolute;top:-5px;left:0px;">
+</div>
+<div data-role="content">
+
+
+<h2 style="text-align:center;">Home Location Settings</h2>
+<div style="text-align:center;">
+Current Home Location: <span id="homelocationtext"></span><br>
+<br>
+<a class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini changelocationbtn'>Change Home Location</a>
+</div>
+
+</div>
+
+</div>
+
 
 </div>
 
