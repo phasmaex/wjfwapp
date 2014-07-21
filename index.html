@@ -603,15 +603,15 @@ $(function() {
 	var k=0;
 	var speed = 250;
 	var Pic = new Array();
-	Pic[0] = 'loadimage.php?orgsrc=/accuwx/radarwi1.png&setres="+appsettings.imgcompressionratio+"';
-	Pic[1] = 'loadimage.php?orgsrc=/accuwx/radarwi2.png&setres="+appsettings.imgcompressionratio+"';
-	Pic[2] = 'loadimage.php?orgsrc=/accuwx/radarwi3.png&setres="+appsettings.imgcompressionratio+"';
-	Pic[3] = 'loadimage.php?orgsrc=/accuwx/radarwi4.png&setres="+appsettings.imgcompressionratio+"';
-	Pic[4] = 'loadimage.php?orgsrc=/accuwx/radarwi5.png&setres="+appsettings.imgcompressionratio+"';
-	Pic[5] = 'loadimage.php?orgsrc=/accuwx/radarwi6.png&setres="+appsettings.imgcompressionratio+"';
-	Pic[6] = 'loadimage.php?orgsrc=/accuwx/radarwi7.png&setres="+appsettings.imgcompressionratio+"';
-	Pic[7] = 'loadimage.php?orgsrc=/accuwx/radarwi8.png&setres="+appsettings.imgcompressionratio+"';
-	Pic[8] = 'loadimage.php?orgsrc=/accuwx/radarwi9.png&setres="+appsettings.imgcompressionratio+"';
+	Pic[0] = 'loadimage.php?orgsrc=/accuwx/radarwi1.png&setres=100';
+	Pic[1] = 'loadimage.php?orgsrc=/accuwx/radarwi2.png&setres=100';
+	Pic[2] = 'loadimage.php?orgsrc=/accuwx/radarwi3.png&setres=100';
+	Pic[3] = 'loadimage.php?orgsrc=/accuwx/radarwi4.png&setres=100';
+	Pic[4] = 'loadimage.php?orgsrc=/accuwx/radarwi5.png&setres=100';
+	Pic[5] = 'loadimage.php?orgsrc=/accuwx/radarwi6.png&setres=100';
+	Pic[6] = 'loadimage.php?orgsrc=/accuwx/radarwi7.png&setres=100';
+	Pic[7] = 'loadimage.php?orgsrc=/accuwx/radarwi8.png&setres=100';
+	Pic[8] = 'loadimage.php?orgsrc=/accuwx/radarwi9.png&setres=100';
 
 	var url = "http://www.wjfw.com/appcontent/";
 	var t;
@@ -619,7 +619,7 @@ $(function() {
 	var p = Pic.length;
 	var preLoad = new Array();
 	
-	function runSlideShow(){
+	window.runSlideShow = function(){
 				   document.images.radarslides.src = preLoad[j].src;
 				   j = j + 1;
 				   if (j > (p-1) )  j = 0;
