@@ -59,9 +59,19 @@
 	<!-- Preference Options--->
 	<preference name="phonegap-version" value="3.3.0" /> 
 	<preference name="fullscreen" value="true" />
+	<gap:config-file platform="ios" parent="UISupportedInterfaceOrientations" overwrite="true">
+    <array>
+        <string>false</string>
+    </array>
+	</gap:config-file>
+	<gap:config-file platform="ios" parent="UIStatusBarHidden" overwrite="true">
+    <array>
+        <string>true</string>
+    </array>
+	</gap:config-file>
 	<!--iOS-->
 	<preference name="target-device" value="universal" /> 
-	<preference name="prerendered-icon" value="false" />
+	<preference name="prerendered-icon" value="true" />
 	<preference name="detect-data-types" value="false" />
 	<preference name="exit-on-suspend" value="false" />
 	<!--Android-->
@@ -81,7 +91,5 @@
 	<access origin="http://cloud.wjfw.com" />
 	<access origin="http://cdn.bimvid.com" />
 	<access origin="http://cdn.bimfs.com" />
-	<access origin="http://media.productionhub.com.s3.amazonaws.com" />
-<access origin="http://debug.build.phonegap.com" />
 	
 </widget>

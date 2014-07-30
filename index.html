@@ -371,6 +371,7 @@ $(function() {
 			weathertempcontent = "<div style='width:100%;text-align:center;font-weight:bold;font-size:18px;'>Please set up your Home Location to use this feature.</div>";
 			$("#main_curweather").html(weathertempcontent);
 			$("#weather_curweather").html(weathertempcontent);
+			$("#homelocationtext").html("<b>No Location Set</b>");
 		}
 		else {
 			console.log("fetching content");
@@ -382,12 +383,14 @@ $(function() {
 				weathertempcontent += "<i>RealFeel "+data.returndata.realfeel+"&deg;</i><br style='clear:both;'>Windspeed "+data.returndata.windspeed+"mph "+data.returndata.winddirection+"<br>";
 				$("#main_curweather").html(weathertempcontent);
 				$("#weather_curweather").html(weathertempcontent);
+				$("#homelocationtext").html("<b>"+data.returndata.city+" <i>("+appsettings.homelocation+")</i></b>");
 			}).fail(function(jqxhr,textstatus,error){
 				var err = textstatus + ", " + error;
 				console.log("Request Failed: "+err);
 				weathertempcontent = "<div style='width:100%;text-align:center;font-weight:bold;font-size:18px;'>There was an error fetching weather data.</div>";
 				$("#main_curweather").html(weathertempcontent);
 				$("#weather_curweather").html(weathertempcontent);
+				$("#homelocationtext").html("<b>"+appsettings.homelocation+"</b>");
 			});
 		}
 	}
@@ -459,7 +462,7 @@ $(function() {
 						var returncontent = "<div class='storydetailscontainer'><div class='title'>"+decodeURIComponent(datastream.returndata[0].record.STORYTITLE)+"</div>";
 						returncontent += "<div class='creditcontainer'>Submitted "+decodeURIComponent(datastream.returndata[0].record.STORYDATE)+"<br>Story By: "+decodeURIComponent(datastream.returndata[0].record.AUTHOR)+"</div>";
 						returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=Photos/"+datastream.returndata[0].record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
-						returncontent += "<div class='contentcontainer'><b>"+decodeURIComponent(datastream.returndata[0].record.LOCATION)+"</b> - "+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH1)+"<br>"+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH2)+"<br>"+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH3)+"</div>";
+						returncontent += "<div class='contentcontainer'><b>"+decodeURIComponent(datastream.returndata[0].record.LOCATION)+"</b> - "+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH1)+"<br>"+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH2)+"<br>"+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH3)+"</div><br><br>";
 						returncontent += "</div>"
 						$("#"+datastream.contentbox).html(returncontent);
 						break;
@@ -497,6 +500,10 @@ $(function() {
 		$.mobile.changePage("#pg_storydetails");
 		var passsku = $(this).data("passsku");
 		loaddata("stories","storydetails",encodeURIComponent("eqskudatarq="+passsku),1,1,"main_storydetails");
+	});
+	
+	$(document).on("click",".changelocationbtn", function() {
+		changelocation();
 	});
 	
 	$(document).on("click",".videobtn", function() {
