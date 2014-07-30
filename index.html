@@ -447,7 +447,7 @@ $(function() {
 							$.each(datastream.returndata, function(key,val) {
 								var dataobj = val;
 								if (parseInt(dataobj.index)%2) { returncontent += "<div class='rowcontainer'>"; };
-								returncontent += "<div class='item'>";
+								returncontent += "<div class='item readmorebtn' data-passsku='"+decodeURIComponent(dataobj.record.SKU)+"'>";
 								returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=Photos/"+dataobj.record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
 								returncontent += "<a  data-passsku='"+decodeURIComponent(dataobj.record.SKU)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini readmorebtn' style='float:right;'>Read More</a>";
 								returncontent += "<div class='title'>"+decodeURIComponent(dataobj.record.STORYTITLE)+"</div>";
@@ -625,7 +625,10 @@ $(function() {
 	var j = 0;
 	var p = Pic.length;
 	var preLoad = new Array();
-	
+	for (i = 0; i < p; i++){
+               preLoad[i] = new Image();
+               preLoad[i].src = url + Pic[i];
+	}
 	window.runSlideShow = function(){
 				   document.images.radarslides.src = preLoad[j].src;
 				   j = j + 1;
@@ -676,7 +679,7 @@ $(function() {
 <!--<a href="javascript:history.go(-1);" class="back_btn" style="position:fixed;left:5px;bottom:5px;" data-role="button" data-icon="back" data-mini="true" data-iconpos="left" data-iconpos="notext" data-theme="c" data-inline="true">Back</a>-->
 
 <div id="headercontainer" data-role="header" data-position="fixed" data-id="header">
-	<img src="img/logo_lrg.fw.png" style="position:absolute;top:-5px;left:0px;">
+	<a href="#pg_index"><img src="img/logo_lrg.fw.png" style="position:absolute;top:-5px;left:0px;border:0px;"></a>
 	<!--<img src="img/tempoverlay.fw.png" style="position:absolute;top:6px;right:150px;">-->
 	<div data-role="controlgroup" data-type="horizontal" data-mini="true" style="position:absolute;top:3px;right:10px;">
 	<a href="#pg_index" data-role="button" data-icon="home" data-iconpos="notext" data-inline="true" data-theme="b">Home</a>
