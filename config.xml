@@ -60,12 +60,21 @@
 	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
 	<gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
 	
+	<feature name="StatusBar">
+            <param name="ios-package" value="CDVStatusBar" onload="true" />
+        </feature>
+	
 	
 	<!-- Preference Options--->
 	<preference name="phonegap-version" value="3.3.0" /> 
 	<preference name="fullscreen" value="true" />
-	<preference name="StatusBarOverlaysWebView" value="false" />
 	<!--iOS-->
+	<gap:config-file platform="ios" parent="UIStatusBarHidden">
+		<true/>
+	</gap:config-file>
+	<gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance">
+		<false/>
+	</gap:config-file>
 	<preference name="target-device" value="universal" /> 
 	<preference name="prerendered-icon" value="true" />
 	<preference name="detect-data-types" value="false" />
