@@ -79,8 +79,8 @@
 	
 <script>
 $(function() {
-	setTimeout(function(){testconnection();},200);
-	setTimeout(function(){initapp();},500);
+	setTimeout(function(){testconnection();},600);
+	setTimeout(function(){initapp();},800);
 	
 	$("#appcontents").css("visibility","hidden");
 	
@@ -234,7 +234,7 @@ $(function() {
 			states[Connection.NONE]     = 'No network connection';
 
 			//console.log('Connection type: ' + states[networkState]);
-			alert('Connection type: ' + states[networkState]);
+			//alert('Connection type: ' + states[networkState]);
 			appsettings.connectionraw = networkState;
 			appsettings.connectiontype = states[networkState];
 		
