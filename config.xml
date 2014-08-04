@@ -54,20 +54,17 @@
 	<icon src="ico/xxhdpi.png" gap:platform="android" gap:qualifier="xxhdpi" />
 
 	
+		<!--Allow Plugins-->
+	<gap:plugin name="org.apache.cordova.device" version="0.2.8" />
+	<gap:plugin name="org.apache.cordova.network-information" version="0.2.7" />
+	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
+	<gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
 	
 	
 	<!-- Preference Options--->
 	<preference name="phonegap-version" value="3.3.0" /> 
 	<preference name="fullscreen" value="true" />
-	<gap:config-file platform="ios" parent="UISupportedInterfaceOrientations" overwrite="true">
-        <false/>
-	</gap:config-file>
-	<gap:config-file platform="ios" parent="UIStatusBarHidden" overwrite="true">
-		<true/>
-	</gap:config-file>
-	<gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance" overwrite="true">
-		<false/>
-	</gap:config-file>
+	<preference name="StatusBarOverlaysWebView" value="false" />
 	<!--iOS-->
 	<preference name="target-device" value="universal" /> 
 	<preference name="prerendered-icon" value="true" />
@@ -77,11 +74,6 @@
 	<preference name="android-minSdkVersion" value="10" />
 	<preference name="android-installLocation" value="internalOnly" />
 	<preference name="splash-screen-duration" value="3000"/>
-	
-	<!--Allow Plugins-->
-	<gap:plugin name="org.apache.cordova.device" version="0.2.8" />
-	<gap:plugin name="org.apache.cordova.network-information" version="0.2.7" />
-	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
 
 	
 	<!--WhiteList Access Commands-->
