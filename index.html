@@ -213,7 +213,7 @@ $(function() {
 			}
 			
 			runloop();
-		},500);
+		},1000);
 	};
 	
 	
@@ -507,6 +507,8 @@ $(function() {
 		changelocation();
 	});
 	
+	var videoplayer = null;
+	
 	$(document).on("click",".videobtn", function() {
 		console.log('running click event for video');
 		$.mobile.changePage("#pg_videoplayer");
@@ -527,7 +529,7 @@ $(function() {
 		
 		
 		
-		var videoplayer = new MediaElementPlayer('#player',{
+		videoplayer = new MediaElementPlayer('#player',{
 		AndroidUseNativeControls: false,
 		features: ['playpause','progress','current','duration','volume','fullscreen'],
 		alwaysShowControls: true,
@@ -596,6 +598,16 @@ $(function() {
 		$(this).find('#navpanel').panel();
 		$("#settings").clone().appendTo($(this));
 		$(this).find('#settings').panel();
+		
+		//pause video on page change if playing
+		console.log(videoplayer);
+		if (videoplayer != null) {
+			console.log(videoplayer.media.playing);
+			if (videoplayer.media.playing) {
+				videoplayer.media.pause();
+				console.log('video paused');
+			}
+		}
 	});
 	
 		$(document).on('click', '.navpannel_btn', function(){   
@@ -604,6 +616,9 @@ $(function() {
 		$(document).on('click', '.settingspannel_btn', function(){   
 			 $.mobile.activePage.find('#settings').panel("open");       
 		});  
+		
+		//hide back button on home page
+		$('#pg_index').find('.back_btn').hide();
 	
 	//loadimage.php?orgsrc=accuwx/radarwi.png&setres="+appsettings.imgcompressionratio+"
 	
@@ -611,25 +626,25 @@ $(function() {
 	var k=0;
 	var speed = 250;
 	var Pic = new Array();
-	Pic[0] = 'loadimage.php?orgsrc=/accuwx/radarwi1.png&setres=100';
-	Pic[1] = 'loadimage.php?orgsrc=/accuwx/radarwi2.png&setres=100';
-	Pic[2] = 'loadimage.php?orgsrc=/accuwx/radarwi3.png&setres=100';
-	Pic[3] = 'loadimage.php?orgsrc=/accuwx/radarwi4.png&setres=100';
-	Pic[4] = 'loadimage.php?orgsrc=/accuwx/radarwi5.png&setres=100';
-	Pic[5] = 'loadimage.php?orgsrc=/accuwx/radarwi6.png&setres=100';
-	Pic[6] = 'loadimage.php?orgsrc=/accuwx/radarwi7.png&setres=100';
-	Pic[7] = 'loadimage.php?orgsrc=/accuwx/radarwi8.png&setres=100';
-	Pic[8] = 'loadimage.php?orgsrc=/accuwx/radarwi9.png&setres=100';
+	Pic[0] = 'accuwx/radarwi1.png';
+	Pic[1] = 'accuwx/radarwi2.png';
+	Pic[2] = 'accuwx/radarwi3.png';
+	Pic[3] = 'accuwx/radarwi4.png';
+	Pic[4] = 'accuwx/radarwi5.png';
+	Pic[5] = 'accuwx/radarwi6.png';
+	Pic[6] = 'accuwx/radarwi7.png';
+	Pic[7] = 'accuwx/radarwi8.png';
+	Pic[8] = 'accuwx/radarwi9.png';
 
-	var url = "http://www.wjfw.com/appcontent/";
+	var url = "http://www.wjfw.com/";
 	var t;
 	var j = 0;
 	var p = Pic.length;
 	var preLoad = new Array();
-	for (i = 0; i < p; i++){
+	/*for (i = 0; i < p; i++){
                preLoad[i] = new Image();
                preLoad[i].src = url + Pic[i];
-	}
+	}*/
 	window.runSlideShow = function(){
 				   document.images.radarslides.src = preLoad[j].src;
 				   j = j + 1;
@@ -677,7 +692,7 @@ $(function() {
 
 <div id="pageheadercontent_master">
 
-<!--<a href="javascript:history.go(-1);" class="back_btn" style="position:fixed;left:5px;bottom:5px;" data-role="button" data-icon="back" data-mini="true" data-iconpos="left" data-iconpos="notext" data-theme="c" data-inline="true">Back</a>-->
+
 
 <div id="headercontainer" data-role="header" data-position="fixed" data-id="header">
 	<img src="img/logo_lrg.fw.png" style="position:absolute;top:-5px;left:0px;border:0px;">
@@ -687,6 +702,7 @@ $(function() {
 	<a href="#" class="settingspannel_btn" data-role="button" data-icon="gear" data-iconpos="notext" data-inline="true" data-theme="b">Settings</a>
 	<a href="#" class="navpannel_btn" data-role="button" data-icon="bars" data-iconpos="notext" data-inline="true" data-theme="b">Navigation</a>
 	</div>
+	<a href="javascript:history.go(-1);" class="back_btn" style="position:absolute;right:5px;top:55px;" data-role="button" data-icon="back" data-mini="true" data-iconpos="left" data-iconpos="notext" data-theme="c" data-inline="true">Back</a>
 </div>
 </div>
 <div data-role="content">
