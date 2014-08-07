@@ -80,7 +80,7 @@
 <script>
 $(function() {
 	setTimeout(function(){testconnection();},600);
-	setTimeout(function(){initapp();},800);
+	//setTimeout(function(){initapp();},800);
 	
 	$("#appcontents").css("visibility","hidden");
 	
@@ -89,6 +89,8 @@ $(function() {
 	var deviceinfo = new Object();
 	var datatream = new Object();
 	var popwindows = new Object();
+	
+	appsettings.myappversion = "1.0";
 	
 	
 	function initapp() {
@@ -248,12 +250,25 @@ $(function() {
 				break;
 		}
 	}
+	function checkupdate() {
+		$.getJSON("http://www.wjfw.com/appcontent/versioncheck.html", function(data) {
+			if (appsettings.myappversion == data.version) {
+				console.log("app up to date, proceed");
+				initapp();
+			}
+			else {
+				console.log("new version, fail");
+				$.mobile.changePage("#pg_update");
+			}
+		}
+	}
 
 
 	window.testconnection = function () {
 		appsettings.connectioncheck = checkconnection();
 		if (appsettings.connectioncheck) {
 			console.log('good connection, proceed');
+			checkupdate();
 		}
 		else {
 			console.log('bad connection, fail');
@@ -618,7 +633,7 @@ $(function() {
 		});  
 		
 		//hide back button on home page
-		$('#pg_index').find('.back_btn').hide();
+		//$('#pg_index').find('.back_btn').hide();
 	
 	//loadimage.php?orgsrc=accuwx/radarwi.png&setres="+appsettings.imgcompressionratio+"
 	
@@ -908,6 +923,23 @@ loaddata("videolist","","a248d92ab658bd6fc81a965e0e6af7939af56117",0,0,"videolis
 <h2 style="text-align:center;">We're Sorry :(</h2>
 <div style="text-align:center;">
 It seems you have no connection to the internet. Please connect your device to a wifi or cell data source to use the WJFW Mobile App.
+</div>
+
+</div>
+
+</div>
+
+<div data-role="page" id="pg_update">
+
+<div id="headercontainer" data-role="header" data-position="fixed" data-id="header">
+	<img src="img/logo_lrg.fw.png" style="position:absolute;top:-5px;left:0px;">
+</div>
+<div data-role="content">
+
+
+<h2 style="text-align:center;">New Version Available</h2>
+<div style="text-align:center;">
+It seems you do not have the current version of the WJFW Mobile App. Please update your app to the newest version to continue using the WJFW Mobile App.
 </div>
 
 </div>
