@@ -259,6 +259,8 @@ $(function() {
 			}
 			else {
 				console.log("new version, fail");
+				$("#appcontents").css("visibility","visible");
+				$("#initloadingspinner").css("visibility","hidden");
 				$.mobile.changePage("#pg_update");
 			}
 		});
@@ -273,6 +275,8 @@ $(function() {
 		}
 		else {
 			console.log('bad connection, fail');
+			$("#appcontents").css("visibility","visible");
+			$("#initloadingspinner").css("visibility","hidden");
 			$.mobile.changePage("#pg_noconnection");
 		}
 	}
