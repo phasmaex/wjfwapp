@@ -251,6 +251,7 @@ $(function() {
 		}
 	}
 	function checkupdate() {
+		console.log("checking for update");
 		$.getJSON("http://www.wjfw.com/appcontent/versioncheck.html", function(data) {
 			if (appsettings.myappversion == data.version) {
 				console.log("app up to date, proceed");
@@ -260,7 +261,7 @@ $(function() {
 				console.log("new version, fail");
 				$.mobile.changePage("#pg_update");
 			}
-		}
+		});
 	}
 
 
