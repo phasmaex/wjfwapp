@@ -94,7 +94,7 @@ $(function() {
 	
 	
 	function initapp() {
-		alert('app init');
+		
 		
 		$("#appcontents").css("visibility","visible");
 		$("#initloadingspinner").css("visibility","hidden");
@@ -252,9 +252,7 @@ $(function() {
 	}
 	function checkupdate() {
 		console.log("checking for update");
-		alert(appsettings.myappversion);
 		$.getJSON("http://www.wjfw.com/appcontent/versioncheck.html", function(data) {
-		alert(data.version);
 			if (appsettings.myappversion == data.version) {
 				console.log("app up to date, proceed");
 				initapp();
@@ -271,7 +269,6 @@ $(function() {
 		appsettings.connectioncheck = checkconnection();
 		if (appsettings.connectioncheck) {
 			console.log('good connection, proceed');
-			alert('test');
 			checkupdate();
 		}
 		else {
@@ -721,7 +718,7 @@ $(function() {
 	<a href="#" class="settingspannel_btn" data-role="button" data-icon="gear" data-iconpos="notext" data-inline="true" data-theme="b">Settings</a>
 	<a href="#" class="navpannel_btn" data-role="button" data-icon="bars" data-iconpos="notext" data-inline="true" data-theme="b">Navigation</a>
 	</div>
-	<a href="javascript:history.go(-1);" class="back_btn" style="position:absolute;right:5px;top:55px;" data-role="button" data-icon="back" data-mini="true" data-iconpos="left" data-iconpos="notext" data-theme="c" data-inline="true">Back</a>
+	<a href="javascript:history.go(-1);" class="back_btn" style="position:fixed;right:5px;top:55px;" data-role="button" data-icon="back" data-mini="true" data-iconpos="left" data-iconpos="notext" data-theme="c" data-inline="true">Back</a>
 </div>
 </div>
 <div data-role="content">
