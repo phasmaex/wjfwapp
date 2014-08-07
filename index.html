@@ -94,7 +94,7 @@ $(function() {
 	
 	
 	function initapp() {
-		
+		alert('app init');
 		
 		$("#appcontents").css("visibility","visible");
 		$("#initloadingspinner").css("visibility","hidden");
@@ -252,7 +252,9 @@ $(function() {
 	}
 	function checkupdate() {
 		console.log("checking for update");
+		alert(appsettings.myappversion);
 		$.getJSON("http://www.wjfw.com/appcontent/versioncheck.html", function(data) {
+		alert(data.version);
 			if (appsettings.myappversion == data.version) {
 				console.log("app up to date, proceed");
 				initapp();
@@ -269,6 +271,7 @@ $(function() {
 		appsettings.connectioncheck = checkconnection();
 		if (appsettings.connectioncheck) {
 			console.log('good connection, proceed');
+			alert('test');
 			checkupdate();
 		}
 		else {
