@@ -464,7 +464,7 @@ $(function() {
 						var returncontent = "<div class='topstorycontainer'><div class='title'>"+decodeURIComponent(datastream.returndata[0].record.STORYTITLE)+"</div>";
 						returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=Photos/"+datastream.returndata[0].record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
 						returncontent += "<div class='snippitcontainer'><b>"+decodeURIComponent(datastream.returndata[0].record.LOCATION)+"</b> - "+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH1)+"</div>";
-						returncontent += "<a data-passsku='"+decodeURIComponent(datastream.returndata[0].record.SKU)+"' class='ui-btn ui-btn-inline ui-icon-carat-r ui-btn-icon-right ui-mini readmorebtn'>Read More</a>"
+						returncontent += "<a data-passsku='"+decodeURIComponent(datastream.returndata[0].record.SKU)+"' class='ui-btn ui-btn-inline ui-icon-carat-r ui-btn-icon-right ui-corner-all ui-mini readmorebtn'>Read More</a>"
 						returncontent += "</div>"
 						$("#"+datastream.contentbox).html(returncontent);
 						break;
@@ -476,7 +476,7 @@ $(function() {
 								if (parseInt(dataobj.index)%2) { returncontent += "<div class='rowcontainer'>"; };
 								returncontent += "<div class='item readmorebtn' data-passsku='"+decodeURIComponent(dataobj.record.SKU)+"'>";
 								returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=Photos/"+dataobj.record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
-								returncontent += "<a  data-passsku='"+decodeURIComponent(dataobj.record.SKU)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini readmorebtn' style='float:right;'></a>";
+								returncontent += "<a  data-passsku='"+decodeURIComponent(dataobj.record.SKU)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-btn-icon-notext ui-corner-all ui-mini readmorebtn' style='float:right;'></a>";
 								returncontent += "<div class='title'>"+decodeURIComponent(dataobj.record.STORYTITLE)+"</div>";
 								returncontent += "</div>";
 								if (parseInt(dataobj.index)%2) { returncontent += "<div class='rowspacer'></div>"; } else { returncontent += "</div><div style='clear:both;'></div>"; };
@@ -512,7 +512,7 @@ $(function() {
 					
 					returncontent += "<div class='viditem'><b>"+decodeURIComponent(datastream.returndata[x].title)+"</b>";
 					returncontent += "<div class='photocontainer'><img src='http://cdn.bimvid.com/WJFW/"+decodeURIComponent(datastream.returndata[x].guid)+".jpg'></div>";
-					returncontent += "<a data-passsku='"+decodeURIComponent(datastream.returndata[x].guid)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a><span style='clear:both;'></span></div>";
+					returncontent += "<a data-passsku='"+decodeURIComponent(datastream.returndata[x].guid)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-corner-all ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a><span style='clear:both;'></span></div>";
 					$("#"+datastream.contentbox).html(returncontent);
 				}
 				break;
@@ -556,7 +556,9 @@ $(function() {
 		
 		
 		videoplayer = new MediaElementPlayer('#player',{
-		AndroidUseNativeControls: false,
+		AndroidUseNativeControls: true,
+		iPhoneUseNativeControls:true,
+		iPadUseNativeControls:true,
 		features: ['playpause','progress','current','duration','volume','fullscreen'],
 		alwaysShowControls: true,
 		success : function(mediaobj, domobj) {
@@ -728,7 +730,7 @@ $(function() {
 	<a href="#" class="settingspannel_btn" data-role="button" data-icon="gear" data-iconpos="notext" data-inline="true" data-theme="b">Settings</a>
 	<a href="#" class="navpannel_btn" data-role="button" data-icon="bars" data-iconpos="notext" data-inline="true" data-theme="b">Navigation</a>
 	</div>
-	<div style="position:absolute;right:5px;top:48px;"><a href="javascript:history.go(-1);" class="back_btn ui-btn ui-btn-inline ui-mini ui-icon-back ui-btn-icon-left">Back</a></div>
+	<div style="position:absolute;right:5px;top:44px;"><a href="javascript:history.go(-1);" class="back_btn ui-btn ui-btn-inline ui-mini ui-icon-back ui-btn-icon-left ui-corner-all">Back</a></div>
 </div>
 </div>
 <div data-role="content">
@@ -872,10 +874,13 @@ loaddata("weather","highlights","",1,1,"main_weatherhighlights");
 setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcontainer").width()+'" scrolling="false" frameborder="0" height="320" name="1" src="http://wviimaps.accuweather.com/adc2004/common/includes/maptiles/maptiles-h.asp?zm=6&lat=44.80&lon=-88.50&w='+$("#radarcontainer").width()+'&h=320&css=018CCF|007FC0|018CCF|007FC0#"></iframe>'); },2000);
 });</script>-->
 <script>$(function() {
-	setTimeout(function(){writeimg("w_radar","#radarcontainer");},1000);
-	$('.panzoom').panzoom({
-		contain:true,
-		minScale:1
+	setTimeout(function(){
+		writeimg("w_radar","#radarcontainer");
+		$('.panzoom').panzoom({
+			contain:true,
+			minScale:1
+		});
+	},1000);
 	});
  });</script>
 
