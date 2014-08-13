@@ -887,7 +887,7 @@ setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcon
 	setTimeout(function(){
 		writeimg("w_radar","#radarcontainer");
 		$('.panzoom').panzoom({
-			contain:true,
+			contain:'invert',
 			minScale:1
 		});
 	},1000);
