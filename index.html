@@ -139,7 +139,7 @@ $(function() {
 							setTimeout(function() {
 								vex.dialog.confirm({
 									'message': '<b>Welcome!</b><br>We\'ve noticed this is your first time using the WJFW Mobile App. Would you like to set up your Home Location now?<br><i>(You can always do this later from the settings menu.)</i>',
-									'callback': function(value) { if(value){changelocation();} else { vex.dialog.alert('Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)'); } }
+									'callback': function(value) { if(value){changelocation();} else { vex.dialog.alert('Ok. We\'ll set up your Home Location later. At any time you can set/change your Home Location from the settings menu. (The gear icon in the top right of your screen)'); 									temperaturenogo(); } }
 								});
 							},700);
 						}
@@ -171,6 +171,7 @@ $(function() {
 													appsettings.asksethome = false;
 													savesettings("asksethome");
 												}
+												temperaturenogo();
 											}
 										});
 									}
@@ -310,6 +311,7 @@ $(function() {
 		},function (error) {
 			vex.close(mywindow.data().vex.id);
 			vex.dialog.alert('There was an error retrieving your location.<br><br><i>Error Message: Code '+error.code+' - '+error.message);
+			temperaturenogo();
 		});
 		
 	}
@@ -353,6 +355,7 @@ $(function() {
 									appsettings.asksethome = false;
 									savesettings("asksethome");
 								}
+								temperaturenogo();
 							}
 						});
 					}})
@@ -389,16 +392,23 @@ $(function() {
 		}); 
 	}
 	
+	function temperaturenogo() {
+		if (appsettings.homelocation == "") {
+			var weathertempcontent = "<div style='width:100%;text-align:center;font-weight:bold;font-size:18px;'>Please set up your Home Location to use this feature.</div>";
+			$("#main_curweather").html(weathertempcontent);
+			$("#weather_curweather").html(weathertempcontent);
+			$("#homelocationtext").html("<b>No Location Set</b>");
+		}
+		else { getcurtemperature(); }
+	}
+	
 	function getcurtemperature() {
 		console.log('get temp');
 		var weathertempcontent = "";
 		//alert(appsettings.homelocation);
 		if (appsettings.homelocation == "") {
 			console.log("no go");
-			weathertempcontent = "<div style='width:100%;text-align:center;font-weight:bold;font-size:18px;'>Please set up your Home Location to use this feature.</div>";
-			$("#main_curweather").html(weathertempcontent);
-			$("#weather_curweather").html(weathertempcontent);
-			$("#homelocationtext").html("<b>No Location Set</b>");
+			temperaturenogo();
 		}
 		else {
 			console.log("fetching content");
@@ -881,7 +891,6 @@ setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcon
 			minScale:1
 		});
 	},1000);
-	});
  });</script>
 
 
