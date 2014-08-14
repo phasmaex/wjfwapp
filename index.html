@@ -566,9 +566,9 @@ $(function() {
 		
 		
 		videoplayer = new MediaElementPlayer('#player',{
-		AndroidUseNativeControls: true,
-		iPhoneUseNativeControls:true,
-		iPadUseNativeControls:true,
+		AndroidUseNativeControls: false,
+		iPhoneUseNativeControls:false,
+		iPadUseNativeControls:false,
 		features: ['playpause','progress','current','duration','volume','fullscreen'],
 		alwaysShowControls: true,
 		success : function(mediaobj, domobj) {
