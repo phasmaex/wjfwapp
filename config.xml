@@ -11,6 +11,7 @@
 
     <description>
         WJFW News Watch 12: News From Where You Live, On The Go!
+		Local news, weather and more from wherever you are. Keep up to date with what's going on in the Northwoods, and be ready for whatever Mother Nature brings with our 7 day forecast, weather highlights and radar.
     </description>
 
     <author href="http://www.byrequestwebdesigns.com" email="zach@brwdmail.com">
@@ -83,7 +84,7 @@
     </feature>
 	
 	
-	<!-- Preference Options--->
+	<!-- Preference Options-->
 	<preference name="phonegap-version" value="3.3.0" /> 
 	<preference name="fullscreen" value="true" />
 	<!--iOS-->
