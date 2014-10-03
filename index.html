@@ -93,7 +93,7 @@ $(function() {
 	var datatream = new Object();
 	var popwindows = new Object();
 	
-	appsettings.myappversion = "1.0.1";
+	appsettings.myappversion = "1.0.2";
 	
 	
 	function initapp() {
@@ -260,7 +260,7 @@ $(function() {
 	function checkupdate() {
 		console.log("checking for update");
 		$.getJSON("http://www.wjfw.com/appcontent/versioncheck.html", function(data) {
-			if (appsettings.myappversion == data.version) {
+			if (appsettings.myappversion >= data.version) {
 				console.log("app up to date, proceed");
 				initapp();
 			}
