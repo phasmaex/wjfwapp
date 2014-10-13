@@ -212,8 +212,12 @@ $(function() {
 		
 		$(".adspace").each(function() {
 			var adsku = $(this).data("sku"); var adtype = $(this).data("type"); var adindex = $(this).data("index");
+			alert(appsettings.bannerads[adindex].status);
 			if (appsettings.bannerads[adindex].status == "active") {
+			alert(appsettings.bannerads[adindex].folder);
+			alert(adtype);
 				writeimg("adspace","[data-sku='"+adsku+"']",appsettings.bannerads[adindex].folder,adtype);
+				alert(appsettings.bannerads[adindex].linkstatus);
 				if (appsettings.bannerads[adindex].linkstatus == "active") {
 					$(this).click(function() {
 						window.open(eval("appsettings.bannerads["+adindex+"].urllink"));
