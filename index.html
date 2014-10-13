@@ -93,7 +93,7 @@ $(function() {
 	var datatream = new Object();
 	var popwindows = new Object();
 	
-	appsettings.myappversion = "1.0.2";
+	appsettings.myappversion = "1.0.3";
 	
 	
 	function initapp() {
@@ -106,10 +106,16 @@ $(function() {
 		appsettings.veiwport_w = $(window).width();
 		appsettings.veiwport_h= $(window).height();
 		//console.log("viewport: "+appsettings.veiwport_w+" - "+appsettings.veiwport_h);
-		if (appsettings.connectioncheck) { $.getJSON("http://www.wjfw.com/appcontent/videoads.html", function(data) {
+		if (appsettings.connectioncheck) { 
+		$.getJSON("http://www.wjfw.com/appcontent/videoads.html", function(data) {
 			console.log(data)
 			appsettings.videoads = data;
-		}); };
+		}); 
+		$.getJSON("http://www.wjfw.com/appcontent/bannerads.html", function(data) {
+			console.log(data)
+			appsettings.bannerads = data;
+		}); 
+		};
 		//appsettings.videoads = vidadsraw.responceText
 		console.log(appsettings.videoads);
 		
@@ -205,8 +211,10 @@ $(function() {
 		};
 		
 		$(".adspace").each(function() {
-			var adsku = $(this).data("sku"); var adfolder = $(this).data("folder"); var adtype = $(this).data("type");
-			writeimg("adspace","[data-sku='"+adsku+"']",adfolder,adtype);
+			var adsku = $(this).data("sku"); var adtype = $(this).data("type"); var adindex = $(this).data("index");
+			if (appsettings.bannerads[adindex].status == "active") {
+				writeimg("adspace","[data-sku='"+adsku+"']",appsettings.bannerads[adindex].folder,adtype);
+			}
 		});
 		
 		$("#pageheadercontent_master").clone().appendTo(".headerchild");
@@ -622,7 +630,7 @@ $(function() {
 				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=accuwx/radarwi.png&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;' id='radarslides' class='panzoom' name='radarslides'>");
 				break;
 			case "adspace" :
-				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=appcontent/bannerads/"+arg1+"/"+arg2+".jpg&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;'>");
+				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=appcontent/bannerads/"+arg1+"/"+arg2+".jpg&setres=100' style='max-width:100%;'>");
 				break;
 		}
 	};
@@ -854,12 +862,13 @@ loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBC
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Current Weather</h3>
 <div style="clear:both;height:8px;"></div>
 <div id="weather_curweather"><img src="img/255.GIF" align="center"></div>
+<div class="adspace" data-sku="501" data-index="1" data-type="300x50"></div>
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />7 Day Forcast</h3>
 <div id="7daycontainer">
 <script>$(function() { setTimeout(function(){writeimg("w_7days","#7daycontainer");},1000); });</script>
 </div>
 <div style="height:8px;clear:both;"></div>
-<!--<div class="adspace" data-sku="501" data-folder="fleetfarm" data-type="300x100"></div>-->
+<!--<div class="adspace" data-sku="502" data-folder="fleetfarm" data-type="300x100"></div>-->
 <div style="height:8px;clear:both;"></div>
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Weather Highlights</h3>
 <div style="clear:both;height:8px;"></div>
