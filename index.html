@@ -215,7 +215,7 @@ $(function() {
 			var adsku = $(this).data("sku"); var adtype = $(this).data("type"); var adindex = $(this).data("index");
 			consolecontent = consolecontent + appsettings.bannerads[adindex].status + "<br>";
 			$(this).html(consolecontent);
-			if (appsettings.bannerads[adindex].status == "active") {
+			/*if (appsettings.bannerads[adindex].status == "active") {
 			consolecontent = consolecontent + appsettings.bannerads[adindex].folder + "<br>";
 			consolecontent = consolecontent + adtype + "<br>";$(this).html(consolecontent);
 				//writeimg("adspace","[data-sku='"+adsku+"']",appsettings.bannerads[adindex].folder,adtype);
@@ -225,7 +225,7 @@ $(function() {
 						window.open(eval("appsettings.bannerads["+adindex+"].urllink"));
 					});
 				};
-			}
+			}*/
 		});
 		
 		$("#pageheadercontent_master").clone().appendTo(".headerchild");
