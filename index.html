@@ -234,15 +234,11 @@ $(function() {
 		alert("test");
 		$(".adspace").each(function() {
 			var adsku = $(this).data("sku"); var adtype = $(this).data("type"); var adindex = $(this).data("index");
-			alert(adindex);
-			alert(adtype);
-			alert(appsettings.bannerads.addarray[adindex].status);
-			alert(appsettings.bannerads.addarray[adindex].folder);
 			if (appsettings.bannerads.addarray[adindex].status == "active") {
 				writeimg("adspace","[data-sku='"+adsku+"']",appsettings.bannerads.addarray[adindex].folder,adtype);
 				if (appsettings.bannerads.addarray[adindex].linkstatus == "active") {
 					$(this).click(function() {
-						window.open(eval("appsettings.bannerads.addarray["+adindex+"].urllink"));
+						window.open(appsettings.bannerads.addarray[+adindex+].urllink);
 					});
 				};
 			}
@@ -880,8 +876,7 @@ loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBC
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Current Weather</h3>
 <div style="clear:both;height:8px;"></div>
 <div id="weather_curweather"><img src="img/255.GIF" align="center"></div>
-<div class="adspace" data-sku="501" data-index="1" data-type="300x50"></div>
-test
+<div class="adspace" data-sku="501" data-index="0" data-type="300x50"></div>
 <h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />7 Day Forcast</h3>
 <div id="7daycontainer">
 <script>$(function() { setTimeout(function(){writeimg("w_7days","#7daycontainer");},1000); });</script>
