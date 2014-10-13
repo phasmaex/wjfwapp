@@ -235,11 +235,11 @@ $(function() {
 			var adsku = $(this).data("sku"); var adtype = $(this).data("type"); var adindex = $(this).data("index");
 			if (appsettings.bannerads.addarray[adindex].status == "active") {
 				writeimg("adspace","[data-sku='"+adsku+"']",appsettings.bannerads.addarray[adindex].folder,adtype);
-				if (appsettings.bannerads.addarray[adindex].linkstatus == "active") {
+				/*if (appsettings.bannerads.addarray[adindex].linkstatus == "active") {
 					$(this).click(function() {
 						window.open(appsettings.bannerads.addarray[adindex].urllink);
 					});
-				};
+				};*/
 			}
 		});
 		
