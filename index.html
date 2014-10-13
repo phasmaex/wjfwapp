@@ -211,13 +211,15 @@ $(function() {
 		};
 		
 		$(".adspace").each(function() {
+			var consolecontent = "";
 			var adsku = $(this).data("sku"); var adtype = $(this).data("type"); var adindex = $(this).data("index");
-			alert(appsettings.bannerads[adindex].status);
+			consolecontent = consolecontent + appsettings.bannerads[adindex].status + "<br>";
+			$(this).html(consolecontent);
 			if (appsettings.bannerads[adindex].status == "active") {
-			alert(appsettings.bannerads[adindex].folder);
-			alert(adtype);
-				writeimg("adspace","[data-sku='"+adsku+"']",appsettings.bannerads[adindex].folder,adtype);
-				alert(appsettings.bannerads[adindex].linkstatus);
+			consolecontent = consolecontent + appsettings.bannerads[adindex].folder + "<br>";
+			consolecontent = consolecontent + adtype + "<br>";$(this).html(consolecontent);
+				//writeimg("adspace","[data-sku='"+adsku+"']",appsettings.bannerads[adindex].folder,adtype);
+				consolecontent = consolecontent + appsettings.bannerads[adindex].linkstatus + "<br>";$(this).html(consolecontent);
 				if (appsettings.bannerads[adindex].linkstatus == "active") {
 					$(this).click(function() {
 						window.open(eval("appsettings.bannerads["+adindex+"].urllink"));
