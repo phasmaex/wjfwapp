@@ -6,12 +6,6 @@
 	<!--Include PhoneGap API--->
 	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	
-	<!--Apple Web App Config --->
-	<!--<link rel="apple-touch-icon" href="icon_57.png" />
-	<link rel="apple-touch-icon" sizes="72x72" href="icon_72.png" />
-	<link rel="apple-touch-icon" sizes="114x114" href="icon_114.png" />
-	<meta name="apple-mobile-web-app-capable" content="yes" />-->
-	
 	<!--Mobile Screen Config-->
 	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1"> 
 	
@@ -126,6 +120,18 @@ $(function() {
 		deviceinfo.name = device.name;
 		deviceinfo.version = device.version;
 		deviceinfo.uuid = device.uuid;	
+		
+		var deviceinfohtml;
+		deviceinfohtml = "<h3>Device Information</h3>";
+		deviceinfohtml += "<b>Platform:</b> "+deviceinfo.platform +"<br>";
+		deviceinfohtml += "<b>Model:</b> "+deviceinfo.model +"<br>";
+		deviceinfohtml += "<b>Version:</b> "+deviceinfo.version +"<br>";
+		deviceinfohtml += "<b>UUID:</b> "+deviceinfo.uuid +"<br>";
+		deviceinfohtml +=  "<h3>App Information</h3>"
+		deviceinfohtml += "<b>App Version:</b> "+appsettings.myappversion +"<br>";
+		$("#appinfocontainer").html(deviceinfohtml);
+		
+		
 		
 		//alert(appsettings.connectioncheck);
 		if (appsettings.connectioncheck) {
@@ -535,6 +541,34 @@ $(function() {
 					$("#"+datastream.contentbox).html(returncontent);
 				}
 				break;
+			case "schoolclosings" :
+				var returncontent = "<div class='schoolclosingscontainer'>";
+				$.each(datastream.returndata, function(key,val) {
+					var dataobj = val;
+					returncontent += "<div style='border-top:1px solid #CDCDCD;margin-top:3px;'><b>"+dataobj.record.schoolname+"</b> - ";
+					switch (dataobj.record.status) {
+						case "Open":  // Status Open
+						case "":
+							returncontent += "<span style='color:green;'>Open</span>";
+							break;
+						case "Other": // Status Other
+							returncontent += dataobj.record.other + " - " + dataobj.record.add3;
+							if (dataobj.record.add3 != dataobj.record.add4 && dataobj.record.add4 != "") {
+								returncontent += " thru " + dataobj.record.add4;
+								}
+							break;
+						default:  //Status Closed or Delay
+							returncontent += "<span style='color:red;'>"+dataobj.record.status+"</span> - " + dataobj.record.add3;
+							if (dataobj.record.add3 != dataobj.record.add4 && dataobj.record.add4 != "") {
+								returncontent += " thru " + dataobj.record.add4;
+								};
+							break;
+					}
+					returncontent += "</div>"
+				});
+				returncontent += "</div>";
+				$("#"+datastream.contentbox).html(returncontent);
+				break;
 			default :
 				//error - nonexistant function
 				break;
@@ -711,6 +745,7 @@ $(function() {
 
 	<li data-role="list-divider">Settings</li>
     <li><a href="#pg_homelocationsettings">Change Home Location</a></li>
+	<li><a href="#pg_appinfo">App &amp; Device Information</a></li>
     <!--<li><a href="#">Notifications</a></li>
 	<li><a href="#">Contact Us</a></li>-->
 </ul>
@@ -861,6 +896,24 @@ loaddata("weather","highlights","",1,1,"main_weatherhighlights");
 
 </div>
 
+<div data-role="page" id="pg_schoolclosings">
+
+<div class="headerchild"></div>
+<div data-role="content">
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />School Closings</h3>
+<div style="clear:both;height:8px;"></div>
+<div id="main_schoolclosings"><img src="img/255.GIF" align="center"></div>
+<script>$(function() {
+setTimeout(function(){
+loaddata("schoolclosings","","",50,1,"main_schoolclosings");
+},1000);
+});</script>
+
+
+</div>
+
+</div>
+
 
 <div data-role="page" id="pg_radar">
 
@@ -978,6 +1031,21 @@ It seems you do not have the current version of the WJFW Mobile App. Please upda
 Current Home Location: <span id="homelocationtext"></span><br>
 <br>
 <a class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini changelocationbtn'>Change Home Location</a>
+</div>
+
+</div>
+
+</div>
+
+<div data-role="page" id="pg_appinfo">
+
+<div class="headerchild"></div>
+<div data-role="content">
+
+
+<h2 style="text-align:center;">App &amp; Device Information</h2>
+<div style="text-align:center;" id="appinfocontainer">
+
 </div>
 
 </div>
