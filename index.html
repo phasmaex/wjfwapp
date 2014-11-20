@@ -545,22 +545,22 @@ $(function() {
 				var returncontent = "<div class='schoolclosingscontainer'>";
 				$.each(datastream.returndata, function(key,val) {
 					var dataobj = val;
-					returncontent += "<div style='border-top:1px solid #CDCDCD;margin-top:3px;'><b>"+dataobj.record.schoolname+"</b> - ";
+					returncontent += "<div style='border-top:1px solid #CDCDCD;margin-top:3px;'><b>"+decodeURIComponent(dataobj.record.schoolname)+"</b> - ";
 					switch (dataobj.record.status) {
 						case "Open":  // Status Open
 						case "":
 							returncontent += "<span style='color:green;'>Open</span>";
 							break;
 						case "Other": // Status Other
-							returncontent += dataobj.record.other + " - " + dataobj.record.add3;
+							returncontent += decodeURIComponent(dataobj.record.other) + " - " + decodeURIComponent(dataobj.record.add3);
 							if (dataobj.record.add3 != dataobj.record.add4 && dataobj.record.add4 != "") {
-								returncontent += " thru " + dataobj.record.add4;
+								returncontent += " thru " + decodeURIComponent(dataobj.record.add4);
 								}
 							break;
 						default:  //Status Closed or Delay
-							returncontent += "<span style='color:red;'>"+dataobj.record.status+"</span> - " + dataobj.record.add3;
+							returncontent += "<span style='color:red;'>"+decodeURIComponent(dataobj.record.status)+"</span> " + decodeURIComponent(dataobj.record.add3);
 							if (dataobj.record.add3 != dataobj.record.add4 && dataobj.record.add4 != "") {
-								returncontent += " thru " + dataobj.record.add4;
+								returncontent += " thru " + decodeURIComponent(dataobj.record.add4);
 								};
 							break;
 					}
@@ -906,7 +906,7 @@ loaddata("weather","highlights","",1,1,"main_weatherhighlights");
 <div id="main_schoolclosings"><img src="img/255.GIF" align="center"></div>
 <script>$(function() {
 setTimeout(function(){
-loaddata("schoolclosings","","",50,1,"main_schoolclosings");
+loaddata("schoolclosings","main","",50,1,"main_schoolclosings");
 },1000);
 });</script>
 
