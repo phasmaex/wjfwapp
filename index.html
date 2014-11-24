@@ -545,8 +545,6 @@ $(function() {
 				var returncontent = "<div class='schoolclosingscontainer'>";
 				$.each(datastream.returndata, function(key,val) {
 					var dataobj = val;
-					console.log(dataobj);
-					console.log(dataobj.record);
 					returncontent += "<div style='border-top:1px solid #CDCDCD;margin-top:3px;'><b>"+decodeURIComponent(dataobj.record.schoolname)+"</b> - ";
 					switch (dataobj.record.status) {
 						case "Open":  // Status Open
