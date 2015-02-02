@@ -345,8 +345,10 @@ $(function() {
 							'input':'<input name="searchzip" type="text" value=""> ',
 							'buttons': [ $.extend({}, vex.dialog.buttons.YES, { text: 'Search'}) ],
 							'callback': function(passdata) {
+								alert(passdata.searchzip);
 								var loc_jhxr = fetchzipdatasearch(passdata.searchzip);
 								loc_jhxr.done(function(data) {
+									alert('done fetching');
 									appsettings.homelocationsarray = data.returndata;
 									vex.close(mywindow.data().vex.id);
 									showlocationresults();
