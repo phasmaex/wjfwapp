@@ -302,13 +302,13 @@ $(function() {
 	
 	function changelocation() {
 		popwindows.changeloc = vex.dialog.open({
-			message: 'Use Location or Search By Zip?',
+			message: 'Set Home Location By Current Location Or Search By Zip?',
 			showCloseButton: false,
 			escapeButtonCloses: false,
 			overlayClosesOnClick: false,
 			buttons: [
 				 $.extend({}, vex.dialog.buttons.YES, {
-					text: 'Use My Location',
+					text: 'By Location',
 					click: function($vexContent, event) {
 						vex.close(popwindows.changeloc.data().vex.id);
 						var mywindow = vex.open({
@@ -337,15 +337,15 @@ $(function() {
 					}
 					}),
 				 $.extend({}, vex.dialog.buttons.YES, {
-					text: 'Search By Zip',
+					text: 'By Zip',
 					click: function($vexContent, event) {
 						vex.close(popwindows.changeloc.data().vex.id);
 						var mywindow = vex.dialog.open({
 							'message': 'Enter Your Zip Code',
 							'input':'<input name="searchzip" type="text" value=""> ',
 							'buttons': [ $.extend({}, vex.dialog.buttons.YES, { text: 'Search'}) ],
-							'callback': function(data) {
-								var loc_jhxr = fetchzipdatasearch(data.searchzip);
+							'callback': function(passdata) {
+								var loc_jhxr = fetchzipdatasearch(passdata.searchzip);
 								loc_jhxr.done(function(data) {
 									appsettings.homelocationsarray = data.returndata;
 									vex.close(mywindow.data().vex.id);
