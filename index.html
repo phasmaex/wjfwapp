@@ -394,11 +394,8 @@ $(function() {
 	
 	function showlocationresults() {
 	//alert('running showresults');
-	var themaxrecords = 0;
-	if (appsettings.homelocationsarray.length() <= 5) {
-		themaxrecords = appsettings.homelocationsarray.length();
-	}
-	else {
+	var themaxrecords = appsettings.homelocationsarray.length();
+	if (themaxrecords > 5) {
 		themaxrecords = 5;
 	}
 	alert (themaxrecords);
