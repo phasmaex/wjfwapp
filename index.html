@@ -87,7 +87,7 @@ $(function() {
 	var datatream = new Object();
 	var popwindows = new Object();
 	
-	appsettings.myappversion = "1.0.5";
+	appsettings.myappversion = "1.0.6";
 	
 	
 	function initapp() {
@@ -301,6 +301,65 @@ $(function() {
 	}
 	
 	function changelocation() {
+		popwindows.changeloc = vex.dialog.open({
+			message: 'Use Location or Search By Zip?',
+			showCloseButton: false,
+			escapeButtonCloses: false,
+			overlayClosesOnClick: false,
+			buttons: [
+				 $.extend({}, vex.dialog.buttons.YES, {
+					text: 'Use My Location',
+					click: function($vexContent, event) {
+						vex.close(popwindows.changeloc.data().vex.id);
+						var mywindow = vex.open({
+							content: '<div is="vexlocationwindow" style="text-align:center;">Fetching Location...<br><Br><img src="img/220.GIF"></div>',
+							showCloseButton: false,
+							escapeButtonCloses: false,
+							overlayClosesOnClick: false
+						});
+						
+						navigator.geolocation.getCurrentPosition(function(position){
+							//alert('fetch success');
+							appsettings.mypos = position;
+							//alert(appsettings.mypos.coords.latitude +", "+appsettings.mypos.coords.longitude);
+							
+							var loc_jhxr = fetchzipdata(appsettings.mypos.coords.latitude,appsettings.mypos.coords.longitude);
+							loc_jhxr.done(function(data) {
+								appsettings.homelocationsarray = data.returndata;
+								vex.close(mywindow.data().vex.id);
+								showlocationresults();
+							});
+						},function (error) {
+							vex.close(mywindow.data().vex.id);
+							vex.dialog.alert('There was an error retrieving your location.<br><br><i>Error Message: Code '+error.code+' - '+error.message);
+							temperaturenogo();
+						});
+					}
+					}),
+				 $.extend({}, vex.dialog.buttons.YES, {
+					text: 'Search By Zip',
+					click: function($vexContent, event) {
+						vex.close(popwindows.changeloc.data().vex.id);
+						var mywindow = vex.dialog.open({
+							'message': 'Enter Your Zip Code',
+							'input':'<input name="searchzip" type="text" value=""> ',
+							'buttons': [ $.extend({}, vex.dialog.buttons.YES, { text: 'Search'}) ],
+							'callback': function(data) {
+								var loc_jhxr = fetchzipdatasearch(data.searchzip);
+								loc_jhxr.done(function(data) {
+									appsettings.homelocationsarray = data.returndata;
+									vex.close(mywindow.data().vex.id);
+									showlocationresults();
+								});
+							}
+						});
+					}
+					}),	
+			]
+		});
+	}
+	/* -------------------------------- BACKUP OF FUNCTION -------------------
+	function changelocation() {
 		//alert('change location function');
 		var mywindow = vex.open({
 			content: '<div is="vexlocationwindow" style="text-align:center;">Fetching Location...<br><Br><img src="img/220.GIF"></div>',
@@ -326,7 +385,8 @@ $(function() {
 			temperaturenogo();
 		});
 		
-	}
+	}*/
+	
 	function showlocationresults() {
 	//alert('running showresults');
 	var contentstring = '<div is="vexlocationwindow" style="text-align:center;">Please choose your Home Location from the list below<br><table width="90%" style="margin:0px auto;"><tr><td>';
@@ -398,6 +458,9 @@ $(function() {
 	}
 	function fetchzipdata(lat,lng) {
 		return $.getJSON("http://www.wjfw.com/appcontent/geodata/pollgeodata.html?q=bycoord&lat="+lat+"&lng="+lng+"&radius=25&maxrecords=20");
+	}
+	function fetchzipdatasearch(searchby) {
+		return $.getJSON("http://www.wjfw.com/appcontent/geodata/pollgeodata.html?q=bysearch&searchby"+searchby+"&maxrecords=5");
 	}
 	
 	function savesettings(setting) {
