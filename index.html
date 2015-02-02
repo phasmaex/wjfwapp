@@ -465,7 +465,7 @@ $(function() {
 		return $.getJSON("http://www.wjfw.com/appcontent/geodata/pollgeodata.html?q=bycoord&lat="+lat+"&lng="+lng+"&radius=25&maxrecords=20");
 	}
 	function fetchzipdatasearch(searchby) {
-		return $.getJSON("http://www.wjfw.com/appcontent/geodata/pollgeodata.html?q=bysearch&searchby"+searchby+"&maxrecords=5");
+		return $.getJSON("http://www.wjfw.com/appcontent/geodata/pollgeodata.html?q=bysearch&searchby="+searchby+"&maxrecords=5");
 	}
 	
 	function savesettings(setting) {
