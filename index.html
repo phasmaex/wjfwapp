@@ -87,7 +87,7 @@ $(function() {
 	var datatream = new Object();
 	var popwindows = new Object();
 	
-	appsettings.myappversion = "1.0.6";
+	appsettings.myappversion = "1.0.7";
 	
 	
 	function initapp() {
@@ -597,6 +597,8 @@ $(function() {
 				console.log(datastream.displaytype);
 				switch (datastream.displaytype) {
 					case "highlights" :
+						console.log(decodeURIComponent(datastream.returndata[0].record.TITLE));
+						console.log(decodeURIComponent(datastream.returndata[0].record.TEXT));
 						var returncontent = "<div class='weatherhighlightscontainer'><div class='title'>"+decodeURIComponent(datastream.returndata[0].record.TITLE)+"</div>";
 						returncontent += "<div class='text'>"+decodeURIComponent(datastream.returndata[0].record.TEXT)+"</div></div>";
 						$("#"+datastream.contentbox).html(returncontent);
