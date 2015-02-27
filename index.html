@@ -341,7 +341,7 @@ $(function() {
 					click: function($vexContent, event) {
 						vex.close(popwindows.changeloc.data().vex.id);
 						var mywindow2 = vex.dialog.open({
-							'message': 'Enter Your Zip',
+							'message': 'Enter Your Zip Or City/State',
 							'input':'<input name="searchzip" type="text" value=""> ',
 							'buttons': [ $.extend({}, vex.dialog.buttons.YES, { text: 'Search'}) ],
 							'callback': function(passdata) {
