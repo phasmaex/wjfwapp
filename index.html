@@ -502,7 +502,7 @@ $(function() {
 			$.getJSON("http://www.wjfw.com/appcontent/apploaddata.html?loaddatatype=curweather&q="+appsettings.homelocation, function(data) {
 				appsettings.homelocationweather = data.returndata;
 				weathertempcontent += "Current Temperature for <b>"+data.returndata.city+" <i>("+appsettings.homelocation+")</i></b>:<br>";
-				weathertempcontent += "<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=weather/icons/"+data.returndata.weathericon+".png&setres="+appsettings.imgcompressionratio+"' style='float:left;margin-right:5px;'>";
+				weathertempcontent += "<img src='http://www.wjfw.com/weather/icons/"+data.returndata.weathericon+".png' style='float:left;margin-right:5px;'>";
 				weathertempcontent += "<span style='font-size:20px;font-weight:bold;'>"+data.returndata.temperature+"&deg;</span><br>";
 				weathertempcontent += "<i>RealFeel "+data.returndata.realfeel+"&deg;</i><br style='clear:both;'>Windspeed "+data.returndata.windspeed+"mph "+data.returndata.winddirection+"<br>";
 				$("#main_curweather").html(weathertempcontent);
@@ -559,7 +559,7 @@ $(function() {
 						console.log(datastream.contentbox);
 						console.log(decodeURIComponent(datastream.returndata[0].record.STORYTITLE));
 						var returncontent = "<div class='topstorycontainer'><div class='title'>"+decodeURIComponent(datastream.returndata[0].record.STORYTITLE)+"</div>";
-						returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=Photos/"+datastream.returndata[0].record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
+						returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/Photos/"+datastream.returndata[0].record.PHOTO1+"'></div>";
 						returncontent += "<div class='snippitcontainer'><b>"+decodeURIComponent(datastream.returndata[0].record.LOCATION)+"</b> - "+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH1)+"</div>";
 						returncontent += "<a data-passsku='"+decodeURIComponent(datastream.returndata[0].record.SKU)+"' class='ui-btn ui-btn-inline ui-icon-carat-r ui-btn-icon-right ui-corner-all ui-mini readmorebtn'>Read More</a>"
 						returncontent += "</div>"
@@ -572,7 +572,7 @@ $(function() {
 								var dataobj = val;
 								if (parseInt(dataobj.index)%2) { returncontent += "<div class='rowcontainer'>"; };
 								returncontent += "<div class='item readmorebtn' data-passsku='"+decodeURIComponent(dataobj.record.SKU)+"'>";
-								returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=Photos/"+dataobj.record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
+								returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/Photos/"+dataobj.record.PHOTO1+"'></div>";
 								returncontent += "<a  data-passsku='"+decodeURIComponent(dataobj.record.SKU)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-btn-icon-notext ui-corner-all ui-mini readmorebtn' style='float:right;'></a>";
 								returncontent += "<div class='title'>"+decodeURIComponent(dataobj.record.STORYTITLE)+"</div>";
 								returncontent += "</div>";
@@ -585,7 +585,7 @@ $(function() {
 					case "storydetails" :
 						var returncontent = "<div class='storydetailscontainer'><div class='title'>"+decodeURIComponent(datastream.returndata[0].record.STORYTITLE)+"</div>";
 						returncontent += "<div class='creditcontainer'>Submitted "+decodeURIComponent(datastream.returndata[0].record.STORYDATE)+"<br>Story By: "+decodeURIComponent(datastream.returndata[0].record.AUTHOR)+"</div>";
-						returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=Photos/"+datastream.returndata[0].record.PHOTO1+"&setres="+appsettings.imgcompressionratio+"'></div>";
+						returncontent += "<div class='photocontainer'><img src='http://www.wjfw.com/Photos/"+datastream.returndata[0].record.PHOTO1+"'></div>";
 						returncontent += "<div class='contentcontainer'><b>"+decodeURIComponent(datastream.returndata[0].record.LOCATION)+"</b> - "+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH1)+"<br>"+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH2)+"<br>"+decodeURIComponent(datastream.returndata[0].record.PARAGRAPH3)+"</div><br><br>";
 						returncontent += "</div>"
 						$("#"+datastream.contentbox).html(returncontent);
@@ -720,13 +720,13 @@ $(function() {
 	if (appsettings.connectioncheck) { //disable all requests if bad connection
 		switch (content) {
 			case "w_7days" :
-				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=weather/menu/UploadGraphic/media2/panel02.jpg&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;'>");
+				$(objbox).html("<img src='http://www.wjfw.com/weather/menu/UploadGraphic/media2/panel02.jpg' style='max-width:100%;'>");
 				break;
 			case "w_radar" :
-				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=accuwx/radarwi.png&setres="+appsettings.imgcompressionratio+"' style='max-width:100%;' id='radarslides' class='panzoom' name='radarslides'>");
+				$(objbox).html("<img src='http://www.wjfw.com/accuwx/radarwi.png' style='max-width:100%;' id='radarslides' class='panzoom' name='radarslides'>");
 				break;
 			case "adspace" :
-				$(objbox).html("<img src='http://www.wjfw.com/appcontent/loadimage.php?orgsrc=appcontent/bannerads/"+arg1+"/"+arg2+".jpg&setres=100' style='max-width:100%;'>");
+				$(objbox).html("<img src='http://www.wjfw.com/appcontent/bannerads/"+arg1+"/"+arg2+".jpg' style='max-width:100%;'>");
 				break;
 		}
 	};
