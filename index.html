@@ -683,7 +683,8 @@ $(function() {
 		var playerheight = playerwidth / (4/3);
 		
 		$("#videoplayercontainer").html('<video id="player" src="'+passsrc+'" poster="'+passthumb+'" preload="none" width="'+playerwidth+'" height="'+playerheight+'" controls></video>');
-		
+		console.log(passsrc);
+		console.log('<video id="player" src="'+passsrc+'" poster="'+passthumb+'" preload="none" width="'+playerwidth+'" height="'+playerheight+'" controls></video>');
 		
 		
 		videoplayer = new MediaElementPlayer('#player',{
