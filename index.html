@@ -224,7 +224,7 @@ $(function() {
 	window.createads = function() {
 		$(".adspace").each(function() {
 			var adsku = $(this).data("sku"); var adindex = $(this).data("index");
-			if (appsettings.veiwport_w >= 600) {
+			if (appsettings.veiwport_w >= 500) {
 				var adtype = "728x90";
 			} else {
 				var adtype = "300x50";
@@ -617,7 +617,7 @@ $(function() {
 					
 					returncontent += "<div class='viditem'><b>"+decodeURIComponent(datastream.returndata[x].mediatitle)+"</b>";
 					returncontent += "<div class='photocontainer'><img src='"+decodeURIComponent(datastream.returndata[x].thumb)+"'></div>";
-					returncontent += "<a data-passscr='"+decodeURIComponent(datastream.returndata[x].src)+"' data-passthumb='"+decodeURIComponent(datastream.returndata[x].thumb)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-corner-all ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a><span style='clear:both;'></span></div>";
+					returncontent += "<a data-passsrc='"+decodeURIComponent(datastream.returndata[x].src)+"' data-passthumb='"+decodeURIComponent(datastream.returndata[x].thumb)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-corner-all ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a><span style='clear:both;'></span></div>";
 					$("#"+datastream.contentbox).html(returncontent);
 				}
 				break;
@@ -672,7 +672,7 @@ $(function() {
 		console.log('running click event for video');
 		$.mobile.changePage("#pg_videoplayer");
 		var passsrc = $(this).data("passsrc"); var passthumb = $(this).data("passthumb");
-		var filename = passsrc;
+		//var filename = passsrc;
 		//create video player
 		//videoplayer.setSrc(filename);
 		//videoplayer.play();
@@ -683,8 +683,8 @@ $(function() {
 		var playerheight = playerwidth / (4/3);
 		
 		$("#videoplayercontainer").html('<video id="player" src="'+passsrc+'" poster="'+passthumb+'" preload="none" width="'+playerwidth+'" height="'+playerheight+'" controls></video>');
-		console.log(passsrc);
-		console.log('<video id="player" src="'+passsrc+'" poster="'+passthumb+'" preload="none" width="'+playerwidth+'" height="'+playerheight+'" controls></video>');
+		//console.log(passsrc);
+		//console.log('<video id="player" src="'+passsrc+'" poster="'+passthumb+'" preload="none" width="'+playerwidth+'" height="'+playerheight+'" controls></video>');
 		
 		
 		videoplayer = new MediaElementPlayer('#player',{
