@@ -96,7 +96,7 @@ $(function() {
 		$("#appcontents").css("visibility","visible");
 		$("#initloadingspinner").css("visibility","hidden");
 		
-		appsettings.imgcompressionratio = 90;
+		//appsettings.imgcompressionratio = 90;
 		appsettings.veiwport_w = $(window).width();
 		appsettings.veiwport_h= $(window).height();
 		//console.log("viewport: "+appsettings.veiwport_w+" - "+appsettings.veiwport_h);
@@ -223,7 +223,13 @@ $(function() {
 	
 	window.createads = function() {
 		$(".adspace").each(function() {
-			var adsku = $(this).data("sku"); var adtype = $(this).data("type"); var adindex = $(this).data("index");
+			var adsku = $(this).data("sku"); var adindex = $(this).data("index");
+			if (appsettings.veiwport_w >= 600) {
+				var adtype = "728x90";
+			} else {
+				var adtype = "300x50";
+			}
+				
 			if (appsettings.bannerads.addarray[adindex].status == "active") {
 				writeimg("adspace","[data-sku='"+adsku+"']",appsettings.bannerads.addarray[adindex].folder,adtype);
 				if (appsettings.bannerads.addarray[adindex].linkstatus == "active") {
@@ -609,9 +615,9 @@ $(function() {
 				var returncontent = "";
 				for (x=0;x<10;x++) {
 					
-					returncontent += "<div class='viditem'><b>"+decodeURIComponent(datastream.returndata[x].title)+"</b>";
-					returncontent += "<div class='photocontainer'><img src='http://cdn.bimvid.com/WJFW/"+decodeURIComponent(datastream.returndata[x].guid)+".jpg'></div>";
-					returncontent += "<a data-passsku='"+decodeURIComponent(datastream.returndata[x].guid)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-corner-all ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a><span style='clear:both;'></span></div>";
+					returncontent += "<div class='viditem'><b>"+decodeURIComponent(datastream.returndata[x].mediatitle)+"</b>";
+					returncontent += "<div class='photocontainer'><img src='"+decodeURIComponent(datastream.returndata[x].thumb)+"'></div>";
+					returncontent += "<a data-passscr='"+decodeURIComponent(datastream.returndata[x].src)+"' data-passthumb='"+decodeURIComponent(datastream.returndata[x].thumb)+"' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-corner-all ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a><span style='clear:both;'></span></div>";
 					$("#"+datastream.contentbox).html(returncontent);
 				}
 				break;
@@ -665,8 +671,8 @@ $(function() {
 	$(document).on("click",".videobtn", function() {
 		console.log('running click event for video');
 		$.mobile.changePage("#pg_videoplayer");
-		var passsku = $(this).data("passsku");
-		var filename = 'http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4';
+		var passsrc = $(this).data("passsrc"); var passthumb = $(this).data("passthumb");
+		var filename = passsrc;
 		//create video player
 		//videoplayer.setSrc(filename);
 		//videoplayer.play();
@@ -676,7 +682,7 @@ $(function() {
 		var playerwidth = appsettings.veiwport_w - 30;
 		var playerheight = playerwidth / (4/3);
 		
-		$("#videoplayercontainer").html('<video id="player" src="http://cdn.bimvid.com/WJFW/'+passsku+'_fl9.mp4" poster="http://cdn.bimvid.com/WJFW/'+passsku+'.jpg" preload="none" width="'+playerwidth+'" height="'+playerheight+'" controls></video>');
+		$("#videoplayercontainer").html('<video id="player" src="'+passsrc+'" poster="'+passthumb+'" preload="none" width="'+playerwidth+'" height="'+playerheight+'" controls></video>');
 		
 		
 		
