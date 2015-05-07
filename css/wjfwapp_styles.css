@@ -159,3 +159,11 @@ body {
 .adspace {
 	margin:4px auto;
 }
+
+.z_bar_blue {
+	background-color:#4F79D2;
+	border-color:#003053;
+	color:#fff;
+	text-shadow:0 1px 0 #003053;
+	font-weight:700;
+}
