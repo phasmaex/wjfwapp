@@ -87,7 +87,7 @@ $(function() {
 	var datatream = new Object();
 	var popwindows = new Object();
 	
-	appsettings.myappversion = "1.0.8";
+	appsettings.myappversion = "1.0.9";
 	
 	
 	function initapp() {
@@ -819,6 +819,8 @@ $(function() {
 	<li><a href="#pg_schoolclosings">School Closings</a></li>
     <li><a href="#pg_radar">Radar</a></li>
     <li><a href="#pg_videomain">Video</a></li>
+	<li><a href="#pg_video5pm">5pm Newscasts</a></li>
+	<li><a href="#pg_video10pm">10pm Newscasts</a></li>
 </ul>
 
 </div><!-- /panel -->
@@ -845,16 +847,16 @@ $(function() {
 	<a href="#" class="settingspannel_btn" data-role="button" data-icon="gear" data-iconpos="notext" data-inline="true" data-theme="b">Settings</a>
 	<a href="#" class="navpannel_btn" data-role="button" data-icon="bars" data-iconpos="notext" data-inline="true" data-theme="b">Navigation</a>
 	</div>
-	<div style="position:absolute;right:5px;top:44px;"><a href="javascript:history.go(-1);" class="back_btn ui-btn ui-btn-inline ui-mini ui-icon-back ui-btn-icon-left ui-corner-all">Back</a></div>
+	<div style="position:absolute;right:5px;top:47px;"><a href="javascript:history.go(-1);" class="back_btn ui-btn ui-btn-inline ui-mini ui-icon-back ui-btn-icon-left ui-corner-all">Back</a></div>
 </div>
 </div>
 <div data-role="content">
 <div class="adspace" data-sku="101" data-index="1" data-type="300x50"></div>
-<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Current Weather</h3>
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;background-color:#4F79D2;">Current Weather</h3>
 <div style="clear:both;height:8px;"></div>
 <div id="main_curweather"><img src="img/255.GIF" align="center"></div>
 <div class="adspace" data-sku="102" data-index="2" data-type="300x50"></div>
-<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />Top Story</h3>
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;background-color:#4F79D2;">Top Story</h3>
 <div style="clear:both;height:8px;"></div>
 <div id="main_topstory"><img src="img/255.GIF" align="center"></div>
 
@@ -959,7 +961,7 @@ loaddata("stories","headlines",encodeURIComponent("eqMAINCATdatarq=Sports&eqSUBC
 <div style="clear:both;height:8px;"></div>
 <div id="weather_curweather"><img src="img/255.GIF" align="center"></div>
 <div class="adspace" data-sku="501" data-index="0" data-type="300x50"></div>
-<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />7 Day Forcast</h3>
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />7 Day Forecast</h3>
 <div id="7daycontainer">
 <script>$(function() { setTimeout(function(){writeimg("w_7days","#7daycontainer");},1000); });</script>
 </div>
@@ -1045,6 +1047,62 @@ setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcon
 <script>$(function() {
 setTimeout(function(){
 loaddata("videolist","","a248d92ab658bd6fc81a965e0e6af7939af56117",0,0,"videolistcontainer");
+},1000);
+});</script>
+
+
+
+</div>
+
+</div>
+
+<div data-role="page" id="pg_video5pm">
+
+<div class="headerchild"></div>
+<div data-role="content">
+
+<div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="801" data-index="12" data-type="300x50"></div>
+<div style="height:8px;clear:both;"></div>
+
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />5pm Newscats</h3>
+
+<div id="video5pmlistcontainer">
+<!--<div class='viditem'><b>Test Video</b>
+=<div class='photocontainer'><img src='http://cdn.bimvid.com/WJFW/6698edd380099295407e8f18bc771375897f76d3.jpg'></div>
+<a data-passsku='6698edd380099295407e8f18bc771375897f76d3' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a><span style='clear:both;'></span></div>-->
+</div>
+<script>$(function() {
+setTimeout(function(){
+loaddata("videolist","","5bb6ece3fa8d384d6b3aaffc34f0786a0b78ca04",0,0,"video5pmlistcontainer");
+},1000);
+});</script>
+
+
+
+</div>
+
+</div>
+
+<div data-role="page" id="pg_video10pm">
+
+<div class="headerchild"></div>
+<div data-role="content">
+
+<div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="901" data-index="13" data-type="300x50"></div>
+<div style="height:8px;clear:both;"></div>
+
+<h3 class="ui-bar ui-bar-a ui-corner-all" style="margin:2px 0px;"><span class="ui-icon-carat-r ui-btn-icon-left " style="position:relative;" />10pm Newscasts</h3>
+
+<div id="videolistcontainer">
+<!--<div class='viditem'><b>Test Video</b>
+=<div class='photocontainer'><img src='http://cdn.bimvid.com/WJFW/6698edd380099295407e8f18bc771375897f76d3.jpg'></div>
+<a data-passsku='6698edd380099295407e8f18bc771375897f76d3' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a><span style='clear:both;'></span></div>-->
+</div>
+<script>$(function() {
+setTimeout(function(){
+loaddata("videolist","","d837c545c0b39c24a58c02b2fe5bde4e9a7791a3",0,0,"video10pmlistcontainer");
 },1000);
 });</script>
 
