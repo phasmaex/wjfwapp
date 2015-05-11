@@ -16,7 +16,6 @@
 	
 	<script src="mejs/mediaelement-and-player.min.js"></script>
 	<link rel="stylesheet" href="mejs/mediaelementplayer_forcepng.css" />
-	<!--<script src="mejs/mep-feature-ads.js"></script>--> <!--extend for preroll ads-->
 	
 	<!--Vex Dialogs--->
 	<script src="js/vex.combined.min.js"></script>
@@ -308,13 +307,13 @@ $(function() {
 	
 	function changelocation() {
 		popwindows.changeloc = vex.dialog.open({
-			message: 'Set Home Location By Current Location Or By Zip?',
+			message: 'Set Home Location By GPS Location Or By City Search?',
 			showCloseButton: false,
 			escapeButtonCloses: false,
 			overlayClosesOnClick: false,
 			buttons: [
 				 $.extend({}, vex.dialog.buttons.YES, {
-					text: 'By Location',
+					text: 'By GPS',
 					click: function($vexContent, event) {
 						vex.close(popwindows.changeloc.data().vex.id);
 						var mywindow = vex.open({
@@ -343,7 +342,7 @@ $(function() {
 					}
 					}),
 				 $.extend({}, vex.dialog.buttons.YES, {
-					text: 'By Zip',
+					text: 'By City',
 					click: function($vexContent, event) {
 						vex.close(popwindows.changeloc.data().vex.id);
 						var mywindow2 = vex.dialog.open({
@@ -1125,7 +1124,11 @@ loaddata("videolist","","d837c545c0b39c24a58c02b2fe5bde4e9a7791a3",0,0,"videolis
 <div class="adspace" data-sku="1001" data-index="14" data-type="300x50"></div>
 <div style="height:8px;clear:both;"></div>
 
-<a data-passsrc=' http://cdn.bimvidlive.com/wjfw1/ngrp:wjfw1_all/playlist.m3u8' data-passthumb='' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-corner-all ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a>
+<script>
+var bimvid = bimvid || {};
+bimvid.parameters = { "plugins": { "adaptv": { "companionId": "none" } } };
+</script>
+<script src='http://player.bimvid.com/v2/channel/wjfw/0256066f8040e23e13c616348ef0d97c26c30341'></script>
 
 
 </div>
