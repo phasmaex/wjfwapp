@@ -127,6 +127,7 @@
 	<access origin="http://images.wjfw.com" />
 	<access origin="http://cdn.bimvid.com" />
 	<access origin="http://player.bimvid.com" />
+	<access origin="http://swfs.bimvid.com" />
 	<access origin="http://cdn.bimvidlive.com" />
 	<access origin="http://cdn.bimfs.com" />
 	
