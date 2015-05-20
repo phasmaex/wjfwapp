@@ -734,7 +734,7 @@ $(function() {
 		  };
 		  window.plugins.streamingMedia.playVideo(videoUrl, options);
 		  
-		setTimeout(6000, function() {  window.plugins.streamingMedia.playVideo(null, options); }; );
+		setTimeout(function() {  window.plugins.streamingMedia.playVideo(null, options); }, 6000);
 	});
 
 	window.writeimg = function (content,objbox,arg1,arg2) {
