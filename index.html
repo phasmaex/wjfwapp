@@ -733,6 +733,8 @@ $(function() {
 			}
 		  };
 		  window.plugins.streamingMedia.playVideo(videoUrl, options);
+		  
+		setTimeout(6000, function() {  window.plugins.streamingMedia.playVideo(null, options); }
 	});
 
 	window.writeimg = function (content,objbox,arg1,arg2) {
