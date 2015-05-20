@@ -721,17 +721,18 @@ $(function() {
 		});
 		
 	});
-	$(document).on("click",".watchlivebtn", function() {
-		VideoPlayer.play(
-			"http://cdn.bimvidlive.com/wjfw1/ngrp:wjfw1_all/playlist.m3u8",
-			{
-				volume: 0.5,
-				scalingMode: VideoPlayer.SCALING_MODE.SCALE_TO_FIT_WITH_CROPPING
+	$(document).on("click",".watchlivebtn", function() {		
+		var videoUrl = "http://cdn.bimvidlive.com/wjfw1/ngrp:wjfw1_all/playlist.m3u8";
+		// Play a video with callbacks
+		  var options = {
+			successCallback: function() {
+			  console.log("Video was closed without error.");
 			},
-			function (err) {
-				console.log(err);
+			errorCallback: function(errMsg) {
+			  console.log("Error! " + errMsg);
 			}
-		);
+		  };
+		  window.plugins.streamingMedia.playVideo(videoUrl, options);
 	});
 
 	window.writeimg = function (content,objbox,arg1,arg2) {
@@ -1136,7 +1137,8 @@ loaddata("videolist","","d837c545c0b39c24a58c02b2fe5bde4e9a7791a3",0,0,"videolis
 <div class="adspace" data-sku="1001" data-index="14" data-type="300x50"></div>
 <div style="height:8px;clear:both;"></div>
 
-<a class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-btn-icon-notext ui-corner-all ui-mini watchlivebtn' style='float:right;'>Watch Live</a>
+<a class='ui-btn ui-btn-inline ui-icon-carat-r ui-btn-icon-right ui-corner-all ui-mini watchlivebtn'>Watch Live</a>
+
 
 </iframe>
 
