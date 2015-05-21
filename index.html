@@ -736,6 +736,14 @@ $(function() {
 		  
 
 	});
+	$(document).on("click",".watchlivebtn2", function() {		
+		alert('test');
+		var video = document.getElementById('video1');
+		video.load('http://cdn.bimvidlive.com/wjfw1/ngrp:wjfw1_all/playlist.m3u8').play();
+	});
+	
+	
+	
 
 	window.writeimg = function (content,objbox,arg1,arg2) {
 	if (appsettings.connectioncheck) { //disable all requests if bad connection
@@ -1149,17 +1157,10 @@ loaddata("videolist","","d837c545c0b39c24a58c02b2fe5bde4e9a7791a3",0,0,"videolis
   </video>
 </div>
 
-  <script>
-  var video = document.getElementById('video1');
-	video.addEventListener('click',function(){
-	  video.load('http://cdn.bimvidlive.com/wjfw1/ngrp:wjfw1_all/playlist.m3u8').play();
-	},false);
-  </script>
-
 
 
 <br><br>
-<a data-passsrc='http://cdn.bimvidlive.com/wjfw1/ngrp:wjfw1_all/playlist.m3u8' data-passthumb='' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-corner-all ui-mini videobtn' style='float:left;margin-right:6px;'>Play Video</a>
+<a data-passthumb='' class='ui-btn ui-btn-inline ui-mini ui-icon-carat-r ui-btn-icon-right ui-corner-all ui-mini watchlivebtn2' style='float:left;margin-right:6px;'>Play Video</a>
 
 
 </div>
