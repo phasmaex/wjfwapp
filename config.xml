@@ -139,9 +139,7 @@
 	
 		<!--- STREAMING MEDIA INCLUDE --->
 	
-	<js-module src="js/StreamingMedia.js" name="StreamingMedia">
-		<clobbers target="streamingMedia" />
-	</js-module>
+
 	
 	<!-- ios -->
 	<platform name="ios">
