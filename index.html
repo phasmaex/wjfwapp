@@ -722,9 +722,7 @@ $(function() {
 		
 	});
 	$(document).on("click",".watchlivebtn", function() {		
-	/*
-		//var videoUrl = "http://cdn.bimvidlive.com/wjfw1/ngrp:wjfw1_all/playlist.m3u8";
-		var videoUrl = "http://www.wjfw.com/appcontent/test.m3u8";
+		var videoUrl = "http://cdn.bimvidlive.com/wjfw1/ngrp:wjfw1_all/playlist.m3u8";
 		// Play a video with callbacks
 		  var options = {
 			successCallback: function() {
@@ -736,15 +734,7 @@ $(function() {
 		  };
 		  window.plugins.streamingMedia.playVideo(videoUrl, options);
 		  
-		setTimeout(function() {  window.plugins.streamingMedia.playVideo(null, options); }, 6000);
-		
-	*/
-	var videoUrl = "http://cdn.bimvidlive.com/wjfw1/ngrp:wjfw1_all/playlist.m3u8";
-	var media = new Media(videoUrl);
-	
-	media.play();
-	setTimeout(function() { media.stop(); }, 6000);
-		
+
 	});
 
 	window.writeimg = function (content,objbox,arg1,arg2) {
