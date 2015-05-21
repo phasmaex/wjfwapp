@@ -1141,10 +1141,17 @@ loaddata("videolist","","d837c545c0b39c24a58c02b2fe5bde4e9a7791a3",0,0,"videolis
 
 <a class='ui-btn ui-btn-inline ui-icon-carat-r ui-btn-icon-right ui-corner-all ui-mini watchlivebtn'>Watch Live</a>
 
-  <video id="video1" width="320">
+  <video id="video1" width="420">
     <source src="http://cdn.bimvidlive.com/wjfw1/ngrp:wjfw1_all/playlist.m3u8">
     Your browser does not support HTML5 video.
   </video>
+  
+  <script>
+  var video = document.getElementById('video');
+	video.addEventListener('click',function(){
+	  video.play();
+	},false);
+  </script>
 
 
 </iframe>
