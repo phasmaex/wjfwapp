@@ -98,7 +98,7 @@
 	<gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
 	<gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
 		<!--test for video-->
-	<!--<gap:plugin name="com.hutchind.cordova.plugins.streamingmedia" version="0.1.3" />-->
+	<gap:plugin name="com.hutchind.cordova.plugins.streamingmedia" version="0.1.3" />
 	
 	<feature name="StatusBar">
         <param name="ios-package" value="CDVStatusBar" onload="true" />
@@ -135,36 +135,5 @@
 	<access origin="http://swfs.bimvid.com" />
 	<access origin="http://cdn.bimvidlive.com" />
 	<access origin="http://cdn.bimfs.com" />
-	
-	
-	<!--- STREAMING MEDIA INCLUDE --->
-	
-	<!-- ios -->
-	<platform name="ios">
-
-			<feature name="StreamingMedia">
-				<param name="ios-package" value="StreamingMedia" />
-			</feature>
-
-		<header-file src="streaming/ios/StreamingMedia.h" />
-		<source-file src="streaming/ios/StreamingMedia.m" />
-		<framework src="MediaPlayer.framework" />
-	</platform>
-
-	<!-- android -->
-	<platform name="android">
-			<feature name="StreamingMedia">
-				<param name="android-package" value="com.hutchind.cordova.plugins.streamingmedia.StreamingMedia" />
-			</feature>
-			<uses-permission android:name="android.permission.INTERNET" />
-			<activity android:configChanges="orientation|screenSize" android:name="com.hutchind.cordova.plugins.streamingmedia.SimpleAudioStream" android:label="Simple Audio Stream"></activity>
-			<activity android:configChanges="orientation|screenSize" android:name="com.hutchind.cordova.plugins.streamingmedia.SimpleVideoStream" android:label="Simple Video Stream"></activity>
-		<source-file src="streaming/android/com/hutchind/cordova/plugins/streamingmedia/SimpleAudioStream.java" target-dir="src/com/hutchind/cordova/plugins/streamingmedia" />
-		<source-file src="streaming/android/com/hutchind/cordova/plugins/streamingmedia/SimpleVideoStream.java" target-dir="src/com/hutchind/cordova/plugins/streamingmedia" />
-		<source-file src="streaming/android/com/hutchind/cordova/plugins/streamingmedia/StreamingMedia.java" target-dir="src/com/hutchind/cordova/plugins/streamingmedia" />
-		<source-file src="streaming/android/com/hutchind/cordova/plugins/streamingmedia/ImageLoadTask.java" target-dir="src/com/hutchind/cordova/plugins/streamingmedia" />
-	</platform>
-	
-	
 	
 </widget>
