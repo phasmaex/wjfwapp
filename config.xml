@@ -136,13 +136,13 @@
 	<access origin="http://cdn.bimvidlive.com" />
 	<access origin="http://cdn.bimfs.com" />-->
 	
-	<!--<access origin="*.wjfw.com" />
+	<access origin="*.wjfw.com" />
 	<access origin="*.bimvid.com" />
 	<access origin="*.bimfs.com" />
 	<access origin="*.bimvidlive.com" />
-	<access origin="*.field59.com" />-->
+	<access origin="*.field59.com" />
 	
-	<access origin="*" />
+	<!--<access origin="*" />-->
 	
 	
 </widget>
