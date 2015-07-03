@@ -127,13 +127,20 @@
 	
 	<!--WhiteList Access Commands-->
 	
-	<access origin="http://www.wjfw.com" />
+	<!--<access origin="http://www.wjfw.com" />
 	<access origin="http://cloud.wjfw.com" />
 	<access origin="http://images.wjfw.com" />
 	<access origin="http://cdn.bimvid.com" />
 	<access origin="http://player.bimvid.com" />
 	<access origin="http://swfs.bimvid.com" />
 	<access origin="http://cdn.bimvidlive.com" />
-	<access origin="http://cdn.bimfs.com" />
+	<access origin="http://cdn.bimfs.com" />-->
+	
+	<access origin="*.wjfw.com" />
+	<access origin="*.bimvid.com" />
+	<access origin="*.bimfs.com" />
+	<access origin="*.bimvidlive.com" />
+	<access origin="*.field59.com" />
+	
 	
 </widget>
