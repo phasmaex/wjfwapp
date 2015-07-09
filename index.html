@@ -1163,6 +1163,8 @@ bimvid.parameters = { "plugins": { "adaptv": { "companionId": "none" } } };
 
 <div id="jquery_jplayer_1"></div>
 
+<button id="jplayer_play">Play</button>
+
 <script>
 $(function() {
 	$("#jquery_jplayer_1").jPlayer({
@@ -1173,6 +1175,14 @@ $(function() {
 			});
 		},
 		supplied: "m4v",
+		size: {
+			width: "640px",
+			height: "360px"
+		}
+	});
+	$("#jplayer_play").click(function() {
+		console.log('click play');
+		$("#jquery_jplayer_1").jPlayer("Play");
 	});
 });
 </script>
