@@ -1165,6 +1165,18 @@ bimvid.parameters = { "plugins": { "adaptv": { "companionId": "none" } } };
 
 <button id="jplayer_play">Play</button>
 
+
+
+
+<script>
+$(function() {
+	$("#jplayer_play").click(function() {
+		console.log('click play');
+		window.plugins.videoPlayer.play("http://cdn.bimvidlive.com/wjfw1/ngrp:wjfw1_all/playlist.m3u8");
+	});
+});
+</script>
+
 <!--<script>
 $(function() {
 	$("#jquery_jplayer_1").jPlayer({
@@ -1189,6 +1201,10 @@ $(function() {
 </script>-->
 
 <!--<script src='http://player.bimvid.com/v2/channel/wjfw/0256066f8040e23e13c616348ef0d97c26c30341'></script>-->
+
+<div id="watchlivecontainer" style="width:96%;height:100%;max-height:480px;">
+<iframe style="width:100%;height:100%;" src="http://player.bimvid.com/v2/channel/live/0256066f8040e23e13c616348ef0d97c26c30341.html?full=true" frameborder="0" seamless></iframe>
+</div>
 
 <br><br>
 <hr>
