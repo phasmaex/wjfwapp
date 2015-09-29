@@ -106,7 +106,7 @@
 	
 	
 	<!-- Preference Options-->
-	<preference name="phonegap-version" value="cli-5.1.1" /> 
+	<preference name="phonegap-version" value="cli-5.2.0" /> 
 	<preference name="fullscreen" value="true" />
 	<!--iOS-->
 	<gap:config-file platform="ios" parent="UIStatusBarHidden">
