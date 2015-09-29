@@ -92,10 +92,10 @@
 	<gap:splash src="splash/android/res-notlong-port-xxxhdpi/default.png" gap:platform="android" gap:qualifier="port-xxxhdpi" />	
 	
 		<!--Allow Plugins-->
-	<gap:plugin name="org.apache.cordova.device" version="1.0.1" />
-	<gap:plugin name="org.apache.cordova.network-information" version="1.0.1" />
-	<gap:plugin name="org.apache.cordova.geolocation" version="1.0.1" />
-	<gap:plugin name="org.apache.cordova.inappbrowser" version="1.0.1" />
+	<gap:plugin name="org.apache.cordova.device" version="0.2.12" />
+	<gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />
+	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
+	<gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
 	<gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
 		<!--test for video-->
 	<gap:plugin name="com.hutchind.cordova.plugins.streamingmedia" version="0.1.3" />
