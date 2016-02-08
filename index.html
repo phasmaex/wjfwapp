@@ -88,7 +88,26 @@ $(function() {
 	var datatream = new Object();
 	var popwindows = new Object();
 	
-	appsettings.myappversion = "1.01.00";
+	var verdateobj = new Date();
+	var imgvernum = verdateobj.getTime();
+	
+	appsettings.myappversion = "1.01.01";
+	
+	
+	
+	function getCardinal(angle) { // get cardinal direction from degrees, used for weather functions
+        var directions = 8; var degree = 360 / directions;
+        angle = angle + degree/2;
+        if (angle >= 0 * degree && angle < 1 * degree) return "N";
+        if (angle >= 1 * degree && angle < 2 * degree) return "NE";
+        if (angle >= 2 * degree && angle < 3 * degree) return "E";
+        if (angle >= 3 * degree && angle < 4 * degree) return "SE";
+        if (angle >= 4 * degree && angle < 5 * degree) return "S";
+        if (angle >= 5 * degree && angle < 6 * degree) return "SW";
+        if (angle >= 6 * degree && angle < 7 * degree) return "W";
+        if (angle >= 7 * degree && angle < 8 * degree) return "NW";
+        return "N"; //Fallback, should never happen
+    }
 	
 	
 	function initapp() {
@@ -506,12 +525,12 @@ $(function() {
 		}
 		else {
 			console.log("fetching content");
-			$.getJSON("http://www.wjfw.com/appcontent/apploaddata.html?loaddatatype=curweather&q="+appsettings.homelocation, function(data) {
+			$.getJSON("http://www.wjfw.com/appcontent/apploaddata.html?loaddatatype=curweather&dsrc=wsi&q="+appsettings.homelocation, function(data) {
 				appsettings.homelocationweather = data.returndata;
 				weathertempcontent += "Current Temperature for <b>"+data.returndata.city+" <i>("+appsettings.homelocation+")</i></b>:<br>";
-				weathertempcontent += "<img src='http://www.wjfw.com/weather/icons/"+data.returndata.weathericon+".png' style='float:left;margin-right:5px;'>";
-				weathertempcontent += "<span style='font-size:20px;font-weight:bold;'>"+data.returndata.temperature+"&deg;</span><br>";
-				weathertempcontent += "<i>RealFeel "+data.returndata.realfeel+"&deg;</i><br style='clear:both;'>Windspeed "+data.returndata.windspeed+"mph "+data.returndata.winddirection+"<br>";
+				weathertempcontent += "<img src='img/wsi_icon/"+data.returndata.data.currentobservation.Weatherimage.replace("wind_", "")+"' style='float:left;margin-right:5px;height:40px;'>";
+				weathertempcontent += "<span style='font-size:20px;font-weight:bold;'>"+data.returndata.data.currentobservation.Temp+"&deg;</span><br>";
+				weathertempcontent += "<i>"+data.returndata.data.currentobservation.Weather+"</i><br style='clear:both;'>Windspeed "+data.returndata.data.currentobservation.Winds+"mph "+getCardinal(data.returndata.data.currentobservation.Windd)+"<br>";
 				$("#main_curweather").html(weathertempcontent);
 				$("#weather_curweather").html(weathertempcontent);
 				$("#homelocationtext").html("<b>"+data.returndata.city+" <i>("+appsettings.homelocation+")</i></b>");
@@ -752,10 +771,10 @@ $(function() {
 	if (appsettings.connectioncheck) { //disable all requests if bad connection
 		switch (content) {
 			case "w_7days" :
-				$(objbox).html("<img src='http://www.wjfw.com/weather/menu/UploadGraphic/media2/panel02.jpg' style='max-width:100%;'>");
+				$(objbox).html("<img src='http://www.wjfw.com/wjfwwsi/7 day.jpg?ver="+imgvernum+"' style='max-width:100%;'>");
 				break;
 			case "w_radar" :
-				$(objbox).html("<img src='http://www.wjfw.com/accuwx/radarwi.png' style='max-width:100%;' id='radarslides' class='panzoom' name='radarslides'>");
+				$(objbox).html("<img src='http://www.wjfw.com/wsiradar/radarwi1.png' style='max-width:100%;' id='radarslides' class='panzoom' name='radarslides'>");
 				break;
 			case "adspace" :
 				$(objbox).html("<img src='http://www.wjfw.com/appcontent/bannerads/"+arg1+"/"+arg2+".jpg' style='max-width:100%;'>");
@@ -791,19 +810,17 @@ $(function() {
 	
 	var k=0;
 	var speed = 250;
-	var verdateobj = new Date();
-	var imgvernum = verdateobj.getTime();
 	var Pic = new Array();
-	Pic[0] = 'accuwx/radarwi.png?ver='+imgvernum;
-	Pic[1] = 'accuwx/radarwi1.png?ver='+imgvernum;
-	Pic[2] = 'accuwx/radarwi2.png?ver='+imgvernum;
-	Pic[3] = 'accuwx/radarwi3.png?ver='+imgvernum;
-	Pic[4] = 'accuwx/radarwi4.png?ver='+imgvernum;
-	Pic[5] = 'accuwx/radarwi5.png?ver='+imgvernum;
-	Pic[6] = 'accuwx/radarwi6.png?ver='+imgvernum;
-	Pic[7] = 'accuwx/radarwi7.png?ver='+imgvernum;
-	Pic[8] = 'accuwx/radarwi8.png?ver='+imgvernum;
-	Pic[9] = 'accuwx/radarwi9.png?ver='+imgvernum;
+	//Pic[0] = 'wsiradar/radarwi.png?ver='+imgvernum;
+	Pic[0] = 'wsiradar/radarwi1.png?ver='+imgvernum;
+	Pic[1] = 'wsiradar/radarwi2.png?ver='+imgvernum;
+	Pic[2] = 'wsiradar/radarwi3.png?ver='+imgvernum;
+	Pic[3] = 'wsiradar/radarwi4.png?ver='+imgvernum;
+	Pic[4] = 'wsiradar/radarwi5.png?ver='+imgvernum;
+	Pic[5] = 'wsiradar/radarwi6.png?ver='+imgvernum;
+	Pic[6] = 'wsiradar/radarwi7.png?ver='+imgvernum;
+	Pic[7] = 'wsiradar/radarwi8.png?ver='+imgvernum;
+	Pic[8] = 'wsiradar/radarwi9.png?ver='+imgvernum;
 
 	var url = "http://www.wjfw.com/";
 	var t;
