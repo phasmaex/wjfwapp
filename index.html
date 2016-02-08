@@ -26,7 +26,7 @@
 	<link rel="stylesheet" href="css/vex-theme-os.css" />
 	
 	<!--PanZoom For Radar--->
-	<script src="js/jquery.panzoom.min.js"></script>
+	<!--<script src="js/jquery.panzoom.min.js"></script>-->
 	
 	<!--WJFW_App CSS-->
 	<link rel="stylesheet" href="css/wjfwapp_styles.css" />
@@ -389,34 +389,6 @@ $(function() {
 			]
 		});
 	}
-	/* -------------------------------- BACKUP OF FUNCTION -------------------
-	function changelocation() {
-		//alert('change location function');
-		var mywindow = vex.open({
-			content: '<div is="vexlocationwindow" style="text-align:center;">Fetching Location...<br><Br><img src="img/220.GIF"></div>',
-			showCloseButton: false,
-			escapeButtonCloses: false,
-			overlayClosesOnClick: false
-		});
-		
-		navigator.geolocation.getCurrentPosition(function(position){
-			//alert('fetch success');
-			appsettings.mypos = position;
-			//alert(appsettings.mypos.coords.latitude +", "+appsettings.mypos.coords.longitude);
-			
-			var loc_jhxr = fetchzipdata(appsettings.mypos.coords.latitude,appsettings.mypos.coords.longitude);
-			loc_jhxr.done(function(data) {
-				appsettings.homelocationsarray = data.returndata;
-				vex.close(mywindow.data().vex.id);
-				showlocationresults();
-			});
-		},function (error) {
-			vex.close(mywindow.data().vex.id);
-			vex.dialog.alert('There was an error retrieving your location.<br><br><i>Error Message: Code '+error.code+' - '+error.message);
-			temperaturenogo();
-		});
-		
-	}*/
 	
 	function showlocationresults() {
 	//alert('running showresults');
@@ -1061,11 +1033,11 @@ setTimeout(function() { $("#radarcontainer").html('<iframe width="'+$("#radarcon
 <script>$(function() {
 	setTimeout(function(){
 		writeimg("w_radar","#radarcontainer");
-		$('.panzoom').panzoom({
+		<!--$('.panzoom').panzoom({
 			contain:'invert',
-			ncrement: 0.1,
+			increment: 0.1,
 			minScale:1
-		});
+		});-->
 	},1000);
  });</script>
 
