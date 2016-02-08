@@ -502,7 +502,7 @@ $(function() {
 				weathertempcontent += "Current Temperature for <b>"+data.returndata.city+" <i>("+appsettings.homelocation+")</i></b>:<br>";
 				weathertempcontent += "<img src='img/wsi_icon/"+data.returndata.data.currentobservation.Weatherimage.replace("wind_", "")+"' style='float:left;margin-right:5px;height:80px;'>";
 				weathertempcontent += "<span style='font-size:20px;font-weight:bold;'>"+data.returndata.data.currentobservation.Temp+"&deg;</span><br>";
-				weathertempcontent += "<i>"+data.returndata.data.currentobservation.Weather+"</i><br>Windspeed "+data.returndata.data.currentobservation.Winds+"mph "+getCardinal(data.returndata.data.currentobservation.Windd)+"<br style='clear:both;'>";
+				weathertempcontent += "<i>"+data.returndata.data.currentobservation.Weather+"</i><br>Windspeed "+data.returndata.data.currentobservation.Winds+"mph "+getCardinal(parseInt(data.returndata.data.currentobservation.Windd))+" ("+data.returndata.data.currentobservation.Windd+"&deg;)<br style='clear:both;'>";
 				$("#main_curweather").html(weathertempcontent);
 				$("#weather_curweather").html(weathertempcontent);
 				$("#homelocationtext").html("<b>"+data.returndata.city+" <i>("+appsettings.homelocation+")</i></b>");
