@@ -528,7 +528,7 @@ $(function() {
 			$.getJSON("http://www.wjfw.com/appcontent/apploaddata.html?loaddatatype=curweather&dsrc=wsi&q="+appsettings.homelocation, function(data) {
 				appsettings.homelocationweather = data.returndata;
 				weathertempcontent += "Current Temperature for <b>"+data.returndata.city+" <i>("+appsettings.homelocation+")</i></b>:<br>";
-				weathertempcontent += "<img src='img/wsi_icon/"+data.returndata.data.currentobservation.Weatherimage.replace("wind_", "")+"' style='float:left;margin-right:5px;height:40px;'>";
+				weathertempcontent += "<img src='img/wsi_icon/"+data.returndata.data.currentobservation.Weatherimage.replace("wind_", "")+"' style='float:left;margin-right:5px;height:80px;'>";
 				weathertempcontent += "<span style='font-size:20px;font-weight:bold;'>"+data.returndata.data.currentobservation.Temp+"&deg;</span><br>";
 				weathertempcontent += "<i>"+data.returndata.data.currentobservation.Weather+"</i><br style='clear:both;'>Windspeed "+data.returndata.data.currentobservation.Winds+"mph "+getCardinal(data.returndata.data.currentobservation.Windd)+"<br>";
 				$("#main_curweather").html(weathertempcontent);
@@ -645,20 +645,21 @@ $(function() {
 				var returncontent = "<div class='schoolclosingscontainer'>";
 				$.each(datastream.returndata, function(key,val) {
 					var dataobj = val;
-					returncontent += "<div style='border-top:1px solid #CDCDCD;margin-top:3px;'><b>"+decodeURIComponent(dataobj.record.schoolname)+"</b> - ";
+					returncontent += "<div style='border-top:1px solid #CDCDCD;margin-top:3px;'><b>"+decodeURIComponent(dataobj.record.schoolname)+"</b>";
 					switch (dataobj.record.status) {
 						case "Open":  // Status Open
 						case "":
-							returncontent += "<span style='color:green;'>Open</span>";
+							//returncontent += "<span style='color:green;'>Open</span>";
+							// HIDING OPEN STATUS ON APP
 							break;
 						case "Other": // Status Other
-							returncontent += decodeURIComponent(dataobj.record.other) + " - " + decodeURIComponent(dataobj.record.add3);
+							returncontent += " - " + decodeURIComponent(dataobj.record.other) + " - " + decodeURIComponent(dataobj.record.add3);
 							if (dataobj.record.add3 != dataobj.record.add4 && dataobj.record.add4 != "") {
 								returncontent += " thru " + decodeURIComponent(dataobj.record.add4);
 								}
 							break;
 						default:  //Status Closed or Delay
-							returncontent += "<span style='color:red;'>"+decodeURIComponent(dataobj.record.status)+"</span> " + decodeURIComponent(dataobj.record.add3);
+							returncontent += " - <span style='color:red;'>"+decodeURIComponent(dataobj.record.status)+"</span> " + decodeURIComponent(dataobj.record.add3);
 							if (dataobj.record.add3 != dataobj.record.add4 && dataobj.record.add4 != "") {
 								returncontent += " thru " + decodeURIComponent(dataobj.record.add4);
 								};
@@ -774,7 +775,7 @@ $(function() {
 				$(objbox).html("<img src='http://www.wjfw.com/wjfwwsi/7 day.jpg?ver="+imgvernum+"' style='max-width:100%;'>");
 				break;
 			case "w_radar" :
-				$(objbox).html("<img src='http://www.wjfw.com/wsiradar/radarwi1.png' style='max-width:100%;' id='radarslides' class='panzoom' name='radarslides'>");
+				$(objbox).html("<img src='http://www.wjfw.com/wsiradar/radarwi1.jpg' style='max-width:100%;' id='radarslides' class='panzoom' name='radarslides'>");
 				break;
 			case "adspace" :
 				$(objbox).html("<img src='http://www.wjfw.com/appcontent/bannerads/"+arg1+"/"+arg2+".jpg' style='max-width:100%;'>");
@@ -811,16 +812,15 @@ $(function() {
 	var k=0;
 	var speed = 250;
 	var Pic = new Array();
-	//Pic[0] = 'wsiradar/radarwi.png?ver='+imgvernum;
-	Pic[0] = 'wsiradar/radarwi1.png?ver='+imgvernum;
-	Pic[1] = 'wsiradar/radarwi2.png?ver='+imgvernum;
-	Pic[2] = 'wsiradar/radarwi3.png?ver='+imgvernum;
-	Pic[3] = 'wsiradar/radarwi4.png?ver='+imgvernum;
-	Pic[4] = 'wsiradar/radarwi5.png?ver='+imgvernum;
-	Pic[5] = 'wsiradar/radarwi6.png?ver='+imgvernum;
-	Pic[6] = 'wsiradar/radarwi7.png?ver='+imgvernum;
-	Pic[7] = 'wsiradar/radarwi8.png?ver='+imgvernum;
-	Pic[8] = 'wsiradar/radarwi9.png?ver='+imgvernum;
+	Pic[0] = 'wsiradar/radarwi1.jpg?ver='+imgvernum;
+	Pic[1] = 'wsiradar/radarwi2.jpg?ver='+imgvernum;
+	Pic[2] = 'wsiradar/radarwi3.jpg?ver='+imgvernum;
+	Pic[3] = 'wsiradar/radarwi4.jpg?ver='+imgvernum;
+	Pic[4] = 'wsiradar/radarwi5.jpg?ver='+imgvernum;
+	Pic[5] = 'wsiradar/radarwi6.jpg?ver='+imgvernum;
+	Pic[6] = 'wsiradar/radarwi7.jpg?ver='+imgvernum;
+	Pic[7] = 'wsiradar/radarwi8.jpg?ver='+imgvernum;
+	Pic[8] = 'wsiradar/radarwi9.jpg?ver='+imgvernum;
 
 	var url = "http://www.wjfw.com/";
 	var t;
