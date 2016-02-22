@@ -784,15 +784,15 @@ $(function() {
 	var k=0;
 	var speed = 250;
 	var Pic = new Array();
-	Pic[0] = 'wsiradar/radarwi1.jpg?ver='+imgvernum;
-	Pic[1] = 'wsiradar/radarwi2.jpg?ver='+imgvernum;
-	Pic[2] = 'wsiradar/radarwi3.jpg?ver='+imgvernum;
-	Pic[3] = 'wsiradar/radarwi4.jpg?ver='+imgvernum;
+	Pic[0] = 'wsiradar/radarwi9.jpg?ver='+imgvernum;
+	Pic[1] = 'wsiradar/radarwi8.jpg?ver='+imgvernum;
+	Pic[2] = 'wsiradar/radarwi7.jpg?ver='+imgvernum;
+	Pic[3] = 'wsiradar/radarwi6.jpg?ver='+imgvernum;
 	Pic[4] = 'wsiradar/radarwi5.jpg?ver='+imgvernum;
-	Pic[5] = 'wsiradar/radarwi6.jpg?ver='+imgvernum;
-	Pic[6] = 'wsiradar/radarwi7.jpg?ver='+imgvernum;
-	Pic[7] = 'wsiradar/radarwi8.jpg?ver='+imgvernum;
-	Pic[8] = 'wsiradar/radarwi9.jpg?ver='+imgvernum;
+	Pic[5] = 'wsiradar/radarwi4.jpg?ver='+imgvernum;
+	Pic[6] = 'wsiradar/radarwi3.jpg?ver='+imgvernum;
+	Pic[7] = 'wsiradar/radarwi2.jpg?ver='+imgvernum;
+	Pic[8] = 'wsiradar/radarwi1.jpg?ver='+imgvernum;
 
 	var url = "http://www.wjfw.com/";
 	var t;
@@ -835,6 +835,7 @@ $(function() {
     <li><a href="#pg_videomain">Video</a></li>
 	<li><a href="#pg_video5pm">5pm Newscasts</a></li>
 	<li><a href="#pg_video10pm">10pm Newscasts</a></li>
+	<li><a href="#pg_videowapp">Mobile Weather Video</a></li>
 	<!--<li><a href="#pg_watchlive">Watch Live</a></li>-->
 	<li><a href="javascript:window.open('http://www.wjfwdeals.com', '_system', 'location=yes');">WJFW Deals</a></li>
 	<li><a href="#pg_contact">News Tipline</a></li>
@@ -1081,7 +1082,7 @@ loaddata("videolist","","a248d92ab658bd6fc81a965e0e6af7939af56117",0,0,"videolis
 <div class="adspace" data-sku="801" data-index="12" data-type="300x50"></div>
 <div style="height:8px;clear:both;"></div>
 
-<h3 class="ui-bar z_bar_blue ui-corner-all" style="margin:2px 0px;">5pm Newscats</h3>
+<h3 class="ui-bar z_bar_blue ui-corner-all" style="margin:2px 0px;">5pm Newscasts</h3>
 
 <div id="videolistcontainer"><div id="videolistcontainer_5pm">
 </div></div>
@@ -1113,6 +1114,31 @@ loaddata("videolist","","5bb6ece3fa8d384d6b3aaffc34f0786a0b78ca04",0,0,"videolis
 <script>$(function() {
 setTimeout(function(){
 loaddata("videolist","","d837c545c0b39c24a58c02b2fe5bde4e9a7791a3",0,0,"videolistcontainer_10pm");
+},1000);
+});</script>
+
+
+
+</div>
+
+</div>
+
+<div data-role="page" id="pg_videowapp">
+
+<div class="headerchild"></div>
+<div data-role="content">
+
+<div style="height:8px;clear:both;"></div>
+<div class="adspace" data-sku="901" data-index="13" data-type="300x50"></div>
+<div style="height:8px;clear:both;"></div>
+
+<h3 class="ui-bar z_bar_blue ui-corner-all" style="margin:2px 0px;">Mobile Weather Video</h3>
+
+<div id="videolistcontainer"><div id="videolistcontainer_wapp">
+</div></div>
+<script>$(function() {
+setTimeout(function(){
+loaddata("videolist","","a1325ca7d38aa744e0fc6157686123590661b173",0,0,"videolistcontainer_wapp");
 },1000);
 });</script>
 

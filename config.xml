@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.wjfw.wjfwmobile"
-        versionCode="10101" 
-        version   = "1.01.01">
+        versionCode="10102" 
+        version   = "1.01.02">
 
     <!-- versionCode is optional and Android only -->
 
